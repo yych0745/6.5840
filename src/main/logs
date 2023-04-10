@@ -1,0 +1,4 @@
+[1]   Running                 ( maybe_quiet $TIMEOUT ../mrcoordinator ../pg*txt; touch $DF ) &
+[2]   Running                 ( maybe_quiet $TIMEOUT ../mrworker ../../mrapps/early_exit.so; touch $DF ) &
+[3]-  Running                 ( maybe_quiet $TIMEOUT ../mrworker ../../mrapps/early_exit.so; touch $DF ) &
+[4]+  Running                 ( maybe_quiet $TIMEOUT ../mrworker ../../mrapps/early_exit.so; touch $DF ) &
