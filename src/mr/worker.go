@@ -32,6 +32,7 @@ func (a ByKey) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByKey) Less(i, j int) bool { return a[i].Key < a[j].Key }
 
 type MapResultInfo struct {
+	Mid                int
 	MapOutputFilePaths map[string]struct{}
 	MapInputFile       string
 }
@@ -67,8 +68,7 @@ func Worker(mapf func(string, string) []KeyValue,
 	var wg sync.WaitGroup
 	n := 1
 	currentTime = time.Now().Unix()
-	os.RemoveAll("mr-tmp")
-	tmr = fmt.Sprintf("mr-tmp-%v", currentTime)
+	tmr = fmt.Sprintf("mr-tmp")
 	os.Mkdir(tmr, os.ModePerm)
 	wg.Add(n)
 	conf := Conf{}
@@ -105,6 +105,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			return
 		}
 	}
+	log.Println("worker end")
 }
 
 func WorkerReduce(id int, reducef func(string, []string) string, waitGroup *sync.WaitGroup) error {
@@ -124,8 +125,15 @@ func WorkerReduce(id int, reducef func(string, []string) string, waitGroup *sync
 		}
 
 		if ReduceConf.Id == -1 {
-			break
-			// fmt.Println(1111)
+			done := false
+			ok = call("Coordinator.ReduceDone", id, &done)
+			if ok {
+				if done {
+					break
+				}
+			} else {
+				return errors.New("call failed")
+			}
 			continue
 		}
 		// 读取文件
@@ -146,8 +154,11 @@ func WorkerReduce(id int, reducef func(string, []string) string, waitGroup *sync
 			}
 		}
 		sort.Sort(ByKey(intermediate))
-		oname := fmt.Sprintf("mr-out-%v", ReduceConf.Id)
-		ofile, _ := os.OpenFile(oname, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
+		name, err := getTempPath("")
+		if err != nil {
+			return err
+		}
+		ofile, _ := os.OpenFile(name, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
 		i := 0
 		for i < len(intermediate) {
 			j := i + 1
@@ -166,7 +177,8 @@ func WorkerReduce(id int, reducef func(string, []string) string, waitGroup *sync
 		}
 		ofile.Close()
 		t := false
-		ok = call("Coordinator.RCallBack", t, &t)
+		ReduceConf.OutputFileName = name
+		ok = call("Coordinator.RCallBack", ReduceConf, &t)
 		if ok {
 		} else {
 			return errors.New("call failed")
@@ -191,7 +203,7 @@ func WorkerMap(mapf func(string, string) []KeyValue, id int, waitGroup *sync.Wai
 	for {
 		var filename string
 		tmpFilepaths := make(map[int]string)
-		outputResults := MapResultInfo{make(map[string]struct{}), ""}
+		outputResults := MapResultInfo{id, make(map[string]struct{}), ""}
 		outputpath := fmt.Sprintf("%v", tmr)
 		var m_map Map
 

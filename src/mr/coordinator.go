@@ -11,17 +11,18 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 type Coordinator struct {
 	// Your definitions here.
 	files    sync.Map // [filename] 是否已经分配
 	sucFiles sync.Map
-	mids     map[int]string
+	mids     map[string]int
+	ids      []fileConf
 
 	nReduce      int
 	rInName      []map[string]bool
-	ids          []int
 	done         bool
 	reduceSucNum int
 	mapdone      bool
@@ -40,9 +41,16 @@ type Map struct {
 }
 
 type Reduce struct {
-	FilePaths []string
-	NReduce   int
-	Id        int
+	FilePaths      []string
+	NReduce        int
+	Id             int
+	OutputFileName string
+}
+
+type fileConf struct {
+	id    int
+	st    bool // map中看是否分配出去，reduce中看是否成功
+	time_ time.Time
 }
 
 // Your code here -- RPC handlers for the worker to call.
@@ -62,32 +70,40 @@ func (c *Coordinator) GetConf(_ string, reply *Conf) error {
 	return nil
 }
 
+func check(time_ time.Time) bool {
+	return time.Now().Sub(time_).Seconds() > 10
+}
+
 func (c *Coordinator) Map(args int, reply *Map) error {
 	var filename string
 	filename = ""
 	*reply = Map{}
 
-
 	c.files.Range(func(k, v interface{}) bool {
-		if !v.(bool) {
+		tmp := v.(fileConf)
+		// suc, ok := c.sucFiles.Load(k)
+		// fmt.Println(k, suc)
+		// 如果 没有分配 || 已经分配了，并且没有成功，但是已经过了10分钟
+		// if !tmp.st || check(tmp.time_) {
+		if !tmp.st {
 			filename = k.(string)
 			return false
 		}
 		return true
 	})
-	c.files.Store(filename, true)
 	reply.File = filename
 	reply.NReduce = c.nReduce
 	// 分配编号
 	mutex.Lock()
-	if _, ok := c.mids[args]; ok {
-		reply.Mid = len(c.mids)
-		c.mids[reply.Mid] = ""
+	if id, ok := c.mids[filename]; ok {
+		reply.Mid = id
 	} else {
-		reply.Mid = args
+		reply.Mid = len(c.mids)
+		c.mids[filename] = reply.Mid
 	}
-	c.mids[reply.Mid] = filename
 	mutex.Unlock()
+	c.files.Store(filename, fileConf{reply.Mid, true, time.Now()})
+
 	return nil
 }
 
@@ -98,7 +114,7 @@ func (c *Coordinator) MCallBack(args MapResultInfo, reply *bool) error {
 		str := fmt.Sprintf("返回文件名不存在 %v", args.MapInputFile)
 		return errors.New(str)
 	}
-	c.sucFiles.Store(args.MapInputFile, true)
+	c.sucFiles.Store(args.MapInputFile, fileConf{args.Mid, true, time.Now()})
 	*reply = true
 
 	// 存储中间文件名 mr-tmp/0-2
@@ -119,10 +135,14 @@ func (c *Coordinator) MCallBack(args MapResultInfo, reply *bool) error {
 func (c *Coordinator) MapSuc(_ string, reply *bool) error {
 	*reply = true
 	c.sucFiles.Range(func(k, v interface{}) bool {
-		if v.(bool) {
+		tmp := v.(fileConf)
+		if tmp.st {
 			return true
 		} else {
 			*reply = false
+			if check(tmp.time_) {
+				c.files.Store(k, fileConf{tmp.id, false, time.Now()})
+			}
 			return false
 		}
 	})
@@ -130,14 +150,18 @@ func (c *Coordinator) MapSuc(_ string, reply *bool) error {
 }
 
 func (c *Coordinator) Reduce(args int, reply *Reduce) error {
-	var filename string
-	filename = ""
-	c.files.Store(filename, true)
+	// var filename string
+	// filename = ""
+	// c.files.Store(filename, true)
 	id := -1
 	cmutex.Lock()
 	for i, _ := range c.ids {
-		if c.ids[i] == 0 {
-			c.ids[i] = 1
+		if c.ids[i].id == 0 || check(c.ids[i].time_) {
+			// fmt.Println(c.ids[i].time_)
+			// fmt.Println("check", check(c.ids[i].time_), "i: ", i)
+			// fmt.Println("reduceI:", i)
+			c.ids[i].id = 1
+			c.ids[i].time_ = time.Now()
 			id = i
 			break
 		}
@@ -156,13 +180,30 @@ func (c *Coordinator) Reduce(args int, reply *Reduce) error {
 	return nil
 }
 
-func (c *Coordinator) RCallBack(args bool, reply *bool) error {
-	c.reduceSucNum++
+func (c *Coordinator) RCallBack(args Reduce, reply *bool) error {
+	oname := fmt.Sprintf("mr-out-%v", args.Id)
+	err := os.Rename(args.OutputFileName, oname)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	c.ids[args.Id].st = true
 	return nil
 }
 
-func (c *Coordinator) ReduceDone(args string, reply *string) error {
+func (c *Coordinator) ReduceDone(args int, reply *bool) error {
+	for _, v := range c.ids {
+		if v.st {
+			continue
+		} else {
+			// fmt.Println("i:", i)
+			*reply = false
+			return nil
+		}
+	}
+	// 全部成功才会结束
 	c.done = true
+	*reply = true
 	return nil
 }
 
@@ -193,13 +234,14 @@ func (c *Coordinator) server() {
 //
 func (c *Coordinator) Done() bool {
 	// Your code here.
-	return c.reduceSucNum >= c.nReduce
+	return c.done
 }
 
 func (c *Coordinator) T() {
 	// Your code here.
 	fmt.Println(c.reduceSucNum)
 }
+
 // func (c *Coordinator) checkMap() {
 // 	for {
 // 		c.mapdone = true
@@ -228,14 +270,13 @@ func MakeCoordinator(files []string, nReduce int) *Coordinator {
 	c := Coordinator{}
 	// Your code here.
 	for _, file := range files {
-		c.files.Store(file, false)
-		c.sucFiles.Store(file, false)
+		c.files.Store(file, fileConf{-1, false, time.Now()})
+		c.sucFiles.Store(file, fileConf{-1, false, time.Now()})
 	}
 	c.nReduce = nReduce
 	c.rInName = make([]map[string]bool, nReduce)
-	c.ids = make([]int, nReduce)
-	c.mids = make(map[int]string)
-	c.mids[0] = ""
+	c.ids = make([]fileConf, nReduce)
+	c.mids = make(map[string]int)
 	for i := 0; i < c.nReduce; i++ {
 		c.rInName[i] = make(map[string]bool)
 	}
