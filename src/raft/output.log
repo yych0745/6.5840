@@ -1,0 +1,608 @@
+Test (2A): initial election ...
+008874 VOTE S2 开始选举 term为1 
+008876 VOTE S2开始向0要票
+008876 VOTE S2开始向1要票
+008884 VOTE S2 向1要票结束, 结果为true
+008884 LOG1 S2 选举成功
+008884 VOTE S2 选举成功 term为: 1
+008884 LEAD S2 成为leader
+008884 LEAD i am leader 2 
+008884 VOTE S2 向0要票结束, 结果为true
+008886 LEAD S2 的term为 1 发送消息给1 term 为1
+008886 LEAD S2 的term为 1 发送消息给0 term 为1
+010105 INFO S2 think itself is leader ,term is 1
+010632 INFO S2 think itself is leader ,term is 1
+010890 LEAD i am leader 2 
+010894 LEAD S2 的term为 1 发送消息给1 term 为1
+010894 LEAD S2 的term为 1 发送消息给0 term 为1
+012902 LEAD i am leader 2 
+012919 LEAD S2 的term为 1 发送消息给1 term 为1
+012922 LEAD S2 的term为 1 发送消息给0 term 为1
+014928 LEAD i am leader 2 
+014936 LEAD S2 的term为 1 发送消息给1 term 为1
+014943 LEAD S2 的term为 1 发送消息给0 term 为1
+016947 LEAD i am leader 2 
+016951 LEAD S2 的term为 1 发送消息给0 term 为1
+016951 LEAD S2 的term为 1 发送消息给1 term 为1
+018956 LEAD i am leader 2 
+018959 LEAD S2 的term为 1 发送消息给1 term 为1
+018959 LEAD S2 的term为 1 发送消息给0 term 为1
+020967 LEAD i am leader 2 
+020970 LEAD S2 的term为 1 发送消息给1 term 为1
+020971 LEAD S2 的term为 1 发送消息给0 term 为1
+022979 LEAD i am leader 2 
+022984 LEAD S2 的term为 1 发送消息给0 term 为1
+022984 LEAD S2 的term为 1 发送消息给1 term 为1
+024999 LEAD i am leader 2 
+025006 LEAD S2 的term为 1 发送消息给1 term 为1
+025017 LEAD S2 的term为 1 发送消息给0 term 为1
+027021 LEAD i am leader 2 
+027031 LEAD S2 的term为 1 发送消息给1 term 为1
+027035 LEAD S2 的term为 1 发送消息给0 term 为1
+029038 LEAD i am leader 2 
+029046 LEAD S2 的term为 1 发送消息给1 term 为1
+029049 LEAD S2 的term为 1 发送消息给0 term 为1
+030645 INFO S2 think itself is leader ,term is 1
+031050 LEAD i am leader 2 
+031058 LEAD S2 的term为 1 发送消息给0 term 为1
+031058 LEAD S2 的term为 1 发送消息给1 term 为1
+033060 LEAD i am leader 2 
+033068 LEAD S2 的term为 1 发送消息给1 term 为1
+033068 LEAD S2 的term为 1 发送消息给0 term 为1
+035075 LEAD i am leader 2 
+035083 LEAD S2 的term为 1 发送消息给1 term 为1
+035085 LEAD S2 的term为 1 发送消息给0 term 为1
+035966 INFO S2 think itself is leader ,term is 1
+  ... Passed --   3.6  3   30    6368    0
+Test (2A): election after network failure ...
+037087 LEAD i am leader 2 
+044716 VOTE S2 开始选举 term为1 
+044719 VOTE S2开始向0要票
+044719 VOTE S2开始向1要票
+044724 VOTE S2 向0要票结束, 结果为true
+044724 LOG1 S2 选举成功
+044724 VOTE S2 选举成功 term为: 1
+044724 LEAD S2 成为leader
+044724 LEAD i am leader 2 
+044724 VOTE S2 向1要票结束, 结果为true
+044726 LEAD S2 的term为 1 发送消息给1 term 为1
+044726 LEAD S2 的term为 1 发送消息给0 term 为1
+045767 INFO S2 think itself is leader ,term is 1
+-----------------关闭2--------------------
+046727 LEAD i am leader 2 
+048777 LEAD i am leader 2 
+050791 LEAD i am leader 2 
+052805 LEAD i am leader 2 
+054326 VOTE S0 开始选举 term为2 
+054330 VOTE S0开始向2要票
+054329 VOTE S0开始向1要票
+054336 VOTE S0 向1要票结束, 结果为true
+054336 LOG1 S0 选举成功
+054336 VOTE S0 选举成功 term为: 2
+054336 LEAD S0 成为leader
+054336 LEAD i am leader 0 
+054340 LEAD S0 的term为 2 发送消息给1 term 为2
+054827 LEAD i am leader 2 
+055981 INFO S0 think itself is leader ,term is 2
+-----------------连接2--------------------
+056355 LEAD i am leader 0 
+056411 LEAD S0 的term为 2 发送消息给2 term 为1
+056419 LEAD S0 的term为 2 发送消息给1 term 为2
+056837 LEAD i am leader 2 
+058422 LEAD i am leader 0 
+058427 LEAD S0 的term为 2 发送消息给1 term 为2
+058427 LEAD S0 的term为 2 发送消息给2 term 为2
+060436 LEAD i am leader 0 
+060452 LEAD S0 的term为 2 发送消息给2 term 为2
+060457 LEAD S0 的term为 2 发送消息给1 term 为2
+060870 INFO S0 think itself is leader ,term is 2
+062459 LEAD i am leader 0 
+064474 LEAD i am leader 0 
+066498 LEAD i am leader 0 
+068502 LEAD i am leader 0 
+070515 LEAD i am leader 0 
+072521 LEAD i am leader 0 
+072896 VOTE S1 开始选举 term为3 
+072898 VOTE S1开始向2要票
+072900 VOTE S1开始向0要票
+074534 LEAD i am leader 0 
+074996 VOTE S2 开始选举 term为3 
+074999 VOTE S2开始向1要票
+074999 VOTE S2开始向0要票
+076537 LEAD i am leader 0 
+078564 LEAD i am leader 0 
+079109 VOTE S1选举结束,1 票数:1 继续选举
+079110 VOTE S1 开始选举 term为4 
+079111 VOTE S1开始向2要票
+079111 VOTE S1开始向0要票
+080161 VOTE S1 选举时连接2 失败
+080575 LEAD i am leader 0 
+080719 VOTE S2选举结束,2 票数:1 继续选举
+080721 VOTE S2 开始选举 term为4 
+080721 VOTE S2开始向1要票
+080721 VOTE S2开始向0要票
+082597 LEAD i am leader 0 
+084609 LEAD i am leader 0 
+084729 VOTE S1选举结束,1 票数:1 继续选举
+084732 VOTE S1 开始选举 term为5 
+084732 VOTE S1开始向2要票
+084732 VOTE S1开始向0要票
+086432 VOTE S2选举结束,2 票数:1 继续选举
+086434 VOTE S2 开始选举 term为5 
+086435 VOTE S2开始向1要票
+086435 VOTE S2开始向0要票
+086618 LEAD i am leader 0 
+088146 VOTE S2 选举时连接1 失败
+088740 LEAD i am leader 0 
+089471 VOTE S1选举结束,1 票数:1 继续选举
+089472 VOTE S1 开始选举 term为6 
+089473 VOTE S1开始向2要票
+089474 VOTE S1开始向0要票
+089921 VOTE S0 选举时连接2 失败
+090693 VOTE S0 选举时连接2 失败
+090749 LEAD i am leader 0 
+092173 VOTE S1 选举时连接2 失败
+092598 VOTE S2选举结束,2 票数:1 继续选举
+092599 VOTE S2 开始选举 term为6 
+092599 VOTE S2开始向1要票
+092601 VOTE S2开始向0要票
+092756 LEAD i am leader 0 
+094778 LEAD i am leader 0 
+094887 VOTE S1选举结束,1 票数:1 继续选举
+094889 VOTE S1 开始选举 term为7 
+094889 VOTE S1开始向2要票
+094889 VOTE S2 向1要票结束, 结果为false
+094891 VOTE S2 向1要票结束, 结果为false
+094891 VOTE S1开始向0要票
+096782 LEAD i am leader 0 
+098344 VOTE S2 选举时连接1 失败
+098795 LEAD i am leader 0 
+098996 VOTE S1选举结束,1 票数:1 继续选举
+098997 VOTE S1 开始选举 term为8 
+098998 VOTE S1开始向2要票
+099001 VOTE S1开始向0要票
+099006 VOTE S2 选举时连接0 失败
+099023 VOTE S0 选举时连接1 失败
+099112 VOTE S2选举结束,2 票数:1 继续选举
+099113 VOTE S2 退出选举
+099114 VOTE S1 向2要票结束, 结果为true
+099114 LOG1 S1 选举成功
+099114 VOTE S1 选举成功 term为: 8
+099114 LEAD S1 成为leader
+099114 LEAD i am leader 1 
+099114 VOTE S1 向2要票结束, 结果为true
+099116 VOTE S1 向2要票结束, 结果为false
+099117 LEAD S1 的term为 8 发送消息给2 term 为8
+099323 VOTE S0 选举时连接2 失败
+100809 LEAD i am leader 0 
+101120 LEAD i am leader 1 
+101127 LEAD S1 的term为 8 发送消息给2 term 为8
+101804 VOTE S0 选举时连接1 失败
+102822 LEAD i am leader 0 
+103133 LEAD i am leader 1 
+103138 LEAD S1 的term为 8 发送消息给2 term 为8
+103620 INFO S1 think itself is leader ,term is 8
+104829 LEAD i am leader 0 
+104835 LEAD S0 的term为 2 发送消息给2 term 为8
+104835 LEAD S0 的term为 2 发送消息给1 term 为8
+104837 LEAD S0 给1发送信息后放弃成为lead
+105146 LEAD i am leader 1 
+105151 LEAD S1 的term为 8 发送消息给2 term 为8
+105151 LEAD S1 的term为 8 发送消息给0 term 为8
+105462 VOTE S0 选举时连接2 失败
+107158 LEAD i am leader 1 
+107166 LEAD S1 的term为 8 发送消息给2 term 为8
+107168 LEAD S1 的term为 8 发送消息给0 term 为8
+108883 INFO S1 think itself is leader ,term is 8
+  ... Passed --   7.3  3   98   14830    0
+Test (2A): multiple elections ...
+----------------------------start1--------------------
+109189 LEAD i am leader 1 
+117045 VOTE S6 开始选举 term为1 
+117047 VOTE S6开始向5要票
+117053 VOTE S6开始向0要票
+117054 VOTE S6开始向1要票
+117057 VOTE S6开始向4要票
+117059 VOTE S6 向4要票结束, 结果为true
+117054 VOTE S6 向5要票结束, 结果为true
+117054 VOTE S6开始向2要票
+117060 VOTE S6 向1要票结束, 结果为true
+117061 LOG1 S6 选举成功
+117061 VOTE S6 选举成功 term为: 1
+117061 LEAD S6 成为leader
+117061 LEAD i am leader 6 
+117061 VOTE S6 向2要票结束, 结果为true
+117057 VOTE S6开始向3要票
+117056 VOTE S6 向0要票结束, 结果为true
+117063 LEAD S6 的term为 1 发送消息给1 term 为1
+117064 LEAD S6 的term为 1 发送消息给4 term 为1
+117065 VOTE S6 向3要票结束, 结果为true
+117066 LEAD S6 的term为 1 发送消息给5 term 为1
+117066 LEAD S6 的term为 1 发送消息给2 term 为1
+117068 LEAD S6 的term为 1 发送消息给3 term 为1
+117063 LEAD S6 的term为 1 发送消息给0 term 为1
+118596 INFO S6 think itself is leader ,term is 1
+----------------------------start2--------------------
+----------------------第1轮-----------------------
+119072 LEAD i am leader 6 
+119078 LEAD S6 的term为 1 发送消息给3 term 为1
+119078 LEAD S6 的term为 1 发送消息给1 term 为1
+119082 LEAD S6 的term为 1 发送消息给5 term 为1
+121085 LEAD i am leader 6 
+121089 LEAD S6 的term为 1 发送消息给5 term 为1
+121091 LEAD S6 的term为 1 发送消息给3 term 为1
+121097 LEAD S6 的term为 1 发送消息给1 term 为1
+121278 VOTE S0 选举时连接1 失败
+123100 LEAD i am leader 6 
+123107 LEAD S6 的term为 1 发送消息给1 term 为1
+123107 LEAD S6 的term为 1 发送消息给5 term 为1
+123110 LEAD S6 的term为 1 发送消息给3 term 为1
+123435 VOTE S0 选举时连接1 失败
+123450 INFO S6 think itself is leader ,term is 1
+----------------------------连接----------------------
+----------------------第2轮-----------------------
+125112 LEAD i am leader 6 
+126209 VOTE S4 开始选举 term为2 
+126211 VOTE S4开始向6要票
+126211 VOTE S4开始向2要票
+126212 VOTE S4开始向0要票
+126212 VOTE S4开始向3要票
+126215 VOTE S4开始向1要票
+126216 VOTE S4 向3要票结束, 结果为true
+126216 VOTE S4开始向5要票
+126219 VOTE S4 向0要票结束, 结果为true
+126220 VOTE S4 向1要票结束, 结果为true
+126221 LOG1 S4 选举成功
+126221 VOTE S4 选举成功 term为: 2
+126221 LEAD S4 成为leader
+126221 LEAD i am leader 4 
+126227 LEAD S4 的term为 2 发送消息给0 term 为2
+126227 LEAD S4 的term为 2 发送消息给1 term 为2
+126230 LEAD S4 的term为 2 发送消息给3 term 为2
+127116 LEAD i am leader 6 
+127932 VOTE S2 开始选举 term为2 
+127934 VOTE S2开始向6要票
+127934 VOTE S2开始向0要票
+127935 VOTE S2开始向4要票
+127935 VOTE S2开始向1要票
+127936 VOTE S2开始向5要票
+127934 VOTE S2开始向3要票
+128233 LEAD i am leader 4 
+128240 LEAD S4 的term为 2 发送消息给0 term 为2
+128242 LEAD S4 的term为 2 发送消息给1 term 为2
+128244 LEAD S4 的term为 2 发送消息给3 term 为2
+128817 INFO S4 think itself is leader ,term is 2
+----------------------------连接----------------------
+----------------------第3轮-----------------------
+129122 LEAD i am leader 6 
+129124 LEAD S6 的term为 1 发送消息给0 term 为2
+129125 LEAD S6 给0发送信息后放弃成为lead
+129125 LEAD S6 的term为 1 发送消息给5 term 为1
+129126 LEAD S6 的term为 1 发送消息给1 term 为2
+129626 VOTE S4 选举时连接2 失败
+130246 LEAD i am leader 4 
+132255 LEAD i am leader 4 
+134266 LEAD i am leader 4 
+134595 VOTE S2 选举时连接1 失败
+134653 VOTE S2选举结束,2 票数:1 继续选举
+134654 VOTE S2 开始选举 term为3 
+134655 VOTE S2开始向6要票
+134688 VOTE S2 向6要票结束, 结果为true
+134690 VOTE S2开始向0要票
+134694 VOTE S2 向0要票结束, 结果为true
+134694 VOTE S2开始向1要票
+134708 VOTE S2 向1要票结束, 结果为true
+134708 LOG1 S2 选举成功
+134708 LEAD S6 的term为 1 发送消息给2 term 为3
+134708 VOTE S2开始向3要票
+134709 VOTE S2开始向4要票
+134710 VOTE S2开始向5要票
+134711 VOTE S2 向5要票结束, 结果为true
+134711 VOTE S2 选举成功 term为: 3
+134712 LEAD S2 成为leader
+134712 LEAD i am leader 2 
+134713 LEAD S2 的term为 3 发送消息给6 term 为3
+134715 LEAD S2 的term为 3 发送消息给0 term 为3
+134716 LEAD S2 的term为 3 发送消息给1 term 为3
+134718 LEAD S2 的term为 3 发送消息给5 term 为3
+136275 LEAD i am leader 4 
+136725 LEAD i am leader 2 
+136730 LEAD S2 的term为 3 发送消息给0 term 为3
+136730 LEAD S2 的term为 3 发送消息给6 term 为3
+136733 LEAD S2 的term为 3 发送消息给1 term 为3
+136738 LEAD S2 的term为 3 发送消息给5 term 为3
+138281 LEAD i am leader 4 
+138740 LEAD i am leader 2 
+138745 LEAD S2 的term为 3 发送消息给6 term 为3
+138747 LEAD S2 的term为 3 发送消息给0 term 为3
+138748 LEAD S2 的term为 3 发送消息给5 term 为3
+138750 LEAD S2 的term为 3 发送消息给1 term 为3
+139629 INFO S2 think itself is leader ,term is 3
+----------------------------连接----------------------
+----------------------第4轮-----------------------
+139976 VOTE S0 选举时连接1 失败
+140294 LEAD i am leader 4 
+140298 VOTE S3 开始选举 term为3 
+140299 VOTE S3开始向6要票
+140301 VOTE S3开始向0要票
+140301 LEAD S4 的term为 2 发送消息给0 term 为3
+140302 VOTE S3开始向1要票
+140303 VOTE S3开始向2要票
+140303 LEAD S4 给0发送信息后放弃成为lead
+140303 VOTE S3开始向4要票
+140304 VOTE S3开始向5要票
+140306 LEAD S4 的term为 2 发送消息给2 term 为3
+140308 LEAD S4 的term为 2 发送消息给5 term 为3
+140309 LEAD S4 的term为 2 发送消息给6 term 为3
+140753 LEAD i am leader 2 
+140759 LEAD S2 的term为 3 发送消息给6 term 为3
+140762 LEAD S2 的term为 3 发送消息给0 term 为3
+140766 LEAD S2 的term为 3 发送消息给4 term 为3
+140770 LEAD S2 的term为 3 发送消息给5 term 为3
+142272 VOTE S4 选举时连接2 失败
+142772 LEAD i am leader 2 
+142778 LEAD S2 的term为 3 发送消息给0 term 为3
+142781 LEAD S2 的term为 3 发送消息给5 term 为3
+142784 LEAD S2 的term为 3 发送消息给6 term 为3
+142779 LEAD S2 的term为 3 发送消息给4 term 为3
+144365 INFO S2 think itself is leader ,term is 3
+----------------------------连接----------------------
+----------------------第5轮-----------------------
+144788 LEAD i am leader 2 
+144791 LEAD S2 的term为 3 发送消息给4 term 为3
+144791 LEAD S2 的term为 3 发送消息给5 term 为3
+144791 LEAD S2 的term为 3 发送消息给1 term 为3
+145801 VOTE S3选举结束,3 票数:1 继续选举
+145801 LEAD S2 的term为 3 发送消息给3 term 为3
+145803 VOTE S3 退出选举
+146947 VOTE S5 选举时连接2 失败
+147586 VOTE S5 选举时连接3 失败
+147817 LEAD i am leader 2 
+147866 LEAD S2 的term为 3 发送消息给1 term 为3
+147886 LEAD S2 的term为 3 发送消息给4 term 为3
+147887 LEAD S2 的term为 3 发送消息给3 term 为3
+147891 LEAD S2 的term为 3 发送消息给5 term 为3
+149831 INFO S2 think itself is leader ,term is 3
+----------------------------连接----------------------
+----------------------第6轮-----------------------
+149894 LEAD i am leader 2 
+149896 LEAD S2 的term为 3 发送消息给6 term 为3
+149897 LEAD S2 的term为 3 发送消息给1 term 为3
+149897 LEAD S2 的term为 3 发送消息给0 term 为3
+150234 VOTE S0 选举时连接1 失败
+150380 VOTE S3 选举时连接2 失败
+150381 VOTE S3 选举时连接2 失败
+150593 VOTE S2 选举时连接4 失败
+151906 LEAD i am leader 2 
+151917 LEAD S2 的term为 3 发送消息给6 term 为3
+151917 LEAD S2 的term为 3 发送消息给0 term 为3
+151919 LEAD S2 的term为 3 发送消息给1 term 为3
+152760 VOTE S6 选举时连接4 失败
+153921 LEAD i am leader 2 
+153928 LEAD S2 的term为 3 发送消息给6 term 为3
+153928 LEAD S2 的term为 3 发送消息给1 term 为3
+153930 LEAD S2 的term为 3 发送消息给0 term 为3
+155186 INFO S2 think itself is leader ,term is 3
+----------------------------连接----------------------
+----------------------第7轮-----------------------
+155934 LEAD i am leader 2 
+157969 LEAD i am leader 2 
+159974 LEAD i am leader 2 
+160355 VOTE S4 开始选举 term为4 
+160358 VOTE S4开始向6要票
+160359 VOTE S4开始向0要票
+160361 VOTE S4开始向3要票
+160362 VOTE S4开始向2要票
+160367 VOTE S4 向6要票结束, 结果为true
+160367 VOTE S4 向0要票结束, 结果为true
+160367 VOTE S4开始向5要票
+160358 VOTE S4开始向1要票
+160372 VOTE S4 向1要票结束, 结果为true
+160373 LOG1 S4 选举成功
+160373 VOTE S4 选举成功 term为: 4
+160373 LEAD S4 成为leader
+160373 LEAD i am leader 4 
+160378 LEAD S4 的term为 4 发送消息给6 term 为4
+160379 LEAD S4 的term为 4 发送消息给1 term 为4
+160382 LEAD S4 的term为 4 发送消息给0 term 为4
+160427 VOTE S5 开始选举 term为4 
+160428 VOTE S5开始向1要票
+160429 VOTE S5开始向3要票
+160429 VOTE S5开始向4要票
+160430 VOTE S5开始向0要票
+160428 VOTE S5开始向6要票
+160428 VOTE S5开始向2要票
+160542 INFO S4 think itself is leader ,term is 4
+----------------------------连接----------------------
+----------------------第8轮-----------------------
+161986 LEAD i am leader 2 
+161988 LEAD S2 的term为 3 发送消息给0 term 为4
+161988 LEAD S2 的term为 3 发送消息给6 term 为4
+161988 LEAD S2 给0发送信息后放弃成为lead
+162384 LEAD i am leader 4 
+164391 LEAD i am leader 4 
+164557 VOTE S0 选举时连接3 失败
+164748 VOTE S3 开始选举 term为4 
+164749 VOTE S3开始向6要票
+164749 VOTE S3开始向0要票
+164750 VOTE S3开始向1要票
+164751 VOTE S3开始向4要票
+164749 VOTE S3开始向2要票
+164751 VOTE S3开始向5要票
+166398 LEAD i am leader 4 
+167114 VOTE S5选举结束,5 票数:1 继续选举
+167115 VOTE S5 开始选举 term为5 
+167116 VOTE S5开始向6要票
+167116 VOTE S5开始向0要票
+167118 VOTE S5开始向3要票
+167119 VOTE S5开始向2要票
+167122 VOTE S5 向6要票结束, 结果为true
+167122 VOTE S5开始向4要票
+167127 VOTE S5 向2要票结束, 结果为true
+167116 VOTE S5开始向1要票
+167130 VOTE S5 向0要票结束, 结果为true
+167131 LOG1 S5 选举成功
+167131 LEAD S2 的term为 3 发送消息给5 term 为5
+167131 VOTE S5 选举成功 term为: 5
+167131 LEAD S5 成为leader
+167131 LEAD i am leader 5 
+167135 LEAD S5 的term为 5 发送消息给6 term 为5
+167136 LEAD S5 的term为 5 发送消息给0 term 为5
+167139 LEAD S5 的term为 5 发送消息给2 term 为5
+168400 LEAD i am leader 4 
+169049 VOTE S3 选举时连接4 失败
+169142 LEAD i am leader 5 
+169149 LEAD S5 的term为 5 发送消息给6 term 为5
+169149 LEAD S5 的term为 5 发送消息给0 term 为5
+169154 LEAD S5 的term为 5 发送消息给2 term 为5
+170410 LEAD i am leader 4 
+170515 VOTE S4 选举时连接3 失败
+171158 LEAD i am leader 5 
+171162 LEAD S5 的term为 5 发送消息给6 term 为5
+171163 LEAD S5 的term为 5 发送消息给0 term 为5
+171165 LEAD S5 的term为 5 发送消息给2 term 为5
+171238 VOTE S2 选举时连接4 失败
+171253 VOTE S3选举结束,3 票数:1 继续选举
+171253 VOTE S3 开始选举 term为5 
+171254 VOTE S3开始向6要票
+171255 VOTE S3开始向2要票
+171256 VOTE S3开始向4要票
+171256 VOTE S3开始向0要票
+171256 VOTE S3开始向5要票
+171257 VOTE S3开始向1要票
+171257 VOTE S0 选举时连接2 失败
+172423 LEAD i am leader 4 
+172597 INFO S5 think itself is leader ,term is 5
+----------------------------连接----------------------
+----------------------第9轮-----------------------
+173174 LEAD i am leader 5 
+174142 VOTE S6 选举时连接3 失败
+174426 LEAD i am leader 4 
+175186 LEAD i am leader 5 
+175661 VOTE S6 选举时连接3 失败
+175756 VOTE S3选举结束,3 票数:1 继续选举
+175758 VOTE S3 开始选举 term为6 
+175759 VOTE S3开始向6要票
+175759 VOTE S1 开始选举 term为5 
+175760 VOTE S1开始向6要票
+175761 VOTE S3开始向0要票
+175762 VOTE S3开始向1要票
+175763 VOTE S3开始向2要票
+175764 VOTE S3开始向4要票
+175765 VOTE S3开始向5要票
+175765 VOTE S1开始向3要票
+175766 VOTE S1开始向0要票
+175802 VOTE S1 向0要票结束, 结果为false
+175803 VOTE S1开始向2要票
+175805 VOTE S1 向2要票结束, 结果为false
+175806 VOTE S1开始向4要票
+175806 VOTE S1开始向5要票
+175816 VOTE S1 向6要票结束, 结果为false
+176435 LEAD i am leader 4 
+177198 LEAD i am leader 5 
+177354 VOTE S1 选举时连接3 失败
+177954 VOTE S6 选举时连接2 失败
+178444 LEAD i am leader 4 
+179200 LEAD i am leader 5 
+180287 VOTE S1选举结束,1 票数:1 继续选举
+180288 VOTE S1 开始选举 term为6 
+180288 VOTE S1开始向6要票
+180289 VOTE S1开始向0要票
+180289 VOTE S1开始向2要票
+180290 VOTE S1开始向5要票
+180288 VOTE S1开始向3要票
+180290 VOTE S1开始向4要票
+180298 VOTE S1 向0要票结束, 结果为true
+180299 VOTE S1 向2要票结束, 结果为true
+180301 VOTE S1 向6要票结束, 结果为true
+180301 LOG1 S1 选举成功
+180301 VOTE S1 选举成功 term为: 6
+180301 LEAD S1 成为leader
+180301 LEAD i am leader 1 
+180304 LEAD S1 的term为 6 发送消息给6 term 为6
+180304 LEAD S1 的term为 6 发送消息给0 term 为6
+180307 LEAD S1 的term为 6 发送消息给2 term 为6
+180455 LEAD i am leader 4 
+181229 LEAD i am leader 5 
+181814 VOTE S0 选举时连接5 失败
+181832 VOTE S3 选举时连接5 失败
+182311 LEAD i am leader 1 
+182315 LEAD S1 的term为 6 发送消息给0 term 为6
+182316 LEAD S1 的term为 6 发送消息给2 term 为6
+182317 LEAD S1 的term为 6 发送消息给6 term 为6
+182329 VOTE S3选举结束,3 票数:1 继续选举
+182329 VOTE S3 开始选举 term为7 
+182330 VOTE S3开始向6要票
+182330 VOTE S3开始向0要票
+182330 VOTE S3开始向4要票
+182330 VOTE S3开始向1要票
+182330 VOTE S3开始向5要票
+182330 VOTE S3开始向2要票
+182354 VOTE S3 选举时连接1 失败
+182462 LEAD i am leader 4 
+182883 VOTE S1 选举时连接3 失败
+182932 VOTE S0 选举时连接3 失败
+183247 LEAD i am leader 5 
+183808 VOTE S2 选举时连接3 失败
+183881 VOTE S3 选举时连接1 失败
+184318 LEAD i am leader 1 
+184325 LEAD S1 的term为 6 发送消息给0 term 为6
+184326 LEAD S1 的term为 6 发送消息给6 term 为6
+184329 LEAD S1 的term为 6 发送消息给2 term 为6
+184469 LEAD i am leader 4 
+184918 INFO S1 think itself is leader ,term is 6
+----------------------------连接----------------------
+----------------------------end----------------------
+185253 LEAD i am leader 5 
+185256 LEAD S5 的term为 5 发送消息给2 term 为6
+185257 LEAD S5 的term为 5 发送消息给6 term 为6
+185257 LEAD S5 给2发送信息后放弃成为lead
+185258 LEAD S5 的term为 5 发送消息给1 term 为6
+185259 LEAD S5 的term为 5 发送消息给4 term 为4
+185259 LEAD S5 的term为 5 发送消息给0 term 为6
+186333 LEAD i am leader 1 
+186408 LEAD S1 的term为 6 发送消息给6 term 为6
+186409 LEAD S1 的term为 6 发送消息给5 term 为6
+186409 LEAD S1 的term为 6 发送消息给2 term 为6
+186409 LEAD S1 的term为 6 发送消息给0 term 为6
+186409 LEAD S1 的term为 6 发送消息给4 term 为5
+186471 LEAD i am leader 4 
+187026 VOTE S0 选举时连接3 失败
+188413 LEAD i am leader 1 
+188418 LEAD S1 的term为 6 发送消息给6 term 为6
+188421 LEAD S1 的term为 6 发送消息给0 term 为6
+188423 LEAD S1 的term为 6 发送消息给5 term 为6
+188427 LEAD S1 的term为 6 发送消息给2 term 为6
+188428 LEAD S1 的term为 6 发送消息给4 term 为6
+189250 VOTE S3选举结束,3 票数:1 继续选举
+189250 LEAD S5 的term为 5 发送消息给3 term 为7
+189252 LEAD S1 的term为 6 发送消息给3 term 为7
+189253 LEAD S1 给3发送信息后放弃成为lead
+189253 LEAD S1 的term为 6 发送消息给3 term 为7
+189254 VOTE S3 开始选举 term为8 
+189254 VOTE S3开始向6要票
+189254 VOTE S3开始向2要票
+189256 VOTE S3 向2要票结束, 结果为true
+189256 VOTE S3开始向0要票
+189256 VOTE S3开始向4要票
+189258 VOTE S3 向0要票结束, 结果为true
+189258 VOTE S3开始向1要票
+189258 VOTE S3开始向5要票
+189259 VOTE S3 向1要票结束, 结果为true
+189259 LOG1 S3 选举成功
+189259 VOTE S3 选举成功 term为: 8
+189259 LEAD S3 成为leader
+189260 LEAD i am leader 3 
+189256 VOTE S3 向6要票结束, 结果为true
+189261 LEAD S3 的term为 8 发送消息给1 term 为8
+189258 VOTE S3 向4要票结束, 结果为true
+189260 VOTE S3 向5要票结束, 结果为true
+189262 LEAD S3 的term为 8 发送消息给2 term 为8
+189263 LEAD S3 的term为 8 发送消息给0 term 为8
+189261 LEAD S3 的term为 8 发送消息给6 term 为8
+189263 LEAD S3 的term为 8 发送消息给4 term 为8
+189264 LEAD S3 的term为 8 发送消息给5 term 为8
+189980 INFO S3 think itself is leader ,term is 8
+  ... Passed --   8.1  7  438   69670    0
+PASS
+ok  	6.5840/raft	19.006s

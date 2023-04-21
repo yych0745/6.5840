@@ -8,20 +8,24 @@ package raft
 // test with the original before submitting.
 //
 
-import "6.5840/labgob"
-import "6.5840/labrpc"
-import "bytes"
-import "log"
-import "sync"
-import "sync/atomic"
-import "testing"
-import "runtime"
-import "math/rand"
-import crand "crypto/rand"
-import "math/big"
-import "encoding/base64"
-import "time"
-import "fmt"
+import (
+	"bytes"
+	"log"
+	"math/rand"
+	"runtime"
+	"sync"
+	"sync/atomic"
+	"testing"
+
+	"6.5840/labgob"
+	"6.5840/labrpc"
+
+	crand "crypto/rand"
+	"encoding/base64"
+	"fmt"
+	"math/big"
+	"time"
+)
 
 func randstring(n int) string {
 	b := make([]byte, 2*n)
@@ -579,12 +583,15 @@ func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 			// somebody claimed to be the leader and to have
 			// submitted our command; wait a while for agreement.
 			t1 := time.Now()
+			fmt.Printf("时间：%v\n", time.Since(t1).Seconds())
 			for time.Since(t1).Seconds() < 2 {
 				nd, cmd1 := cfg.nCommitted(index)
+				fmt.Println("------------nd:", nd)
 				if nd > 0 && nd >= expectedServers {
 					// committed
 					if cmd1 == cmd {
 						// and it was the command we submitted.
+						fmt.Printf("----------------------%d-------------------\n", index)
 						return index
 					}
 				}
