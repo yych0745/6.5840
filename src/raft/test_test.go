@@ -139,7 +139,7 @@ func TestBasicAgree2B(t *testing.T) {
 		}
 
 		xindex := cfg.one(index*100, servers, false)
-		fmt.Printf("===============index : %d xindex: %d===============", index, xindex)
+		fmt.Printf("===============index : %d xindex: %d===============\n", index, xindex)
 		if xindex != index {
 			t.Fatalf("got index %v but expected %v", xindex, index)
 		}
@@ -150,6 +150,7 @@ func TestBasicAgree2B(t *testing.T) {
 
 // check, based on counting bytes of RPCs, that
 // each command is sent to each peer just once.
+// 发送多次随机数据，但是每一个只发一次，看看最后是不是都在日志里
 func TestRPCBytes2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false, false)

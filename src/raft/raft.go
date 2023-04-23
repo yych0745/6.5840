@@ -20,7 +20,6 @@ package raft
 import (
 	//	"bytes"
 
-	"fmt"
 	"log"
 	"math/rand"
 	"sync"
@@ -68,13 +67,28 @@ type Raft struct {
 	heartChan     chan AppendEntrieReply
 	appendChan    chan AppendEntrieReply
 	applyMsgChan  chan ApplyMsg
+	endChan       chan End
 	votedFor      int
 	rlock         sync.Mutex
-	log           []interface{}
+	log           []LogEntry
 
+	commitIndex int //index of highest log entry known to becommitted (initialized to 0, increasesmonotonically)
+	lastApplied int
+
+	nextIndex  []int
+	matchIndex []int
 	// Look at the paper's Figure 2 for a description of what
 	// state a Raft server must maintain.
 
+}
+type End struct {
+	end      bool
+	exitLead bool
+}
+
+type LogEntry struct {
+	Term    int
+	Command interface{}
 }
 
 // return currentTerm and whether this server
@@ -164,7 +178,7 @@ type AppendEntrieArgs struct {
 	LeaderId     int
 	PrevLogIndex int
 	PrevLogTerm  int
-	Entries      []interface{}
+	Entries      []LogEntry
 	LeaderCommit int
 }
 type AppendEntrieReply struct {
@@ -234,6 +248,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	if !isLeader {
 		return index, term, isLeader
 	}
+	Debug(dCommit, "S%d 接收到的命令为%v", rf.me, command)
 	go rf.groupCommand(command)
 	return index, term, isLeader
 }
@@ -241,11 +256,11 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 func (rf *Raft) groupCommand(command interface{}) {
 	set := map[int]struct{}{}
 	rf.rlock.Lock()
-	l := len(rf.log)
-	rf.log = append(rf.log, command)
+	entry := LogEntry{Term: rf.term, Command: command}
+	rf.log = append(rf.log, entry)
 	set[rf.me] = struct{}{}
 	args := AppendEntrieArgs{}
-	args.Entries = append(args.Entries, command)
+	args.Entries = append(args.Entries, entry)
 	args.LeaderId = rf.leaderId
 	args.Term = rf.term
 	rf.rlock.Unlock()
@@ -257,15 +272,23 @@ func (rf *Raft) groupCommand(command interface{}) {
 	}
 	for {
 		select {
+		case end := <-rf.endChan:
+			if end.end || end.exitLead {
+				return
+			}
 		case reply := <-rf.appendChan:
 			if reply.Success {
-				set[reply.Id] = struct{}{}
-				fmt.Println(len(set))
-				if (len(set)) == len(rf.peers) {
-					fmt.Println("send chan", l)
-					rf.applyMsgChan <- ApplyMsg{Command: command, CommandIndex: l, CommandValid: true}
-					return
-				}
+				// set[reply.Id] = struct{}{}
+				// if (len(set)) == len(rf.peers) {
+				// 	fmt.Println("send chan", l)
+				// 	rf.applyMsgChan <- ApplyMsg{Command: command, CommandIndex: l, CommandValid: true}
+				// 	rf.rlock.Lock()
+				// 	rf.commitIndex = l
+				// 	rf.rlock.Unlock()
+				// 	return
+				// }
+				rf.nextIndex[reply.Id]++
+				rf.matchIndex[reply.Id] = rf.nextIndex[reply.Id] - 1
 				continue
 			}
 
@@ -329,13 +352,20 @@ func (rf *Raft) ticker() {
 				rf.rlock.Unlock()
 			}
 		} else {
-			rf.rlock.Unlock()
 
 			Debug(dLeader, "S%d 成为leader\n", rf.me)
+			for i, _ := range rf.peers {
+				rf.nextIndex[i] = len(rf.log)
+			}
+			rf.matchIndex = make([]int, len(rf.peers))
+			rf.rlock.Unlock()
 			rf.lead()
 		}
 
 	}
+	rf.rlock.Lock()
+	rf.endChan <- End{end: true}
+	rf.rlock.Unlock()
 }
 
 func (rf *Raft) lead() {
@@ -348,17 +378,30 @@ func (rf *Raft) lead() {
 			return
 		}
 		if rf.leaderId != rf.me {
+			rf.endChan <- End{exitLead: true}
 			rf.rlock.Unlock()
 			return
 		}
 		args := AppendEntrieArgs{}
 		args.Term = rf.term
 		args.LeaderId = rf.me
+		args.LeaderCommit = rf.commitIndex
 		rf.rlock.Unlock()
 		for i, peer := range rf.peers {
 			if i == rf.me {
 				continue
 			}
+			rf.rlock.Lock()
+			// 每次心跳都会放入最后一个log看是否相等
+			o := LogEntry{Term: rf.term, Command: rf.log[len(rf.log) - 1].Command}
+			args.Entries = []LogEntry{o}
+
+			if rf.nextIndex[i] < len(rf.log) {
+				o := LogEntry{Term: rf.term, Command: rf.log[rf.nextIndex[i]].Command}
+				args.Entries = []LogEntry{o}
+			}
+
+			rf.rlock.Unlock()
 			go rf.heartbeat(i, peer, args)
 		}
 		ms := 200
@@ -367,6 +410,10 @@ func (rf *Raft) lead() {
 			select {
 			case reply := <-rf.heartChan:
 				if reply.Success {
+					rf.rlock.Lock()
+					rf.nextIndex[reply.Id]++
+					rf.matchIndex[reply.Id] = rf.nextIndex[reply.Id] - 1
+					rf.rlock.Unlock()
 					continue
 				}
 				rf.rlock.Lock()
@@ -516,10 +563,14 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	rf.term = args.Term
 	reply.Term = rf.term
 	if len(args.Entries) > 0 {
-		// l := len(rf.log)
 		rf.log = append(rf.log, args.Entries...)
-		Debug(dTrace, "S%d 给S%d 增加了%v日志，目前S%d 有%v日志", args.LeaderId, rf.me, args.Entries, rf.me, rf.log)
-		// rf.applyMsgChan <- ApplyMsg{Command: args.Entries[0], CommandIndex: l, CommandValid: true}
+		Debug(dTrace, "S%d 获取到了S%d 增加给的%v日志，目前S%d 有%v日志", rf.me, args.LeaderId, args.Entries, rf.me, rf.log)
+	}
+	if args.LeaderCommit > rf.commitIndex {
+		for i := max(rf.commitIndex, 1); i <= args.LeaderCommit; i++ {
+			rf.applyMsgChan <- ApplyMsg{Command: rf.log[i].Command, CommandIndex: i, CommandValid: true}
+			rf.commitIndex = i
+		}
 	}
 	rf.rlock.Unlock()
 }
@@ -576,10 +627,15 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.votedFor = -1
 	rf.leaderId = -1
 	rf.electionChan = make(chan RequestVoteReply, 10)
+
 	rf.heartChan = make(chan AppendEntrieReply, 10)
 	rf.appendChan = make(chan AppendEntrieReply, 10)
+	rf.endChan = make(chan End, 10)
+	rf.nextIndex = make([]int, len(peers))
+	rf.matchIndex = make([]int, len(peers))
+
 	rf.applyMsgChan = applyCh
-	rf.log = append(rf.log, struct{}{})
+	rf.log = append(rf.log, LogEntry{Term: -1})
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
 
