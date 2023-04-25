@@ -600,8 +600,9 @@ func (rf *Raft) election() bool {
 	}
 }
 
-func (rf *Raft) preElection() {
-
+func (rf *Raft) preElection() bool {
+	
+	return true
 }
 
 func (rf *Raft) electionRequest(u int, peer *labrpc.ClientEnd, args RequestVoteArgs) {
