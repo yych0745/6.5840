@@ -20,6 +20,7 @@ package raft
 import (
 	//	"bytes"
 
+	"fmt"
 	"log"
 	"math/rand"
 	"sync"
@@ -65,7 +66,6 @@ type Raft struct {
 	startElection bool
 	electionChan  chan RequestVoteReply
 	heartChan     chan AppendEntrieReply
-	appendChan    chan AppendEntrieReply
 	applyMsgChan  chan ApplyMsg
 	endChan       chan End
 	votedFor      int
@@ -185,6 +185,8 @@ type AppendEntrieReply struct {
 	Term    int
 	Success bool
 	Id      int
+
+	NotHearbeat bool
 }
 
 // example code to send a RequestVote RPC to a server.
@@ -249,70 +251,16 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		return index, term, isLeader
 	}
 	Debug(dCommit, "S%d 接收到的命令为%v", rf.me, command)
-	go rf.groupCommand(command)
+	go rf.add2LeadLog(command)
 	return index, term, isLeader
 }
 
-func (rf *Raft) groupCommand(command interface{}) {
-	set := map[int]struct{}{}
+func (rf *Raft) add2LeadLog(command interface{}) {
 	rf.rlock.Lock()
 	entry := LogEntry{Term: rf.term, Command: command}
 	rf.log = append(rf.log, entry)
-	set[rf.me] = struct{}{}
-	args := AppendEntrieArgs{}
-	args.Entries = append(args.Entries, entry)
-	args.LeaderId = rf.leaderId
-	args.Term = rf.term
+	Debug(dTrace, "S%d 增加了日志 %v 当前日志为: %v", rf.me, entry, rf.log)
 	rf.rlock.Unlock()
-	for i, peer := range rf.peers {
-		if i == rf.me {
-			continue
-		}
-		go rf.sendCommand(i, peer, args)
-	}
-	for {
-		select {
-		case end := <-rf.endChan:
-			if end.end || end.exitLead {
-				return
-			}
-		case reply := <-rf.appendChan:
-			if reply.Success {
-				// set[reply.Id] = struct{}{}
-				// if (len(set)) == len(rf.peers) {
-				// 	fmt.Println("send chan", l)
-				// 	rf.applyMsgChan <- ApplyMsg{Command: command, CommandIndex: l, CommandValid: true}
-				// 	rf.rlock.Lock()
-				// 	rf.commitIndex = l
-				// 	rf.rlock.Unlock()
-				// 	return
-				// }
-				rf.nextIndex[reply.Id]++
-				rf.matchIndex[reply.Id] = rf.nextIndex[reply.Id] - 1
-				continue
-			}
-
-			if reply.Term > rf.term {
-				rf.leaderId = -1
-				rf.term = reply.Term
-				return
-			}
-
-			go rf.sendCommand(reply.Id, rf.peers[reply.Id], args)
-
-		}
-	}
-}
-
-func (rf *Raft) sendCommand(u int, peer *labrpc.ClientEnd, args AppendEntrieArgs) {
-	reply := AppendEntrieReply{}
-	ok := peer.Call("Raft.AppendEntrie", args, &reply)
-	if !ok {
-		reply.Id = u
-		reply.Success = false
-		reply.Term = -1
-	}
-	rf.appendChan <- reply
 }
 
 // the tester doesn't halt goroutines created by Raft after each test,
@@ -335,6 +283,7 @@ func (rf *Raft) killed() bool {
 }
 
 func (rf *Raft) ticker() {
+	go rf.commit()
 	for rf.killed() == false {
 
 		// Your code here (2A)
@@ -368,8 +317,44 @@ func (rf *Raft) ticker() {
 	rf.rlock.Unlock()
 }
 
+func (rf *Raft) commit() {
+	for rf.killed() == false {
+		rf.rlock.Lock()
+		Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, len(rf.log))
+		if rf.lastApplied < rf.commitIndex {
+			fmt.Println("commitIndex:", rf.commitIndex)
+			index := rf.lastApplied + 1
+			msg := ApplyMsg{CommandIndex: index, Command: rf.log[index].Command, CommandValid: true}
+			Debug(dTrace, "S%d 提交了日志 %v", rf.me, msg.Command)
+			rf.applyMsgChan <- msg
+			rf.lastApplied = index
+		}
+		if rf.me == rf.leaderId {
+
+			sum := 0
+			rf.matchIndex[rf.me] = len(rf.log) - 1
+			for _, v := range rf.matchIndex {
+				if v > rf.commitIndex {
+					sum++
+				}
+			}
+			if sum*2 > len(rf.peers) {
+				rf.commitIndex = rf.commitIndex + 1
+				for _, v := range rf.matchIndex {
+					fmt.Println(v)
+				}
+				fmt.Printf("更新%d的commitIndex为：%d\n", rf.me, rf.commitIndex)
+			}
+		}
+		rf.rlock.Unlock()
+		ms := (rand.Int63()%300 + 400)
+		time.Sleep(time.Duration(ms) * time.Millisecond)
+	}
+}
+
 func (rf *Raft) lead() {
 	// 发送hearbeat
+	go rf.groupLogReplication()
 	for {
 		Debug(dLeader, "S%d :i am leader\n", rf.me)
 		rf.rlock.Lock()
@@ -391,17 +376,6 @@ func (rf *Raft) lead() {
 			if i == rf.me {
 				continue
 			}
-			rf.rlock.Lock()
-			// 每次心跳都会放入最后一个log看是否相等
-			o := LogEntry{Term: rf.term, Command: rf.log[len(rf.log) - 1].Command}
-			args.Entries = []LogEntry{o}
-
-			if rf.nextIndex[i] < len(rf.log) {
-				o := LogEntry{Term: rf.term, Command: rf.log[rf.nextIndex[i]].Command}
-				args.Entries = []LogEntry{o}
-			}
-
-			rf.rlock.Unlock()
 			go rf.heartbeat(i, peer, args)
 		}
 		ms := 200
@@ -410,10 +384,6 @@ func (rf *Raft) lead() {
 			select {
 			case reply := <-rf.heartChan:
 				if reply.Success {
-					rf.rlock.Lock()
-					rf.nextIndex[reply.Id]++
-					rf.matchIndex[reply.Id] = rf.nextIndex[reply.Id] - 1
-					rf.rlock.Unlock()
 					continue
 				}
 				rf.rlock.Lock()
@@ -433,6 +403,59 @@ func (rf *Raft) lead() {
 	}
 }
 
+func (rf *Raft) groupLogReplication() {
+	Debug(dLeader, "S%d 开始发送群体日志-----\n", rf.me)
+	for i, peer := range rf.peers {
+		if i == rf.me {
+			continue
+		}
+		go rf.logReplication(i, peer)
+	}
+
+}
+
+func (rf *Raft) logReplication(id int, peer *labrpc.ClientEnd) {
+	for !rf.killed() {
+		rf.rlock.Lock()
+
+		if rf.leaderId != rf.me {
+			rf.endChan <- End{exitLead: true}
+			rf.rlock.Unlock()
+			return
+		}
+		args := AppendEntrieArgs{}
+		args.Term = rf.term
+		args.LeaderId = rf.me
+		args.LeaderCommit = rf.commitIndex
+		rf.rlock.Unlock()
+
+		rf.rlock.Lock()
+		if rf.nextIndex[id] < len(rf.log) {
+			reply := AppendEntrieReply{}
+			o := LogEntry{Term: rf.term, Command: rf.log[rf.nextIndex[id]].Command}
+			args.PrevLogIndex = rf.nextIndex[id] - 1
+			args.PrevLogTerm = rf.log[args.PrevLogIndex].Term
+			args.Entries = []LogEntry{o}
+			rf.rlock.Unlock()
+			Debug(dLeader, "S%d 发送日志%+v 给S%d", rf.me, args, id)
+			ok := peer.Call("Raft.AppendEntrie", args, &reply)
+
+			if !ok {
+				continue
+			}
+			if !reply.Success {
+				continue
+			}
+			rf.rlock.Lock()
+			rf.nextIndex[id]++
+			rf.matchIndex[reply.Id] = rf.nextIndex[reply.Id] - 1
+		}
+		rf.rlock.Unlock()
+	}
+	ms := 200
+	time.Sleep(time.Duration(ms) * time.Millisecond)
+}
+
 func (rf *Raft) heartbeat(u int, peer *labrpc.ClientEnd, args AppendEntrieArgs) {
 	reply := AppendEntrieReply{}
 	ok := peer.Call("Raft.AppendEntrie", args, &reply)
@@ -440,6 +463,55 @@ func (rf *Raft) heartbeat(u int, peer *labrpc.ClientEnd, args AppendEntrieArgs) 
 		return
 	}
 	rf.heartChan <- reply
+}
+
+func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
+	reply.Id = rf.me
+	rf.rlock.Lock()
+	Debug(dLeader, "S%d 的term为 %d 发送消息给%d term 为%d\n", args.LeaderId, args.Term, rf.me, rf.term)
+	if args.Term < rf.term {
+		reply.Success = false
+		reply.Term = rf.term
+		rf.rlock.Unlock()
+		return
+	}
+	if args.Term > rf.term {
+		rf.leaderId = args.LeaderId
+	}
+	rf.startElection = false
+	reply.Success = true
+	rf.term = args.Term
+	reply.Term = rf.term
+	if args.LeaderCommit > rf.commitIndex {
+		rf.commitIndex = min(args.LeaderCommit, len(rf.log)-1)
+	}
+
+	if len(args.Entries) == 0 {
+		rf.rlock.Unlock()
+		return
+	}
+	// if len(args.Entries) > 0 {
+	// 	rf.log = append(rf.log, args.Entries...)
+	// 	Debug(dTrace, "S%d 获取到了S%d 增加给的%v日志，目前S%d 有%v日志", rf.me, args.LeaderId, args.Entries, rf.me, rf.log)
+	// }
+
+	if args.PrevLogIndex == -1 || rf.log[args.PrevLogIndex].Term == args.PrevLogTerm {
+		reply.NotHearbeat = true
+		// 如果是加在当前日志的最后一个，那么直接加上
+		Debug(dTrace, "S%d 接收到S%d的内容 %+v 当前S%d的日志为 %v", rf.me, args.LeaderId, args, rf.me, rf.log)
+		if len(rf.log) == args.PrevLogIndex+1 {
+			rf.log = append(rf.log, args.Entries[0])
+		} else {
+			rf.log[args.PrevLogIndex+1] = args.Entries[0]
+		}
+
+		// 这个按照论文来的，但是没太理解为啥
+
+	} else {
+		reply.Success = false
+	}
+
+	rf.rlock.Unlock()
 }
 
 func (rf *Raft) follow() {
@@ -465,6 +537,9 @@ func (rf *Raft) follow() {
 func (rf *Raft) election() bool {
 	defer rf.rlock.Unlock()
 	for {
+		if !rf.preElection() {
+			return false
+		}
 		rf.rlock.Lock()
 		if rf.killed() {
 			return false
@@ -525,6 +600,10 @@ func (rf *Raft) election() bool {
 	}
 }
 
+func (rf *Raft) preElection() {
+
+}
+
 func (rf *Raft) electionRequest(u int, peer *labrpc.ClientEnd, args RequestVoteArgs) {
 	// rf.rlock.Lock()
 	Debug(dVote, "S%d开始向%d要票\n", rf.me, u)
@@ -543,36 +622,6 @@ func (rf *Raft) electionRequest(u int, peer *labrpc.ClientEnd, args RequestVoteA
 func (rf *Raft) sendAppendEntrie(server int, args AppendEntrieArgs, reply *AppendEntrieReply) bool {
 	ok := rf.peers[server].Call("Raft.AppendEntrie", args, reply)
 	return ok
-}
-
-func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
-	reply.Id = rf.me
-	rf.rlock.Lock()
-	Debug(dLeader, "S%d 的term为 %d 发送消息给%d term 为%d\n", args.LeaderId, args.Term, rf.me, rf.term)
-	if args.Term < rf.term {
-		reply.Success = false
-		reply.Term = rf.term
-		rf.rlock.Unlock()
-		return
-	}
-	if args.Term > rf.term {
-		rf.leaderId = args.LeaderId
-	}
-	rf.startElection = false
-	reply.Success = true
-	rf.term = args.Term
-	reply.Term = rf.term
-	if len(args.Entries) > 0 {
-		rf.log = append(rf.log, args.Entries...)
-		Debug(dTrace, "S%d 获取到了S%d 增加给的%v日志，目前S%d 有%v日志", rf.me, args.LeaderId, args.Entries, rf.me, rf.log)
-	}
-	if args.LeaderCommit > rf.commitIndex {
-		for i := max(rf.commitIndex, 1); i <= args.LeaderCommit; i++ {
-			rf.applyMsgChan <- ApplyMsg{Command: rf.log[i].Command, CommandIndex: i, CommandValid: true}
-			rf.commitIndex = i
-		}
-	}
-	rf.rlock.Unlock()
 }
 
 // example RequestVote RPC handler.
@@ -629,7 +678,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.electionChan = make(chan RequestVoteReply, 10)
 
 	rf.heartChan = make(chan AppendEntrieReply, 10)
-	rf.appendChan = make(chan AppendEntrieReply, 10)
 	rf.endChan = make(chan End, 10)
 	rf.nextIndex = make([]int, len(peers))
 	rf.matchIndex = make([]int, len(peers))

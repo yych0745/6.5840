@@ -586,7 +586,7 @@ func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 			fmt.Printf("时间：%v\n", time.Since(t1).Seconds())
 			for time.Since(t1).Seconds() < 2 {
 				nd, cmd1 := cfg.nCommitted(index)
-				fmt.Printf("------------nd:%d\n", nd)
+				// fmt.Printf("------------nd:%d\n", nd)
 				if nd > 0 && nd >= expectedServers {
 					// committed
 					if cmd1 == cmd {
