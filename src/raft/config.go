@@ -516,6 +516,7 @@ func (cfg *config) nCommitted(index int) (int, interface{}) {
 // wait for at least n servers to commit.
 // but don't wait forever.
 func (cfg *config) wait(index int, n int, startTerm int) interface{} {
+	fmt.Println("index: ", index)
 	to := 10 * time.Millisecond
 	for iters := 0; iters < 30; iters++ {
 		nd, _ := cfg.nCommitted(index)
@@ -583,15 +584,12 @@ func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 			// somebody claimed to be the leader and to have
 			// submitted our command; wait a while for agreement.
 			t1 := time.Now()
-			fmt.Printf("时间：%v\n", time.Since(t1).Seconds())
 			for time.Since(t1).Seconds() < 2 {
 				nd, cmd1 := cfg.nCommitted(index)
-				// fmt.Printf("------------nd:%d\n", nd)
 				if nd > 0 && nd >= expectedServers {
 					// committed
 					if cmd1 == cmd {
 						// and it was the command we submitted.
-						fmt.Printf("----------------------%d-------------------\n", index)
 						return index
 					}
 					fmt.Printf("cmd: %v cmd1: %v\n", cmd, cmd1)

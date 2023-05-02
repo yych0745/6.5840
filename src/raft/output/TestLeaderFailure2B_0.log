@@ -1,0 +1,264 @@
+Test (2B): test failure of leaders ...
+000003 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+000003 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+000004 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+005577 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+006151 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+006816 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+010186 VOTE S2 开始选举 term为1 
+010187 VOTE S2开始向0要票
+010187 VOTE S2开始向1要票
+010191 VOTE S2 term 1 的情况下 向1要票结束, 结果为true
+010191 LOG1 S2 选举成功
+010191 VOTE S2 选举成功 term为: 1
+010191 LEAD S2 成为leader
+010191 LEAD S2 :i am leader
+010191 LEAD S2 开始发送群体日志-----
+010191 VOTE S2 term 1 的情况下 向0要票结束, 结果为true
+010193 LEAD S2 的term为 1 发送消息给1 term 为1
+010193 LEAD S2 的term为 1 发送消息给0 term 为1
+010679 CMIT S2 接收到的命令为101
+时间：8.3e-08
+010681 TRCE S2 增加了日志 {1 101} 当前日志为: [{-1 <nil>} {1 101}]
+010822 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+012198 LEAD S2 :i am leader
+012201 LEAD S2 的term为 1 发送消息给0 term 为1
+012202 LEAD S2 的term为 1 发送消息给1 term 为1
+012447 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+012581 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+------------------S2解锁2
+------------------------------------------S2解锁2
+------------------------014204 LEAD S2 发送日志{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 给S1
+014208 LEAD S2 发送日志{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 给S0
+014209 LEAD S2 :i am leader
+014213 LEAD S2 的term为 1 发送消息给1 term 为1
+014214 TRCE S1 接收到S2的内容 {Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 当前S1的日志为 [{-1 <nil>}]
+014215 LEAD S2 的term为 1 发送消息给0 term 为1
+014217 LEAD S2 的term为 1 发送消息给1 term 为1
+014218 LEAD S2 的term为 1 发送消息给0 term 为1
+014218 TRCE S0 接收到S2的内容 {Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 当前S0的日志为 [{-1 <nil>}]
+------------------S2加锁2
+------------------------------------------S2加锁2
+------------------------015893 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+016219 LEAD S2 :i am leader
+016227 LEAD S2 的term为 1 发送消息给1 term 为1
+016227 LEAD S2 的term为 1 发送消息给0 term 为1
+018231 LEAD S2 :i am leader
+018237 LEAD S2 的term为 1 发送消息给0 term 为1
+018237 LEAD S2 的term为 1 发送消息给1 term 为1
+018629 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+1
+1
+1
+更新2的commitIndex为：1
+018896 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+020243 LEAD S2 :i am leader
+020247 LEAD S2 的term为 1 发送消息给1 term 为1
+020247 LEAD S2 的term为 1 发送消息给0 term 为1
+022136 TRCE S1 的lastApplied为 0 commitIndex为 1 log长度为 2
+commitIndex: 1
+022137 TRCE S1 提交了日志 101
+022248 LEAD S2 :i am leader
+022252 LEAD S2 的term为 1 发送消息给0 term 为1
+022252 LEAD S2 的term为 1 发送消息给1 term 为1
+024259 LEAD S2 :i am leader
+024269 LEAD S2 的term为 1 发送消息给1 term 为1
+024273 LEAD S2 的term为 1 发送消息给0 term 为1
+024556 TRCE S2 的lastApplied为 0 commitIndex为 1 log长度为 2
+commitIndex: 1
+024557 TRCE S2 提交了日志 101
+024675 TRCE S0 的lastApplied为 0 commitIndex为 1 log长度为 2
+commitIndex: 1
+024676 TRCE S0 提交了日志 101
+----------------------1-------------------
+026275 LEAD S2 :i am leader
+026279 LEAD S2 的term为 1 发送消息给0 term 为1
+026280 LEAD S2 的term为 1 发送消息给1 term 为1
+028285 LEAD S2 :i am leader
+028291 LEAD S2 的term为 1 发送消息给1 term 为1
+028291 LEAD S2 的term为 1 发送消息给0 term 为1
+028637 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 2
+029244 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
+029936 INFO S2 think itself is leader ,term is 1
+030293 LEAD S2 :i am leader
+030791 TRCE S0 的lastApplied为 1 commitIndex为 1 log长度为 2
+032305 LEAD S2 :i am leader
+033456 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
+034310 LEAD S2 :i am leader
+034583 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 2
+036171 TRCE S0 的lastApplied为 1 commitIndex为 1 log长度为 2
+036323 LEAD S2 :i am leader
+036565 VOTE S1 开始选举 term为2 
+036566 VOTE S1开始向2要票
+036566 VOTE S1开始向0要票
+036568 VOTE S1 term 2 的情况下 向0要票结束, 结果为true
+036568 LOG1 S1 选举成功
+036568 VOTE S1 选举成功 term为: 2
+036568 LEAD S1 成为leader
+036568 LEAD S1 :i am leader
+036568 LEAD S1 开始发送群体日志-----
+036570 LEAD S1 的term为 2 发送消息给0 term 为2
+037033 CMIT S1 接收到的命令为102
+时间：1.25e-07
+037034 TRCE S1 增加了日志 {2 102} 当前日志为: [{-1 <nil>} {1 101} {2 102}]
+038328 LEAD S2 :i am leader
+038575 LEAD S1 :i am leader
+038586 LEAD S1 的term为 2 发送消息给0 term 为2
+040267 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
+040333 LEAD S2 :i am leader
+------------------S1解锁2
+------------------------------------------S1解锁2
+------------------------040571 LEAD S1 发送日志{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:2 Command:102}] LeaderCommit:1} 给S0
+040572 LEAD S1 发送日志{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:2 Command:102}] LeaderCommit:1} 给S2
+040578 LEAD S1 的term为 2 发送消息给0 term 为2
+040579 TRCE S0 接收到S1的内容 {Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:2 Command:102}] LeaderCommit:1} 当前S0的日志为 [{-1 <nil>} {1 101}]
+------------------S1加锁2
+------------------------040590 LEAD S1 :i am leader
+040592 LEAD S1 的term为 2 发送消息给0 term 为2
+041463 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 3
+2
+2
+0
+更新1的commitIndex为：2
+042243 TRCE S0 的lastApplied为 1 commitIndex为 1 log长度为 3
+042337 LEAD S2 :i am leader
+042601 LEAD S1 :i am leader
+042614 LEAD S1 的term为 2 发送消息给0 term 为2
+044343 LEAD S2 :i am leader
+044617 LEAD S1 :i am leader
+044623 LEAD S1 的term为 2 发送消息给0 term 为2
+046353 LEAD S2 :i am leader
+046631 LEAD S1 :i am leader
+046636 LEAD S1 的term为 2 发送消息给0 term 为2
+047089 TRCE S0 的lastApplied为 1 commitIndex为 2 log长度为 3
+commitIndex: 2
+047089 TRCE S1 的lastApplied为 1 commitIndex为 2 log长度为 3
+commitIndex: 2
+047090 TRCE S0 提交了日志 102
+047091 TRCE S1 提交了日志 102
+047133 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
+----------------------2-------------------
+048364 LEAD S2 :i am leader
+048639 LEAD S1 :i am leader
+048643 LEAD S1 的term为 2 发送消息给0 term 为2
+050384 LEAD S2 :i am leader
+050645 LEAD S1 :i am leader
+050649 LEAD S1 的term为 2 发送消息给0 term 为2
+051683 TRCE S0 的lastApplied为 2 commitIndex为 2 log长度为 3
+052395 LEAD S2 :i am leader
+052650 LEAD S1 :i am leader
+052654 LEAD S1 的term为 2 发送消息给0 term 为2
+053643 TRCE S1 的lastApplied为 2 commitIndex为 2 log长度为 3
+053644 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
+054403 LEAD S2 :i am leader
+054658 LEAD S1 :i am leader
+054664 LEAD S1 的term为 2 发送消息给0 term 为2
+056410 LEAD S2 :i am leader
+056666 LEAD S1 :i am leader
+056675 LEAD S1 的term为 2 发送消息给0 term 为2
+057279 CMIT S1 接收到的命令为103
+时间：4.2e-08
+057280 TRCE S1 增加了日志 {2 103} 当前日志为: [{-1 <nil>} {1 101} {2 102} {2 103}]
+057895 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
+057980 TRCE S1 的lastApplied为 2 commitIndex为 2 log长度为 4
+058076 TRCE S0 的lastApplied为 2 commitIndex为 2 log长度为 3
+058416 LEAD S2 :i am leader
+058681 LEAD S1 :i am leader
+058685 LEAD S1 的term为 2 发送消息给0 term 为2
+060418 LEAD S2 :i am leader
+------------------S1解锁2
+------------------------060643 LEAD S1 发送日志{Term:2 LeaderId:1 PrevLogIndex:2 PrevLogTerm:2 Entries:[{Term:2 Command:103}] LeaderCommit:2} 给S0
+060646 LEAD S1 的term为 2 发送消息给0 term 为2
+060646 TRCE S0 接收到S1的内容 {Term:2 LeaderId:1 PrevLogIndex:2 PrevLogTerm:2 Entries:[{Term:2 Command:103}] LeaderCommit:2} 当前S0的日志为 [{-1 <nil>} {1 101} {2 102}]
+------------------S1加锁2
+------------------------060687 LEAD S1 :i am leader
+060690 LEAD S1 的term为 2 发送消息给0 term 为2
+062432 LEAD S2 :i am leader
+062493 TRCE S1 的lastApplied为 2 commitIndex为 2 log长度为 4
+3
+3
+0
+更新1的commitIndex为：3
+062693 LEAD S1 :i am leader
+062703 LEAD S1 的term为 2 发送消息给0 term 为2
+064268 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
+064438 LEAD S2 :i am leader
+064690 TRCE S0 的lastApplied为 2 commitIndex为 3 log长度为 4
+commitIndex: 3
+064692 TRCE S0 提交了日志 103
+064708 LEAD S1 :i am leader
+064713 LEAD S1 的term为 2 发送消息给0 term 为2
+066450 LEAD S2 :i am leader
+066719 LEAD S1 :i am leader
+066725 LEAD S1 的term为 2 发送消息给0 term 为2
+068461 LEAD S2 :i am leader
+068728 LEAD S1 :i am leader
+068731 LEAD S1 的term为 2 发送消息给0 term 为2
+068784 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 4
+069258 TRCE S1 的lastApplied为 2 commitIndex为 3 log长度为 4
+commitIndex: 3
+069259 TRCE S1 提交了日志 103
+----------------------3-------------------
+069857 VOTE S2 选举时连接1 失败
+070472 LEAD S2 :i am leader
+070591 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
+070739 LEAD S1 :i am leader
+070747 LEAD S1 的term为 2 发送消息给0 term 为2
+072478 LEAD S2 :i am leader
+072749 LEAD S1 :i am leader
+072770 LEAD S1 的term为 2 发送消息给0 term 为2
+074009 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 4
+074490 LEAD S2 :i am leader
+074566 INFO S1 think itself is leader ,term is 2
+074567 CMIT S1 接收到的命令为104
+074567 CMIT S2 接收到的命令为104
+074568 TRCE S2 增加了日志 {1 104} 当前日志为: [{-1 <nil>} {1 101} {1 104}]
+074569 TRCE S1 增加了日志 {2 104} 当前日志为: [{-1 <nil>} {1 101} {2 102} {2 103} {2 104}]
+074774 LEAD S1 :i am leader
+074885 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 4
+074950 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 3
+076494 LEAD S2 :i am leader
+------------------S1解锁2
+------------------------076680 LEAD S1 发送日志{Term:2 LeaderId:1 PrevLogIndex:3 PrevLogTerm:2 Entries:[{Term:2 Command:104}] LeaderCommit:3} 给S0
+076788 LEAD S1 :i am leader
+------------------S2解锁2
+------------------------------------------S2解锁2
+------------------------078327 LEAD S2 发送日志{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:104}] LeaderCommit:1} 给S1
+078327 LEAD S2 发送日志{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:104}] LeaderCommit:1} 给S0
+078506 LEAD S2 :i am leader
+078800 LEAD S1 :i am leader
+079306 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+080401 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 3
+080497 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 4
+080508 LEAD S2 :i am leader
+080810 LEAD S1 :i am leader
+082009 VOTE S0 开始选举 term为3 
+082010 VOTE S0开始向2要票
+082010 VOTE S0开始向1要票
+082521 LEAD S2 :i am leader
+082812 LEAD S1 :i am leader
+------------------S1解锁2
+------------------------083380 LEAD S1 发送日志{Term:2 LeaderId:1 PrevLogIndex:3 PrevLogTerm:2 Entries:[{Term:2 Command:104}] LeaderCommit:3} 给S0
+083697 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+084535 LEAD S2 :i am leader
+084823 LEAD S1 :i am leader
+------------------S1解锁2
+------------------------086076 LEAD S1 发送日志{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:2 Command:102}] LeaderCommit:3} 给S2
+086470 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 3
+086543 LEAD S2 :i am leader
+086835 LEAD S1 :i am leader
+086998 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 4
+088509 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+088548 LEAD S2 :i am leader
+088846 LEAD S1 :i am leader
+090559 LEAD S2 :i am leader
+090856 LEAD S1 :i am leader
+092142 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 3
+092567 LEAD S2 :i am leader
+092572 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+092865 LEAD S1 :i am leader
+092925 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 4
+  ... Passed --   9.5  3  158   35120    3
+094576 LEAD S2 :i am leader
+PASS
+ok  	6.5840/raft	9.463s

@@ -1,0 +1,534 @@
+000003 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+000004 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+000004 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+000005 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+000005 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+Test (2A): multiple elections ...
+000005 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+000005 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+004286 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+004926 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+005045 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+005866 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+006033 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+006211 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+007042 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+008516 VOTE S6 开始选举 term为1 
+008522 VOTE S6开始向0要票
+008523 VOTE S6开始向5要票
+008524 VOTE S6开始向1要票
+008524 VOTE S6开始向2要票
+008524 VOTE S6开始向3要票
+008525 VOTE S6开始向4要票
+008535 VOTE S6 term 1 的情况下 向0要票结束, 结果为true
+008537 VOTE S6 term 1 的情况下 向2要票结束, 结果为true
+008537 VOTE S6 term 1 的情况下 向1要票结束, 结果为true
+008538 LOG1 S6 选举成功
+008538 VOTE S6 选举成功 term为: 1
+008538 LEAD S6 成为leader
+008539 LEAD S6 :i am leader
+008543 VOTE S6 term 1 的情况下 向3要票结束, 结果为true
+008562 LEAD S6 的term为 1 发送消息给5 term 为1
+008563 LEAD S6 的term为 1 发送消息给3 term 为1
+008563 LEAD S6 开始发送群体日志-----
+008565 VOTE S6 term 1 的情况下 向5要票结束, 结果为true
+008565 LEAD S6 的term为 1 发送消息给4 term 为1
+008565 VOTE S6 term 1 的情况下 向4要票结束, 结果为true
+008564 LEAD S6 的term为 1 发送消息给0 term 为1
+008563 LEAD S6 的term为 1 发送消息给1 term 为1
+008563 LEAD S6 的term为 1 发送消息给2 term 为1
+008940 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+009497 INFO S6 think itself is leader ,term is 1
+==================第 0 轮===========================
+009808 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+010568 LEAD S6 :i am leader
+010595 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+011598 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+012283 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+012323 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+012575 LEAD S6 :i am leader
+013326 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+014210 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+014588 LEAD S6 :i am leader
+015048 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+016014 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+016522 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+016592 LEAD S6 :i am leader
+017434 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+017769 VOTE S3 开始选举 term为2 
+017770 VOTE S3开始向1要票
+017770 VOTE S3开始向0要票
+017771 VOTE S3开始向5要票
+017771 VOTE S3开始向6要票
+017771 VOTE S3开始向4要票
+017770 VOTE S3开始向2要票
+018424 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+018604 LEAD S6 :i am leader
+019071 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+019120 VOTE S0 开始选举 term为2 
+019122 VOTE S0开始向1要票
+019123 VOTE S0开始向6要票
+019127 VOTE S0开始向2要票
+019132 VOTE S0 term 2 的情况下 向2要票结束, 结果为true
+019132 VOTE S0开始向3要票
+019133 VOTE S0开始向4要票
+019136 VOTE S0 term 2 的情况下 向4要票结束, 结果为true
+019137 VOTE S0开始向5要票
+019141 VOTE S0 term 2 的情况下 向1要票结束, 结果为true
+019141 LOG1 S0 选举成功
+019142 VOTE S0 选举成功 term为: 2
+019142 LEAD S0 成为leader
+019142 LEAD S0 :i am leader
+019143 LEAD S0 开始发送群体日志-----
+019146 LEAD S0 的term为 2 发送消息给1 term 为2
+019151 LEAD S0 的term为 2 发送消息给2 term 为2
+019155 LEAD S0 的term为 2 发送消息给4 term 为2
+020247 VOTE S5 开始选举 term为2 
+020247 VOTE S5开始向1要票
+020247 VOTE S5开始向2要票
+020247 VOTE S5开始向4要票
+020247 VOTE S5开始向6要票
+020247 VOTE S5开始向3要票
+020247 VOTE S5开始向0要票
+020284 INFO S0 think itself is leader ,term is 2
+==================第 0 轮check完成===========================
+==================第 1 轮===========================
+020609 LEAD S6 :i am leader
+020612 LEAD S6 的term为 1 发送消息给0 term 为2
+020612 LEAD S6 的term为 1 发送消息给2 term 为2
+020612 LEAD S6 的term为 1 发送消息给1 term 为2
+020613 LEAD S6 给S0发送信息后放弃成为lead
+021077 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+021163 LEAD S0 :i am leader
+021170 LEAD S0 的term为 2 发送消息给2 term 为2
+021173 LEAD S0 的term为 2 发送消息给6 term 为2
+021175 LEAD S0 的term为 2 发送消息给1 term 为2
+021682 VOTE S1 选举时连接5 失败
+021882 VOTE S3选举结束,3 票数:1 继续选举
+021884 VOTE S3 开始选举 term为3 
+021885 VOTE S3开始向6要票
+021886 VOTE S3开始向0要票
+021887 VOTE S3开始向1要票
+021889 VOTE S3开始向2要票
+021889 VOTE S3开始向4要票
+021890 VOTE S3开始向5要票
+021892 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+022949 VOTE S1 选举时连接3 失败
+023068 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+023176 LEAD S0 :i am leader
+023179 LEAD S0 的term为 2 发送消息给2 term 为2
+023179 LEAD S0 的term为 2 发送消息给1 term 为2
+023179 LEAD S0 的term为 2 发送消息给6 term 为2
+023276 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+023732 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+024450 VOTE S5选举结束,5 票数:1 继续选举
+024450 LEAD S6 的term为 1 发送消息给5 term 为2
+024453 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+024453 LEAD S0 的term为 2 发送消息给5 term 为2
+024456 LEAD S0 的term为 2 发送消息给5 term 为2
+024457 VOTE S5 退出选举
+025100 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+025276 INFO S0 think itself is leader ,term is 2
+==================第 1 轮check完成===========================
+==================第 2 轮===========================
+026461 LEAD S0 :i am leader
+026470 LEAD S0 的term为 2 发送消息给2 term 为2
+026476 LEAD S0 的term为 2 发送消息给4 term 为2
+026479 LEAD S0 的term为 2 发送消息给5 term 为2
+026711 VOTE S6 选举时连接3 失败
+026827 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+026829 VOTE S3选举结束,3 票数:1 继续选举
+026830 VOTE S3 开始选举 term为4 
+026831 VOTE S3开始向6要票
+026833 VOTE S3开始向0要票
+026834 VOTE S3开始向1要票
+026834 VOTE S3开始向2要票
+026835 VOTE S3开始向4要票
+026836 VOTE S3开始向5要票
+027872 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+028227 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+028481 LEAD S0 :i am leader
+028484 LEAD S0 的term为 2 发送消息给2 term 为2
+028485 LEAD S0 的term为 2 发送消息给4 term 为2
+028485 LEAD S0 的term为 2 发送消息给5 term 为2
+028812 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+028997 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+029070 VOTE S0 选举时连接3 失败
+029451 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+029544 VOTE S4 选举时连接3 失败
+029794 INFO S0 think itself is leader ,term is 2
+==================第 2 轮check完成===========================
+==================第 3 轮===========================
+030012 VOTE S0 选举时连接3 失败
+030493 LEAD S0 :i am leader
+030501 LEAD S0 的term为 2 发送消息给2 term 为2
+030504 LEAD S0 的term为 2 发送消息给4 term 为2
+030501 LEAD S0 的term为 2 发送消息给6 term 为2
+031278 VOTE S3 选举时连接5 失败
+031952 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+032002 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+032507 LEAD S0 :i am leader
+032517 LEAD S0 的term为 2 发送消息给2 term 为2
+032517 LEAD S0 的term为 2 发送消息给4 term 为2
+032521 LEAD S0 的term为 2 发送消息给6 term 为2
+033051 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+033522 VOTE S3选举结束,3 票数:1 继续选举
+033522 LEAD S0 的term为 2 发送消息给3 term 为4
+033522 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+033522 LEAD S0 的term为 2 发送消息给3 term 为4
+033523 VOTE S3 开始选举 term为5 
+033523 VOTE S3开始向0要票
+033523 VOTE S3开始向6要票
+033523 VOTE S3开始向2要票
+033523 VOTE S3开始向1要票
+033523 LEAD S0 给S3发送信息后放弃成为lead
+033524 VOTE S3开始向4要票
+033525 VOTE S3 term 5 的情况下 向2要票结束, 结果为true
+033525 VOTE S3 term 5 的情况下 向0要票结束, 结果为true
+033525 VOTE S3 term 5 的情况下 向6要票结束, 结果为true
+033525 LOG1 S3 选举成功
+033525 VOTE S3 选举成功 term为: 5
+033525 LEAD S3 成为leader
+033525 LEAD S3 :i am leader
+033525 LEAD S3 开始发送群体日志-----
+033526 VOTE S3 term 5 的情况下 向4要票结束, 结果为true
+033525 VOTE S3开始向5要票
+033527 LEAD S3 的term为 5 发送消息给6 term 为5
+033527 LEAD S3 的term为 5 发送消息给4 term 为5
+033527 LEAD S3 的term为 5 发送消息给2 term 为5
+033527 LEAD S3 的term为 5 发送消息给0 term 为5
+034304 VOTE S6 选举时连接3 失败
+034457 INFO S3 think itself is leader ,term is 5
+==================第 3 轮check完成===========================
+==================第 4 轮===========================
+034705 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+034872 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+035039 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+035536 LEAD S3 :i am leader
+035545 LEAD S3 的term为 5 发送消息给6 term 为5
+035549 LEAD S3 的term为 5 发送消息给4 term 为5
+035553 LEAD S3 的term为 5 发送消息给2 term 为5
+035556 LEAD S3 的term为 5 发送消息给1 term 为2
+035960 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+036558 VOTE S5 选举时连接3 失败
+036802 VOTE S5 选举时连接3 失败
+037559 LEAD S3 :i am leader
+037568 LEAD S3 的term为 5 发送消息给6 term 为5
+037574 LEAD S3 的term为 5 发送消息给1 term 为5
+037581 LEAD S3 的term为 5 发送消息给4 term 为5
+037583 LEAD S3 的term为 5 发送消息给2 term 为5
+037814 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+038663 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+039210 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+039574 INFO S3 think itself is leader ,term is 5
+==================第 4 轮check完成===========================
+==================第 5 轮===========================
+039584 LEAD S3 :i am leader
+040210 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+040799 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+040824 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+041582 VOTE S1 选举时连接3 失败
+041586 LEAD S3 :i am leader
+041643 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+042075 VOTE S5 开始选举 term为3 
+042076 VOTE S5开始向6要票
+042076 VOTE S5开始向0要票
+042076 VOTE S5开始向4要票
+042076 VOTE S5开始向2要票
+042076 VOTE S5开始向1要票
+042076 VOTE S5开始向3要票
+042078 VOTE S5 term 5 的情况下 向0要票结束, 结果为false
+042078 VOTE S5 term 5 的情况下 向4要票结束, 结果为false
+042078 VOTE S5 term 5 的情况下 向6要票结束, 结果为false
+042755 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+042789 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+043597 LEAD S3 :i am leader
+044118 VOTE S2 选举时连接5 失败
+045607 LEAD S3 :i am leader
+045779 VOTE S4 选举时连接5 失败
+045903 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+045918 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+046031 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+046033 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+046824 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+047314 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+047621 LEAD S3 :i am leader
+048017 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+048784 VOTE S5 选举时连接0 失败
+048900 VOTE S6 开始选举 term为6 
+048902 VOTE S6开始向5要票
+048905 VOTE S6开始向2要票
+048910 VOTE S6开始向0要票
+048915 VOTE S6 term 6 的情况下 向0要票结束, 结果为true
+048915 VOTE S6开始向1要票
+048916 VOTE S6开始向3要票
+048917 VOTE S6开始向4要票
+048917 VOTE S6 term 6 的情况下 向5要票结束, 结果为true
+048919 VOTE S6 term 6 的情况下 向4要票结束, 结果为true
+048920 LOG1 S6 选举成功
+048920 VOTE S6 选举成功 term为: 6
+048920 LEAD S6 成为leader
+048920 LEAD S6 :i am leader
+048921 LEAD S6 开始发送群体日志-----
+048921 LEAD S6 的term为 6 发送消息给5 term 为6
+048924 LEAD S6 的term为 6 发送消息给0 term 为6
+048925 LEAD S6 的term为 6 发送消息给4 term 为6
+049147 VOTE S3 选举时连接6 失败
+049632 LEAD S3 :i am leader
+049799 VOTE S2 开始选举 term为6 
+049800 VOTE S2开始向6要票
+049800 VOTE S2开始向0要票
+049800 VOTE S2开始向4要票
+049800 VOTE S2开始向1要票
+049800 VOTE S2开始向5要票
+049800 VOTE S2开始向3要票
+049889 INFO S6 think itself is leader ,term is 6
+==================第 5 轮check完成===========================
+==================第 6 轮===========================
+050854 VOTE S3 选举时连接0 失败
+050929 LEAD S6 :i am leader
+050948 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+051129 VOTE S6 选举时连接2 失败
+051131 VOTE S0 选举时连接5 失败
+051175 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+051643 LEAD S3 :i am leader
+051651 LEAD S3 的term为 5 发送消息给0 term 为6
+051653 LEAD S3 给S0发送信息后放弃成为lead
+051662 LEAD S3 的term为 5 发送消息给5 term 为6
+052395 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+052732 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+052778 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+052932 LEAD S6 :i am leader
+053928 VOTE S2 选举时连接5 失败
+054044 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+054945 LEAD S6 :i am leader
+055080 VOTE S2选举结束,2 票数:1 继续选举
+055080 VOTE S2 开始选举 term为7 
+055081 VOTE S2开始向1要票
+055081 VOTE S2开始向3要票
+055081 VOTE S2开始向6要票
+055081 VOTE S2开始向0要票
+055081 VOTE S2开始向5要票
+055081 VOTE S2开始向4要票
+055083 VOTE S2 term 7 的情况下 向3要票结束, 结果为true
+055083 VOTE S2 term 7 的情况下 向0要票结束, 结果为true
+055084 VOTE S2 term 7 的情况下 向5要票结束, 结果为true
+055084 LOG1 S2 选举成功
+055084 LEAD S3 的term为 5 发送消息给2 term 为7
+055084 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+055085 VOTE S2 选举成功 term为: 7
+055085 LEAD S2 成为leader
+055085 LEAD S2 :i am leader
+055085 LEAD S2 开始发送群体日志-----
+055087 LEAD S2 的term为 7 发送消息给3 term 为7
+055087 LEAD S2 的term为 7 发送消息给5 term 为7
+055087 LEAD S2 的term为 7 发送消息给0 term 为7
+055158 VOTE S0 选举时连接3 失败
+055888 VOTE S1 开始选举 term为6 
+055891 VOTE S1开始向6要票
+055892 VOTE S1开始向0要票
+055893 VOTE S1开始向2要票
+055894 VOTE S1开始向3要票
+055896 VOTE S1开始向4要票
+055896 VOTE S1开始向5要票
+056947 LEAD S6 :i am leader
+056991 VOTE S6 选举时连接2 失败
+057074 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+057089 LEAD S2 :i am leader
+057094 LEAD S2 的term为 7 发送消息给0 term 为7
+057099 LEAD S2 的term为 7 发送消息给3 term 为7
+057103 LEAD S2 的term为 7 发送消息给5 term 为7
+057449 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+058399 VOTE S4 开始选举 term为7 
+058404 VOTE S4开始向6要票
+058406 VOTE S4开始向2要票
+058409 VOTE S4开始向3要票
+058409 VOTE S4开始向5要票
+058410 VOTE S4开始向0要票
+058410 VOTE S4开始向1要票
+058576 VOTE S1 选举时连接3 失败
+058664 VOTE S0 选举时连接1 失败
+058956 LEAD S6 :i am leader
+059043 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+059105 LEAD S2 :i am leader
+059112 LEAD S2 的term为 7 发送消息给3 term 为7
+059113 LEAD S2 的term为 7 发送消息给5 term 为7
+059116 LEAD S2 的term为 7 发送消息给0 term 为7
+059183 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+059615 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+060025 INFO S2 think itself is leader ,term is 7
+==================第 6 轮check完成===========================
+==================第 7 轮===========================
+060301 VOTE S1选举结束,1 票数:1 继续选举
+060301 VOTE S1 开始选举 term为7 
+060301 VOTE S1开始向0要票
+060302 VOTE S1开始向6要票
+060302 VOTE S1开始向3要票
+060302 VOTE S1开始向2要票
+060302 VOTE S1开始向5要票
+060302 VOTE S1开始向4要票
+060304 VOTE S1 term 7 的情况下 向6要票结束, 结果为true
+060304 VOTE S1 term 7 的情况下 向3要票结束, 结果为false
+060304 VOTE S1 term 7 的情况下 向0要票结束, 结果为false
+060964 LEAD S6 :i am leader
+061118 LEAD S2 :i am leader
+063040 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+063064 VOTE S0 选举时连接2 失败
+063124 LEAD S2 :i am leader
+064002 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+064846 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+065058 VOTE S1选举结束,1 票数:2 继续选举
+065058 VOTE S1 开始选举 term为8 
+065058 VOTE S1开始向6要票
+065058 VOTE S1开始向2要票
+065059 VOTE S1开始向4要票
+065059 VOTE S1开始向5要票
+065059 VOTE S1开始向3要票
+065058 VOTE S1开始向0要票
+065061 VOTE S1 term 8 的情况下 向6要票结束, 结果为true
+065061 VOTE S1 term 8 的情况下 向3要票结束, 结果为true
+065062 VOTE S1 term 8 的情况下 向0要票结束, 结果为true
+065062 LOG1 S1 选举成功
+065062 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+065062 VOTE S1 选举成功 term为: 8
+065063 LEAD S1 成为leader
+065063 LEAD S1 :i am leader
+065063 LEAD S1 开始发送群体日志-----
+065064 LEAD S1 的term为 8 发送消息给3 term 为8
+065065 LEAD S1 的term为 8 发送消息给6 term 为8
+065065 LEAD S1 的term为 8 发送消息给0 term 为8
+065087 VOTE S4选举结束,4 票数:1 继续选举
+065087 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+065088 VOTE S4 开始选举 term为8 
+065088 VOTE S4开始向6要票
+065088 VOTE S4开始向0要票
+065088 VOTE S4开始向3要票
+065088 VOTE S4开始向1要票
+065088 VOTE S4开始向2要票
+065088 VOTE S4开始向5要票
+065129 LEAD S2 :i am leader
+065565 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+065972 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+066585 VOTE S1 选举时连接2 失败
+067077 LEAD S1 :i am leader
+067089 LEAD S1 的term为 8 发送消息给6 term 为8
+067094 LEAD S1 的term为 8 发送消息给0 term 为8
+067098 LEAD S1 的term为 8 发送消息给3 term 为8
+067150 LEAD S2 :i am leader
+067165 VOTE S4 选举时连接1 失败
+068496 VOTE S5 开始选举 term为8 
+068499 VOTE S5开始向6要票
+068501 VOTE S5开始向2要票
+068502 VOTE S5开始向4要票
+068502 VOTE S5开始向0要票
+068502 VOTE S5开始向3要票
+068503 VOTE S5开始向1要票
+069102 LEAD S1 :i am leader
+069110 LEAD S1 的term为 8 发送消息给3 term 为8
+069112 LEAD S1 的term为 8 发送消息给0 term 为8
+069114 LEAD S1 的term为 8 发送消息给6 term 为8
+069158 LEAD S2 :i am leader
+069169 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+069915 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+070126 VOTE S3 选举时连接5 失败
+070370 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+070463 INFO S1 think itself is leader ,term is 8
+==================第 7 轮check完成===========================
+==================第 8 轮===========================
+070793 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+071116 LEAD S1 :i am leader
+071124 LEAD S1 的term为 8 发送消息给3 term 为8
+071124 LEAD S1 的term为 8 发送消息给0 term 为8
+071131 LEAD S1 的term为 8 发送消息给2 term 为7
+071168 LEAD S2 :i am leader
+071508 VOTE S4选举结束,4 票数:1 继续选举
+071509 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+071510 LEAD S1 的term为 8 发送消息给4 term 为8
+071511 VOTE S4 退出选举
+071733 VOTE S3 选举时连接4 失败
+072095 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+073058 VOTE S1 选举时连接2 失败
+073191 VOTE S1 选举时连接5 失败
+073373 VOTE S5选举结束,5 票数:1 继续选举
+073373 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+073376 VOTE S5 开始选举 term为9 
+073386 VOTE S5开始向2要票
+073388 VOTE S5开始向0要票
+073389 VOTE S5开始向1要票
+073390 VOTE S5开始向3要票
+073390 VOTE S5开始向4要票
+073393 VOTE S5开始向6要票
+073410 VOTE S1 选举时连接6 失败
+073525 LEAD S1 :i am leader
+073533 LEAD S1 的term为 8 发送消息给4 term 为8
+073533 LEAD S1 的term为 8 发送消息给2 term 为8
+073537 LEAD S1 的term为 8 发送消息给3 term 为8
+073539 LEAD S1 的term为 8 发送消息给0 term 为8
+073764 VOTE S6 选举时连接0 失败
+074085 VOTE S3 选举时连接1 失败
+074275 VOTE S1 选举时连接4 失败
+074573 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+074599 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+075044 VOTE S5 选举时连接4 失败
+075545 LEAD S1 :i am leader
+075554 LEAD S1 的term为 8 发送消息给0 term 为8
+075558 LEAD S1 的term为 8 发送消息给2 term 为8
+075562 LEAD S1 的term为 8 发送消息给3 term 为8
+075565 LEAD S1 的term为 8 发送消息给4 term 为8
+075725 INFO S1 think itself is leader ,term is 8
+==================第 8 轮check完成===========================
+075929 VOTE S0 选举时连接5 失败
+076175 VOTE S6 选举时连接3 失败
+076916 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+076989 TRCE S6 的lastApplied为 0 commitIndex为 0 log长度为 1
+077129 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+077361 VOTE S3 选举时连接5 失败
+077371 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+077576 LEAD S1 :i am leader
+077589 LEAD S1 的term为 8 发送消息给6 term 为8
+077591 LEAD S1 的term为 8 发送消息给4 term 为8
+077612 LEAD S1 的term为 8 发送消息给3 term 为8
+077617 LEAD S1 的term为 8 发送消息给2 term 为8
+077621 LEAD S1 的term为 8 发送消息给0 term 为8
+078722 VOTE S3 选举时连接2 失败
+079063 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+079348 VOTE S6 选举时连接5 失败
+079627 LEAD S1 :i am leader
+079636 LEAD S1 的term为 8 发送消息给0 term 为8
+079640 LEAD S1 的term为 8 发送消息给2 term 为8
+079644 LEAD S1 的term为 8 发送消息给3 term 为8
+079647 LEAD S1 的term为 8 发送消息给4 term 为8
+079654 LEAD S1 的term为 8 发送消息给6 term 为8
+079777 VOTE S5选举结束,5 票数:1 继续选举
+079779 VOTE S5 开始选举 term为10 
+079780 VOTE S5开始向6要票
+079783 VOTE S5开始向1要票
+079786 VOTE S5 term 10 的情况下 向6要票结束, 结果为true
+079786 VOTE S5开始向2要票
+079787 VOTE S5 term 10 的情况下 向1要票结束, 结果为true
+079788 VOTE S5开始向0要票
+079790 VOTE S5 term 10 的情况下 向2要票结束, 结果为true
+079791 LOG1 S5 选举成功
+079793 LEAD S1 的term为 8 发送消息给5 term 为10
+079793 LEAD S1 的term为 8 发送消息给5 term 为10
+079796 VOTE S5开始向3要票
+079799 VOTE S5 term 10 的情况下 向3要票结束, 结果为true
+079799 VOTE S5开始向4要票
+079802 VOTE S5 term 10 的情况下 向4要票结束, 结果为true
+079803 VOTE S5 选举成功 term为: 10
+079803 LEAD S5 成为leader
+079803 LEAD S5 :i am leader
+079805 LEAD S5 的term为 10 发送消息给6 term 为10
+079809 LEAD S5 开始发送群体日志-----
+079811 LEAD S5 的term为 10 发送消息给0 term 为10
+079814 LEAD S5 的term为 10 发送消息给1 term 为10
+079826 TRCE S5 的lastApplied为 0 commitIndex为 0 log长度为 1
+079828 VOTE S5 term 10 的情况下 向0要票结束, 结果为true
+079829 LEAD S5 的term为 10 发送消息给4 term 为10
+079829 LEAD S5 的term为 10 发送消息给3 term 为10
+079829 LEAD S5 的term为 10 发送消息给2 term 为10
+080462 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+080627 INFO S5 think itself is leader ,term is 10
+  ... Passed --   8.1  7  396   77762    0
+PASS
+ok  	6.5840/raft	8.075s
