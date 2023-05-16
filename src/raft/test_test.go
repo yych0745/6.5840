@@ -524,8 +524,9 @@ func TestBackup2B(t *testing.T) {
 	cfg.disconnect((leader1 + 3) % servers)
 	cfg.disconnect((leader1 + 4) % servers)
 
+	nums := 50
 	// submit lots of commands that won't commit
-	for i := 0; i < 50; i++ {
+	for i := 0; i < nums; i++ {
 		cfg.rafts[leader1].Start(rand.Int())
 	}
 
@@ -533,6 +534,7 @@ func TestBackup2B(t *testing.T) {
 
 	cfg.disconnect((leader1 + 0) % servers)
 	cfg.disconnect((leader1 + 1) % servers)
+	Debug(dLeader, "S%d S%d断开连接", leader1+0, (leader1+1)%servers)
 
 	// allow other partition to recover
 	cfg.connect((leader1 + 2) % servers)
@@ -540,12 +542,14 @@ func TestBackup2B(t *testing.T) {
 	cfg.connect((leader1 + 4) % servers)
 
 	// lots of successful commands to new group.
-	for i := 0; i < 50; i++ {
+	for i := 0; i < nums; i++ {
 		cfg.one(rand.Int(), 3, true)
 	}
 
 	// now another partitioned leader and one follower
 	leader2 := cfg.checkOneLeader()
+	Debug(dCommit, "S%d 提交完成", leader2)
+
 	other := (leader1 + 2) % servers
 	if leader2 == other {
 		other = (leader2 + 1) % servers
@@ -553,9 +557,12 @@ func TestBackup2B(t *testing.T) {
 	cfg.disconnect(other)
 
 	// lots more commands that won't commit
-	for i := 0; i < 50; i++ {
+	Debug(dCommit, "下面是不需要提交内容")
+	for i := 0; i < nums; i++ {
 		cfg.rafts[leader2].Start(rand.Int())
 	}
+	// cfg.rafts[leader2].Start(3)
+	Debug(dCommit, "上面是不需要提交内容")
 
 	time.Sleep(RaftElectionTimeout / 2)
 
@@ -566,9 +573,11 @@ func TestBackup2B(t *testing.T) {
 	cfg.connect((leader1 + 0) % servers)
 	cfg.connect((leader1 + 1) % servers)
 	cfg.connect(other)
+	Debug(dLeader, "S%d 是other", other)
 
 	// lots of successful commands to new group.
-	for i := 0; i < 50; i++ {
+	Debug(dCommit, "下面是需要提交内容")
+	for i := 0; i < nums; i++ {
 		cfg.one(rand.Int(), 3, true)
 	}
 
@@ -577,6 +586,7 @@ func TestBackup2B(t *testing.T) {
 		cfg.connect(i)
 	}
 	cfg.one(rand.Int(), servers, true)
+	Debug(dCommit, "上面是不需要提交内容")
 
 	cfg.end()
 }

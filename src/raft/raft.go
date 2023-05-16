@@ -20,7 +20,8 @@ package raft
 import (
 	//	"bytes"
 
-	"fmt"
+	"bytes"
+	"errors"
 	"log"
 	"math/rand"
 	"sync"
@@ -28,6 +29,7 @@ import (
 	"time"
 
 	//	"6.5840/labgob"
+	"6.5840/labgob"
 	"6.5840/labrpc"
 )
 
@@ -62,15 +64,15 @@ type Raft struct {
 
 	// Your data here (2A, 2B, 2C).
 	leaderId      int
-	term          int
+	Term          int
 	startElection bool
 	electionChan  chan RequestVoteReply
 	heartChan     chan AppendEntrieReply
 	applyMsgChan  chan ApplyMsg
 	// endChan       chan End
-	votedFor int
+	VotedFor int
 	rlock    sync.Mutex
-	log      []LogEntry
+	Log      []LogEntry
 
 	commitIndex int //index of highest log entry known to becommitted (initialized to 0, increasesmonotonically)
 	lastApplied int
@@ -98,10 +100,10 @@ func (rf *Raft) GetState() (int, bool) {
 	rf.rlock.Lock()
 	var term int
 	var isleader bool
-	term = rf.term
+	term = rf.Term
 	if rf.leaderId == rf.me {
 		isleader = true
-		Debug(dInfo, "S%d think itself is leader ,term is %d\n", rf.me, rf.term)
+		Debug(dInfo, "S%d think itself is leader ,term is %d\n", rf.me, rf.Term)
 	}
 	rf.rlock.Unlock()
 	// Your code here (2A).
@@ -124,12 +126,34 @@ func (rf *Raft) persist() {
 	// e.Encode(rf.yyy)
 	// raftstate := w.Bytes()
 	// rf.persister.Save(raftstate, nil)
+
+	w := new(bytes.Buffer)
+	e := labgob.NewEncoder(w)
+	e.Encode(rf.Term)
+	e.Encode(rf.VotedFor)
+	e.Encode(rf.Log)
+	raftstate := w.Bytes()
+	rf.persister.Save(raftstate, nil)
 }
 
 // restore previously persisted state.
 func (rf *Raft) readPersist(data []byte) {
 	if data == nil || len(data) < 1 { // bootstrap without any state?
 		return
+	}
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+	var term int
+	var votedFor int
+	var log []LogEntry
+	if d.Decode(&term) != nil ||
+		d.Decode(&votedFor) != nil || d.Decode(&log) != nil {
+		panic(errors.New("错误"))
+		//   error...
+	} else {
+		rf.Term = term
+		rf.VotedFor = votedFor
+		rf.Log = log
 	}
 	// Your code here (2C).
 	// Example:
@@ -240,7 +264,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 
 	// Your code here (2B).
 	rf.rlock.Lock()
-	term = rf.term
+	term = rf.Term
 	if rf.leaderId == rf.me {
 		isLeader = true
 	}
@@ -248,13 +272,14 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		rf.rlock.Unlock()
 		return index, term, isLeader
 	}
-	entry := LogEntry{Term: rf.term, Command: command}
-	rf.log = append(rf.log, entry)
-	Debug(dTrace, "S%d 增加了日志 %v 当前日志为: %v", rf.me, entry, rf.log)
-	index = len(rf.log) - 1
+	entry := LogEntry{Term: rf.Term, Command: command}
+	rf.Log = append(rf.Log, entry)
+	rf.persist()
+	// Debug(dTrace, "S%d 增加了日志 %v 当前日志为: %v", rf.me, entry, rf.log)
+	index = len(rf.Log) - 1
 	rf.rlock.Unlock()
 
-	Debug(dCommit, "S%d 接收到的命令为%v 返回值 index: %d, term %d, isLeader %v", rf.me, command, index, term, isLeader)
+	// Debug(dCommit, "S%d 接收到的命令为%v 返回值 index: %d, term %d, isLeader %v", rf.me, command, index, term, isLeader)
 	return index, term, isLeader
 }
 
@@ -291,7 +316,7 @@ func (rf *Raft) ticker() {
 			// 如果从follow中退出，那就进入election
 			if rf.election() {
 				rf.rlock.Lock()
-				Debug(dVote, "S%d 选举成功 term为: %d\n", rf.me, rf.term)
+				Debug(dVote, "S%d 选举成功 term为: %d\n", rf.me, rf.Term)
 				rf.leaderId = rf.me
 				rf.rlock.Unlock()
 			}
@@ -299,7 +324,7 @@ func (rf *Raft) ticker() {
 
 			Debug(dLeader, "S%d 成为leader\n", rf.me)
 			for i, _ := range rf.peers {
-				rf.nextIndex[i] = len(rf.log)
+				rf.nextIndex[i] = len(rf.Log)
 			}
 			rf.matchIndex = make([]int, len(rf.peers))
 			rf.rlock.Unlock()
@@ -313,19 +338,18 @@ func (rf *Raft) ticker() {
 func (rf *Raft) commit() {
 	for rf.killed() == false {
 		rf.rlock.Lock()
-		Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, len(rf.log))
-		if rf.lastApplied < rf.commitIndex {
-			fmt.Println("commitIndex:", rf.commitIndex)
+		Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, len(rf.Log))
+		for rf.lastApplied < rf.commitIndex {
 			index := rf.lastApplied + 1
-			msg := ApplyMsg{CommandIndex: index, Command: rf.log[index].Command, CommandValid: true}
-			Debug(dTrace, "S%d 提交了日志 %v", rf.me, msg.Command)
+			msg := ApplyMsg{CommandIndex: index, Command: rf.Log[index].Command, CommandValid: true}
+			Debug(dTrace, "S%d 提交了日志 %+v", rf.me, msg)
 			rf.applyMsgChan <- msg
 			rf.lastApplied = index
 		}
 		if rf.me == rf.leaderId {
 
 			sum := 0
-			rf.matchIndex[rf.me] = len(rf.log) - 1
+			rf.matchIndex[rf.me] = len(rf.Log) - 1
 			for _, v := range rf.matchIndex {
 				if v > rf.commitIndex {
 					sum++
@@ -337,16 +361,15 @@ func (rf *Raft) commit() {
 			}
 		}
 		rf.rlock.Unlock()
-		ms := (rand.Int63()%300 + 400)
+		ms := 100
 		time.Sleep(time.Duration(ms) * time.Millisecond)
 	}
 }
 
 func (rf *Raft) lead() {
-	// 发送hearbeat
 	go rf.groupLogReplication()
 	for {
-		Debug(dLeader, "S%d :i am leader\n", rf.me)
+		// Debug(dLeader, "S%d :i am leader\n", rf.me)
 		rf.rlock.Lock()
 		if rf.killed() {
 			rf.rlock.Unlock()
@@ -357,14 +380,18 @@ func (rf *Raft) lead() {
 			return
 		}
 		args := AppendEntrieArgs{}
-		args.Term = rf.term
+		args.Term = rf.Term
 		args.LeaderId = rf.me
-		args.LeaderCommit = rf.commitIndex
 		rf.rlock.Unlock()
 		for i, peer := range rf.peers {
 			if i == rf.me {
 				continue
 			}
+			rf.rlock.Lock()
+			args.PrevLogIndex = rf.nextIndex[i] - 1
+			args.PrevLogTerm = rf.Log[args.PrevLogIndex].Term
+			args.LeaderCommit = min(rf.commitIndex, args.PrevLogIndex)
+			rf.rlock.Unlock()
 			go rf.heartbeat(i, peer, args)
 		}
 		ms := 200
@@ -376,9 +403,9 @@ func (rf *Raft) lead() {
 					continue
 				}
 				rf.rlock.Lock()
-				if rf.term < reply.Term {
+				if rf.Term < reply.Term {
 					Debug(dLeader, "S%d 给S%d发送信息后放弃成为lead\n", rf.me, reply.Id)
-					rf.term = reply.Term
+					rf.Term = reply.Term
 					rf.leaderId = -1
 					rf.startElection = false
 					rf.rlock.Unlock()
@@ -404,41 +431,67 @@ func (rf *Raft) groupLogReplication() {
 }
 
 func (rf *Raft) logReplication(id int, peer *labrpc.ClientEnd) {
+	firstEqual := false
 	for !rf.killed() {
-		ms := 400
+		ms := 50
 		time.Sleep(time.Duration(ms) * time.Millisecond)
+		// args.LeaderCommit = rf.commitIndex
 		rf.rlock.Lock()
-
-		if rf.leaderId != rf.me {
-			rf.rlock.Unlock()
-			return
-		}
-		args := AppendEntrieArgs{}
-		args.Term = rf.term
-		args.LeaderId = rf.me
-		args.LeaderCommit = rf.commitIndex
-		if rf.nextIndex[id] < len(rf.log) {
+		if rf.nextIndex[id] < len(rf.Log) {
+			// rf.rlock.Lock()
+			if rf.me != rf.leaderId {
+				rf.rlock.Unlock()
+				return
+			}
+			args := AppendEntrieArgs{}
+			args.Term = rf.Term
+			args.LeaderId = rf.me
 			reply := AppendEntrieReply{}
-			o := LogEntry{Term: rf.term, Command: rf.log[rf.nextIndex[id]].Command}
 			args.PrevLogIndex = rf.nextIndex[id] - 1
-			args.PrevLogTerm = rf.log[args.PrevLogIndex].Term
-			args.Entries = []LogEntry{o}
+			args.PrevLogTerm = rf.Log[args.PrevLogIndex].Term
+			args.LeaderCommit = min(rf.commitIndex, args.PrevLogIndex)
+			if firstEqual {
+				for i := rf.nextIndex[id]; i < len(rf.Log); i++ {
+					o := LogEntry{Term: rf.Log[i].Term, Command: rf.Log[i].Command}
+					args.Entries = append(args.Entries, o)
+				}
+			} else {
+				for i := rf.nextIndex[id]; i < rf.nextIndex[id]+1; i++ {
+					o := LogEntry{Term: rf.Log[i].Term, Command: rf.Log[i].Command}
+					args.Entries = append(args.Entries, o)
+				}
+			}
 			rf.rlock.Unlock()
-			Debug(dLeader, "S%d 发送日志%+v 给S%d", rf.me, args, id)
+			// Debug(dLeader, "S%d 发送日志%+v 给S%d", rf.me, args, id)
 			ok := peer.Call("Raft.AppendEntrie", args, &reply)
 
 			if !ok {
 				continue
 			}
-			if !reply.Success {
-				continue
-			}
 			rf.rlock.Lock()
-			rf.nextIndex[id]++
-			rf.matchIndex[reply.Id] = rf.nextIndex[reply.Id] - 1
+			if reply.Success {
+				if firstEqual {
+					rf.nextIndex[id] = len(rf.Log)
+				} else {
+					rf.nextIndex[id]++
+					firstEqual = true
+				}
+				rf.matchIndex[reply.Id] = rf.nextIndex[reply.Id] - 1
+			} else {
+				if reply.Term > rf.Term {
+					// Debug(dLeader, "S%d 给S%d发送日志后放弃成为lead\n", rf.me, reply.Id)
+					rf.Term = reply.Term
+					rf.leaderId = -1
+					rf.startElection = false
+					rf.persist()
+					rf.rlock.Unlock()
+					return
+				}
+				rf.nextIndex[id]--
+			}
+			// rf.rlock.Unlock()
 		}
 		rf.rlock.Unlock()
-		// fmt.Printf("------------------S%v解锁3\n------------------------", rf.me)
 	}
 }
 
@@ -454,51 +507,55 @@ func (rf *Raft) heartbeat(u int, peer *labrpc.ClientEnd, args AppendEntrieArgs) 
 func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	reply.Id = rf.me
 	rf.rlock.Lock()
-	Debug(dLeader, "S%d 的term为 %d 发送消息给%d term 为%d\n", args.LeaderId, args.Term, rf.me, rf.term)
-	if args.Term < rf.term {
+	// Debug(dLeader, "S%d 的term为 %d 发送消息给%d term 为%d\n", args.LeaderId, args.Term, rf.me, rf.term)
+	if args.Term < rf.Term {
 		reply.Success = false
-		reply.Term = rf.term
+		reply.Term = rf.Term
 		rf.rlock.Unlock()
 		return
 	}
-	if args.Term > rf.term {
+	if args.Term > rf.Term {
 		rf.leaderId = args.LeaderId
 	}
 	rf.startElection = false
 	reply.Success = true
-	rf.term = args.Term
-	reply.Term = rf.term
-	if args.LeaderCommit > rf.commitIndex {
-		rf.commitIndex = min(args.LeaderCommit, len(rf.log)-1)
+	rf.Term = args.Term
+	reply.Term = rf.Term
+	rf.persist()
+
+	// Debug(dLeader, "S%d 目前有%v日志, 接收S%d 的日志index为 %d term为 %d", rf.me, rf.log, args.LeaderId, args.PrevLogIndex, args.PrevLogTerm)
+
+	if args.PrevLogIndex == -1 || args.PrevLogIndex < len(rf.Log) && rf.Log[args.PrevLogIndex].Term == args.PrevLogTerm {
+		if args.LeaderCommit > rf.commitIndex {
+			rf.commitIndex = min(args.LeaderCommit, len(rf.Log)-1)
+			Debug(dCommit, "S%d 更改commitIndex为 %d", rf.me, rf.commitIndex)
+		}
 	}
 
 	if len(args.Entries) == 0 {
 		rf.rlock.Unlock()
 		return
 	}
-	// if len(args.Entries) > 0 {
-	// 	rf.log = append(rf.log, args.Entries...)
-	// 	Debug(dTrace, "S%d 获取到了S%d 增加给的%v日志，目前S%d 有%v日志", rf.me, args.LeaderId, args.Entries, rf.me, rf.log)
-	// }
 
-	if args.PrevLogIndex == -1 || rf.log[args.PrevLogIndex].Term == args.PrevLogTerm {
+	if args.PrevLogIndex >= len(rf.Log) {
+		rf.rlock.Unlock()
+		reply.Success = false
+		return
+	}
+
+	if args.PrevLogIndex == -1 || rf.Log[args.PrevLogIndex].Term == args.PrevLogTerm {
 		reply.NotHearbeat = true
 		// 如果是加在当前日志的最后一个，那么直接加上
-		if len(rf.log) == args.PrevLogIndex+1 {
-			rf.log = append(rf.log, args.Entries[0])
+		if len(rf.Log) == args.PrevLogIndex+1 {
+			rf.Log = append(rf.Log, args.Entries...)
 		} else {
-			rf.log[args.PrevLogIndex+1] = args.Entries[0]
+			rf.Log = append(rf.Log[:args.PrevLogIndex+1], args.Entries...)
 		}
-		Debug(dTrace, "S%d 接收到S%d的内容 %+v 当前S%d的日志为 %v commitIndex为", rf.me, args.LeaderId, args, rf.me, rf.log, rf.commitIndex)
-		// 这个按照论文来的，但是没太理解为啥
-	} else {
-		if len(rf.log) == args.PrevLogIndex+1 {
-			rf.log = rf.log[:len(rf.log) - 1]
-		} else {
-			rf.log = rf.log[:args.PrevLogIndex + 1]
-		}
+	} else if rf.Log[args.PrevLogIndex].Term != args.PrevLogTerm {
 		reply.Success = false
+		rf.Log = rf.Log[:args.PrevLogIndex]
 	}
+	// Debug(dLeader, "S%d 接收到S%d的内容 %+v 当前S%d的日志为 %v commitIndex为 %d", rf.me, args.LeaderId, args, rf.me, rf.log, rf.commitIndex)
 
 	rf.rlock.Unlock()
 }
@@ -525,9 +582,9 @@ func (rf *Raft) follow() {
 }
 
 func (rf *Raft) election() bool {
-	defer rf.rlock.Unlock()
+	// defer rf.rlock.Unlock()
 	if !rf.preElection1() {
-		rf.rlock.Lock()
+		// rf.rlock.Lock()
 		return false
 	}
 	Debug(dVote, "S%d 开始正式选举", rf.me)
@@ -536,12 +593,13 @@ func (rf *Raft) election() bool {
 		rf.rlock.Lock()
 		if !rf.startElection {
 			Debug(dVote, "S%d 退出选举\n", rf.me)
+			rf.rlock.Unlock()
 			return false
 		}
-		rf.term++
-		Debug(dVote, "S%d 开始选举 term为%d \n", rf.me, rf.term)
+		rf.Term++
+		Debug(dVote, "S%d 开始选举 term为%d \n", rf.me, rf.Term)
 		votedNum := 1
-		rf.votedFor = rf.me
+		rf.VotedFor = rf.me
 		rf.rlock.Unlock()
 
 		for i, peer := range rf.peers {
@@ -553,31 +611,36 @@ func (rf *Raft) election() bool {
 			args := RequestVoteArgs{}
 			args.CandidateId = rf.me
 
-			args.Term = rf.term
+			args.Term = rf.Term
 
-			args.LastLogIndex = len(rf.log) - 1
-			args.LastLogTerm = rf.log[args.LastLogIndex].Term
+			args.LastLogIndex = len(rf.Log) - 1
+			args.LastLogTerm = rf.Log[args.LastLogIndex].Term
+
+			args.Term = rf.Term
 
 			rf.rlock.Unlock()
 			go rf.electionRequest(i, peer, args)
 		}
 		reply := RequestVoteReply{}
-		ms := (rand.Int63()%300 + 400)
+		ms := (rand.Int63()%200 + 300)
 		rf.rlock.Lock()
 	ForEnd:
 		for {
 			select {
 			case reply = <-rf.electionChan:
 				conectNum += 1
-				if reply.Term == rf.term && reply.VoteGranted {
+				if reply.Term == rf.Term && reply.VoteGranted {
 					votedNum++
 					if votedNum*2 > len(rf.peers) {
 						Debug(dLog, "S%d 选举成功", rf.me)
 						// log.Println(rf.me, "选举成功")
+						rf.rlock.Unlock()
 						return true
 					}
-				} else if reply.Term > rf.term {
-					rf.term = reply.Term
+				} else if reply.Term > rf.Term {
+					rf.Term = reply.Term
+					// rf.persist()
+					rf.rlock.Unlock()
 					return false
 				}
 			case <-time.After(time.Duration(ms) * time.Millisecond):
@@ -586,9 +649,11 @@ func (rf *Raft) election() bool {
 		}
 		if votedNum*2 > len(rf.peers) {
 			log.Println(rf.me, "选举成功")
+			rf.rlock.Unlock()
 			return true
 		}
 		if conectNum*2 <= len(rf.peers) {
+			rf.rlock.Unlock()
 			return false
 		}
 		rf.rlock.Unlock()
@@ -596,6 +661,7 @@ func (rf *Raft) election() bool {
 		Debug(dVote, "S%d选举结束,%d 票数:%d 继续选举\n", rf.me, rf.me, votedNum)
 	}
 	rf.rlock.Lock()
+	rf.rlock.Unlock()
 	return false
 }
 
@@ -607,10 +673,11 @@ func (rf *Raft) preElection1() bool {
 		Debug(dVote, "S%d 退出预选举\n", rf.me)
 		return false
 	}
-	term := rf.term + 1
-	Debug(dVote, "S%d 开始预选举 term为%d \n", rf.me, rf.term)
+	term := rf.Term + 1
+	Debug(dVote, "S%d 开始预选举 term为%d \n", rf.me, rf.Term)
 	votedNum := 1
-	rf.votedFor = rf.me
+	rf.VotedFor = rf.me
+	rf.persist()
 	rf.rlock.Unlock()
 
 	for i, peer := range rf.peers {
@@ -621,16 +688,15 @@ func (rf *Raft) preElection1() bool {
 
 		args := RequestVoteArgs{}
 		args.CandidateId = rf.me
-
-		args.LastLogIndex = len(rf.log) - 1
-		args.LastLogTerm = rf.log[args.LastLogIndex].Term
+		args.LastLogIndex = len(rf.Log) - 1
+		args.LastLogTerm = rf.Log[args.LastLogIndex].Term
 		args.Term = term
 
 		rf.rlock.Unlock()
 		go rf.electionRequest(i, peer, args)
 	}
 	reply := RequestVoteReply{}
-	ms := (rand.Int63()%300 + 400)
+	ms := (rand.Int63()%200 + 300)
 	rf.rlock.Lock()
 ForEnd:
 	for {
@@ -645,8 +711,9 @@ ForEnd:
 					return true
 				}
 			} else if reply.Term > term {
-				rf.term = reply.Term
-				rf.votedFor = -1
+				rf.Term = reply.Term
+				rf.VotedFor = -1
+				rf.persist()
 				return false
 			}
 		case <-time.After(time.Duration(ms) * time.Millisecond):
@@ -658,23 +725,21 @@ ForEnd:
 		return true
 	}
 	Debug(dVote, "S%d 预选举失败，获得%d票数", rf.me, votedNum)
-	rf.votedFor = -1
+	rf.VotedFor = -1
+	rf.persist()
 	return false
 }
 
 func (rf *Raft) electionRequest(u int, peer *labrpc.ClientEnd, args RequestVoteArgs) {
-	// rf.rlock.Lock()
 	Debug(dVote, "S%d开始向%d要票\n", rf.me, u)
 	reply := RequestVoteReply{}
 	ok := peer.Call("Raft.RequestVote", args, &reply)
 	if !ok {
-		Debug(dVote, "S%d 选举时连接%d 失败\n", u, rf.me)
-		// rf.rlock.Unlock()
+		// Debug(dVote, "S%d 选举时连接%d 失败\n", u, rf.me)
 		return
 	}
 	Debug(dVote, "S%d term %d 的情况下 向%d要票结束, 结果为%v\n", rf.me, reply.Term, u, reply.VoteGranted)
 	rf.electionChan <- reply
-	// rf.rlock.Unlock()
 }
 
 func (rf *Raft) sendAppendEntrie(server int, args AppendEntrieArgs, reply *AppendEntrieReply) bool {
@@ -689,32 +754,41 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	defer rf.rlock.Unlock()
 	rf.rlock.Lock()
 	// Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 %+v", args.CandidateId, args, rf.me, rf)
-	Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 log: %+v, term: %d, votedFor: %d", args.CandidateId, args, rf.me, rf.log, rf.term, rf.votedFor)
-	if rf.term > args.Term {
-		reply.Term = rf.term
+	Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 log: %+v, term: %d, votedFor: %d", args.CandidateId, args, rf.me, rf.Log, rf.Term, rf.VotedFor)
+	if rf.Term > args.Term {
+		reply.Term = rf.Term
 		reply.VoteGranted = false
+		Debug(dVote, "S%d 拒绝给S%d 投票1,", rf.me, args.CandidateId)
 		return
 	}
-	if args.LastLogTerm < rf.log[len(rf.log)-1].Term || args.LastLogTerm == rf.log[len(rf.log)-1].Term && args.LastLogIndex < len(rf.log)-1 {
+	if args.LastLogTerm < rf.Log[len(rf.Log)-1].Term || args.LastLogTerm == rf.Log[len(rf.Log)-1].Term && args.LastLogIndex < len(rf.Log)-1 {
 		reply.Term = args.Term
+		if rf.Term < args.Term {
+			rf.Term = args.Term
+			rf.persist()
+		}
+		Debug(dVote, "S%d 拒绝给S%d 投票2,", rf.me, args.CandidateId)
 		return
 	}
-	// 两边term相等，返回false
-	if rf.term == args.Term {
+
+	if rf.Term == args.Term {
 		reply.Term = args.Term
-		if rf.votedFor == -1 || rf.votedFor == args.CandidateId {
-			rf.votedFor = args.CandidateId
+		if rf.VotedFor == -1 || rf.VotedFor == args.CandidateId {
+			rf.VotedFor = args.CandidateId
+			rf.persist()
 			reply.VoteGranted = true
 		} else {
 			reply.VoteGranted = false
+			Debug(dVote, "S%d 拒绝给S%d 投票3 投票者term为: %d,", rf.me, args.CandidateId, rf.Term)
 		}
 		return
 	}
 	// 如果Candidate的term更大，那么不管什么，就投它
-	rf.term = args.Term
+	rf.Term = args.Term
 	rf.leaderId = -1
-	rf.votedFor = args.CandidateId
-	reply.Term = rf.term
+	rf.VotedFor = args.CandidateId
+	reply.Term = rf.Term
+	rf.persist()
 	reply.VoteGranted = true
 	// 收到请求投票后就重置时间
 	rf.startElection = false
@@ -738,17 +812,15 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.me = me
 
 	// Your initialization code here (2A, 2B, 2C).
-	rf.votedFor = -1
+	rf.VotedFor = -1
 	rf.leaderId = -1
 	rf.electionChan = make(chan RequestVoteReply, 10)
-
 	rf.heartChan = make(chan AppendEntrieReply, 10)
 	rf.nextIndex = make([]int, len(peers))
 	rf.matchIndex = make([]int, len(peers))
 
 	rf.applyMsgChan = applyCh
-	rf.log = append(rf.log, LogEntry{Term: -1})
-	// initialize from state persisted before a crash
+	rf.Log = append(rf.Log, LogEntry{Term: -1})
 	rf.readPersist(persister.ReadRaftState())
 
 	// start ticker goroutine to start elections

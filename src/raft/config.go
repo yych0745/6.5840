@@ -604,6 +604,12 @@ func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 		}
 	}
 	if cfg.checkFinished() == false {
+		for i := 0; i < len(cfg.rafts); i++ {
+
+			cfg.mu.Lock()
+			Debug(dInfo, "S%d 的已提交日志为%+v", i, cfg.logs[i])
+			cfg.mu.Unlock()
+		}
 		cfg.t.Fatalf("one(%v) failed to reach agreement", cmd)
 	}
 	return -1

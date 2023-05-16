@@ -1,239 +1,2054 @@
-000008 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
-000011 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
-000012 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
-Test (2B): rejoin of partitioned leader ...
-004966 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
-005506 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
-005751 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
-008512 VOTE S1 开始预选举 term为0 
-008525 VOTE S1开始向0要票
-008541 VOTE S1开始向2要票
-008559 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
-008560 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
-008566 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
-008567 VOTE S1 预选举成功
-008567 VOTE S1 开始正式选举
-008567 VOTE S1 开始选举 term为1 
-008568 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
-008570 LOG1 S1 选举成功
-008569 VOTE S1开始向0要票
-008570 VOTE S1 选举成功 term为: 1
-008572 LEAD S1 成为leader
-008570 VOTE S1开始向2要票
-008574 LEAD S1 :i am leader
-008574 LEAD S1 开始发送群体日志-----
-008580 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
-008583 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
-008585 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
-008588 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
-008592 LEAD S1 的term为 1 发送消息给2 term 为1
-008592 LEAD S1 的term为 1 发送消息给0 term 为1
-008682 TRCE S1 增加了日志 {1 101} 当前日志为: [{-1 <nil>} {1 101}]
-008683 CMIT S1 接收到的命令为101 返回值 index: 1, term 1, isLeader true
-009750 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
-010608 LEAD S1 :i am leader
-010617 LEAD S1 的term为 1 发送消息给2 term 为1
-010617 LEAD S1 的term为 1 发送消息给0 term 为1
-011785 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
-011995 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
-012590 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 给S2
-012590 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 给S0
-012619 LEAD S1 的term为 1 发送消息给0 term 为1
-012619 LEAD S1 的term为 1 发送消息给2 term 为1
-012621 TRCE S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 当前S0的日志为 [{-1 <nil>} {1 101}] commitIndex为%!(EXTRA int=0)
-012621 TRCE S2 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 当前S2的日志为 [{-1 <nil>} {1 101}] commitIndex为%!(EXTRA int=0)
-012624 LEAD S1 :i am leader
-012639 LEAD S1 的term为 1 发送消息给2 term 为1
-012641 LEAD S1 的term为 1 发送消息给0 term 为1
-014648 LEAD S1 :i am leader
-014673 LEAD S1 的term为 1 发送消息给2 term 为1
-014673 LEAD S1 的term为 1 发送消息给0 term 为1
-015789 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
-016683 LEAD S1 :i am leader
-016708 LEAD S1 的term为 1 发送消息给2 term 为1
-016709 LEAD S1 的term为 1 发送消息给0 term 为1
-017159 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
-018691 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
-018694 LEAD S1 更新commitIndex为：1
-018731 LEAD S1 :i am leader
-018747 LEAD S1 的term为 1 发送消息给2 term 为1
-018751 LEAD S1 的term为 1 发送消息给0 term 为1
-020745 TRCE S0 的lastApplied为 0 commitIndex为 1 log长度为 2
-commitIndex: 1
-020747 TRCE S0 提交了日志 101
-020756 LEAD S1 :i am leader
-020763 LEAD S1 的term为 1 发送消息给2 term 为1
-020763 LEAD S1 的term为 1 发送消息给0 term 为1
-022767 LEAD S1 :i am leader
-022805 LEAD S1 的term为 1 发送消息给0 term 为1
-022809 LEAD S1 的term为 1 发送消息给2 term 为1
-023505 TRCE S1 的lastApplied为 0 commitIndex为 1 log长度为 2
-commitIndex: 1
-023509 TRCE S1 提交了日志 101
-023912 TRCE S2 的lastApplied为 0 commitIndex为 1 log长度为 2
-commitIndex: 1
-023913 TRCE S2 提交了日志 101
-024821 LEAD S1 :i am leader
-024846 LEAD S1 的term为 1 发送消息给0 term 为1
-024847 LEAD S1 的term为 1 发送消息给2 term 为1
-026588 TRCE S0 的lastApplied为 1 commitIndex为 1 log长度为 2
-026863 LEAD S1 :i am leader
-026887 LEAD S1 的term为 1 发送消息给0 term 为1
-026887 LEAD S1 的term为 1 发送消息给2 term 为1
-028112 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
-028902 LEAD S1 :i am leader
-028928 LEAD S1 的term为 1 发送消息给0 term 为1
-028928 LEAD S1 的term为 1 发送消息给2 term 为1
-029275 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 2
-029421 INFO S1 think itself is leader ,term is 1
-029423 INFO S1 断开连接
-029423 TRCE S1 增加了日志 {1 102} 当前日志为: [{-1 <nil>} {1 101} {1 102}]
-029425 CMIT S1 接收到的命令为102 返回值 index: 2, term 1, isLeader true
-029425 TRCE S1 增加了日志 {1 103} 当前日志为: [{-1 <nil>} {1 101} {1 102} {1 103}]
-029426 CMIT S1 接收到的命令为103 返回值 index: 3, term 1, isLeader true
-029426 TRCE S1 增加了日志 {1 104} 当前日志为: [{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]
-029427 CMIT S1 接收到的命令为104 返回值 index: 4, term 1, isLeader true
-030940 LEAD S1 :i am leader
-030964 TRCE S0 的lastApplied为 1 commitIndex为 1 log长度为 2
-032660 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1} 给S2
-032660 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1} 给S0
-032815 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
-032953 LEAD S1 :i am leader
-033637 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 5
-034971 LEAD S1 :i am leader
-036977 LEAD S1 :i am leader
-037197 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 2
-037671 TRCE S0 的lastApplied为 1 commitIndex为 1 log长度为 2
-038989 LEAD S1 :i am leader
-039668 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 5
-040170 VOTE S2 开始预选举 term为1 
-040173 VOTE S2开始向0要票
-040175 VOTE S2开始向1要票
-040183 VOTE S2 要票，args为 {Term:2 CandidateId:2 LastLogIndex:1 LastLogTerm:1} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:101}], term: 1, votedFor: 1
-040189 VOTE S2 term 2 的情况下 向0要票结束, 结果为true
-040190 VOTE S2 预选举成功
-040190 VOTE S2 开始正式选举
-040191 VOTE S2 开始选举 term为2 
-040192 VOTE S2开始向0要票
-040192 VOTE S2开始向1要票
-040198 VOTE S2 要票，args为 {Term:2 CandidateId:2 LastLogIndex:1 LastLogTerm:1} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:101}], term: 2, votedFor: 2
-040203 VOTE S2 term 2 的情况下 向0要票结束, 结果为true
-040204 LOG1 S2 选举成功
-040204 VOTE S2 选举成功 term为: 2
-040205 LEAD S2 成为leader
-040206 LEAD S2 :i am leader
-040211 LEAD S2 开始发送群体日志-----
-040220 LEAD S2 的term为 2 发送消息给0 term 为2
-040610 TRCE S2 增加了日志 {2 103} 当前日志为: [{-1 <nil>} {1 101} {2 103}]
-040611 CMIT S2 接收到的命令为103 返回值 index: 2, term 2, isLeader true
-041013 LEAD S1 :i am leader
-041219 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 3
-042229 LEAD S2 :i am leader
-042244 LEAD S2 的term为 2 发送消息给0 term 为2
-042364 TRCE S0 的lastApplied为 1 commitIndex为 1 log长度为 2
-043025 LEAD S1 :i am leader
-043029 VOTE S1 选举时连接2 失败
-044221 LEAD S2 发送日志{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:2 Command:103}] LeaderCommit:1} 给S0
-044221 LEAD S2 发送日志{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:2 Command:103}] LeaderCommit:1} 给S1
-044246 LEAD S2 的term为 2 发送消息给0 term 为2
-044247 TRCE S0 接收到S2的内容 {Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:2 Command:103}] LeaderCommit:1} 当前S0的日志为 [{-1 <nil>} {1 101} {2 103}] commitIndex为%!(EXTRA int=1)
-044251 LEAD S2 :i am leader
-044277 LEAD S2 的term为 2 发送消息给0 term 为2
-045034 LEAD S1 :i am leader
-045853 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 3
-045856 LEAD S2 更新commitIndex为：2
-045940 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 5
-046293 LEAD S2 :i am leader
-046323 LEAD S2 的term为 2 发送消息给0 term 为2
-047044 LEAD S1 :i am leader
-047916 TRCE S0 的lastApplied为 1 commitIndex为 2 log长度为 3
-commitIndex: 2
-047919 TRCE S0 提交了日志 103
-048337 LEAD S2 :i am leader
-048359 LEAD S2 的term为 2 发送消息给0 term 为2
-049059 LEAD S1 :i am leader
-049988 TRCE S2 的lastApplied为 1 commitIndex为 2 log长度为 3
-commitIndex: 2
-049989 TRCE S2 提交了日志 103
-050371 LEAD S2 :i am leader
-050382 LEAD S2 的term为 2 发送消息给0 term 为2
-051075 LEAD S1 :i am leader
-052390 LEAD S2 :i am leader
-052415 LEAD S2 的term为 2 发送消息给0 term 为2
-052492 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 5
-052829 LEAD S2 发送日志{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:2 Command:103}] LeaderCommit:2} 给S1
-053089 LEAD S1 :i am leader
-053924 TRCE S0 的lastApplied为 2 commitIndex为 2 log长度为 3
-054430 LEAD S2 :i am leader
-054456 LEAD S2 的term为 2 发送消息给0 term 为2
-055096 LEAD S1 :i am leader
-055243 INFO S2 think itself is leader ,term is 2
-055245 INFO S2 断开连接
-055245 INFO S1 重新连接
-055246 TRCE S1 增加了日志 {1 104} 当前日志为: [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 104}]
-055247 CMIT S1 接收到的命令为104 返回值 index: 5, term 1, isLeader true
-056470 LEAD S2 :i am leader
-056596 TRCE S2 的lastApplied为 2 commitIndex为 2 log长度为 3
-057112 LEAD S1 :i am leader
-057136 LEAD S1 的term为 1 发送消息给0 term 为2
-057157 LEAD S1 给S0发送信息后放弃成为lead
-058334 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 6
-058484 LEAD S2 :i am leader
-060046 TRCE S0 的lastApplied为 2 commitIndex为 2 log长度为 3
-060494 LEAD S2 :i am leader
-060728 TRCE S2 的lastApplied为 2 commitIndex为 2 log长度为 3
-062512 LEAD S2 :i am leader
-064009 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 6
-064521 LEAD S2 :i am leader
-066416 TRCE S0 的lastApplied为 2 commitIndex为 2 log长度为 3
-066533 LEAD S2 :i am leader
-066561 VOTE S1 开始预选举 term为2 
-066562 VOTE S1开始向0要票
-066562 VOTE S1开始向2要票
-066565 VOTE S1 要票，args为 {Term:3 CandidateId:1 LastLogIndex:5 LastLogTerm:1} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:101} {Term:2 Command:103}], term: 2, votedFor: 2
-066568 VOTE S1 term 3 的情况下 向0要票结束, 结果为false
-067111 TRCE S2 的lastApplied为 2 commitIndex为 2 log长度为 3
-068545 LEAD S2 :i am leader
-068836 VOTE S0 开始预选举 term为2 
-068838 VOTE S0开始向1要票
-068838 VOTE S0开始向2要票
-070550 LEAD S2 :i am leader
-072213 TRCE S2 的lastApplied为 2 commitIndex为 2 log长度为 3
-072469 VOTE S1 预选举失败，获得1票数
-072472 VOTE S0 要票，args为 {Term:3 CandidateId:0 LastLogIndex:2 LastLogTerm:2} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:101} {Term:1 Command:102} {Term:1 Command:103} {Term:1 Command:104} {Term:1 Command:104}], term: 2, votedFor: -1
-072478 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 6
-072489 VOTE S0 term 3 的情况下 向1要票结束, 结果为true
-072490 VOTE S0 预选举成功
-072491 VOTE S0 开始正式选举
-072491 TRCE S0 的lastApplied为 2 commitIndex为 2 log长度为 3
-072492 VOTE S0 开始选举 term为3 
-072493 VOTE S0开始向1要票
-072494 VOTE S0开始向2要票
-072506 VOTE S0 要票，args为 {Term:3 CandidateId:0 LastLogIndex:2 LastLogTerm:2} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:101} {Term:1 Command:102} {Term:1 Command:103} {Term:1 Command:104} {Term:1 Command:104}], term: 3, votedFor: 0
-072515 VOTE S0 term 3 的情况下 向1要票结束, 结果为true
-072517 LOG1 S0 选举成功
-072517 VOTE S0 选举成功 term为: 3
-072518 LEAD S0 成为leader
-072520 LEAD S0 :i am leader
-072520 LEAD S0 开始发送群体日志-----
-072532 LEAD S0 的term为 3 发送消息给1 term 为3
-072562 LEAD S2 :i am leader
-074543 LEAD S0 :i am leader
-074566 LEAD S0 的term为 3 发送消息给1 term 为3
-074569 LEAD S2 :i am leader
-075334 TRCE S0 增加了日志 {3 104} 当前日志为: [{-1 <nil>} {1 101} {2 103} {3 104}]
-075339 CMIT S0 接收到的命令为104 返回值 index: 3, term 3, isLeader true
-076533 LEAD S0 发送日志{Term:3 LeaderId:0 PrevLogIndex:2 PrevLogTerm:2 Entries:[{Term:3 Command:104}] LeaderCommit:2} 给S2
-076551 LEAD S0 发送日志{Term:3 LeaderId:0 PrevLogIndex:2 PrevLogTerm:2 Entries:[{Term:3 Command:104}] LeaderCommit:2} 给S1
-076572 LEAD S0 的term为 3 发送消息给1 term 为3
-076575 LEAD S2 :i am leader
-076582 LEAD S0 :i am leader
-076597 LEAD S0 的term为 3 发送消息给1 term 为3
-077329 TRCE S1 的lastApplied为 1 commitIndex为 2 log长度为 3
-commitIndex: 2
-077332 TRCE S1 提交了日志 102
-1: log map[1:101]; server map[1:101 2:103]
-1: log map[1:101]; server map[1:101 2:103]
-apply error: commit index=2 server=1 102 != server=2 103
-exit status 1
-FAIL	6.5840/raft	7.749s
+Test (2C): Figure 8 ...
+000004 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+000004 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+000004 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+000005 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+000005 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+001015 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+001016 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+001016 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+001016 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+001016 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+002026 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+002027 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+002027 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+002027 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+002027 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+003033 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+003035 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+003036 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+003036 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+003036 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+004046 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+004046 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+004047 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+004047 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+004047 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+005059 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+005059 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+005059 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+005059 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+005059 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+006072 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+006076 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+006077 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+006077 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+006078 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+007093 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+007096 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+007096 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+007096 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+007096 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+008107 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 1
+008110 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 1
+008110 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+008110 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+008110 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+008485 VOTE S3 开始预选举 term为0 
+008497 VOTE S3开始向4要票
+008505 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008507 VOTE S3 term 1 的情况下 向4要票结束, 结果为true
+008508 VOTE S3开始向0要票
+008510 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008511 VOTE S3 term 1 的情况下 向0要票结束, 结果为true
+008512 VOTE S3 预选举成功
+008512 VOTE S3 开始正式选举
+008512 VOTE S3 开始选举 term为1 
+008513 VOTE S3开始向4要票
+008515 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+008517 VOTE S3开始向1要票
+008517 VOTE S3 term 1 的情况下 向4要票结束, 结果为true
+008517 VOTE S3开始向0要票
+008517 VOTE S3开始向1要票
+008517 VOTE S3开始向2要票
+008517 VOTE S3开始向2要票
+008520 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008521 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+008522 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008522 VOTE S3 term 1 的情况下 向1要票结束, 结果为true
+008522 LOG1 S3 选举成功
+008523 VOTE S3 选举成功 term为: 1
+008523 LEAD S3 成为leader
+008523 VOTE S3 term 1 的情况下 向2要票结束, 结果为true
+008522 VOTE S3 term 1 的情况下 向0要票结束, 结果为true
+008523 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+008522 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+008524 LEAD S3 开始发送群体日志-----
+008524 VOTE S3 term 1 的情况下 向1要票结束, 结果为true
+008524 VOTE S3 term 1 的情况下 向2要票结束, 结果为true
+009120 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+009122 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+009122 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 2
+009122 LEAD S3 更新commitIndex为：1
+009122 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+009122 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+010127 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+010127 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+010127 TRCE S3 的lastApplied为 0 commitIndex为 1 log长度为 2
+010129 TRCE S3 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+010127 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+010127 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+011133 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+011135 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+011135 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+011135 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+012138 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+012140 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+012140 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+012141 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+013151 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+013153 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+013154 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+013154 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+014155 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+014155 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+014156 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+014156 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+015159 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+015161 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+015161 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+015161 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+016174 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+016176 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+016176 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+016176 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+017187 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+017187 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+017187 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+017187 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+017987 VOTE S4 开始预选举 term为1 
+017992 VOTE S4开始向3要票
+017992 VOTE S4开始向0要票
+017993 VOTE S4开始向2要票
+017996 VOTE S4 要票，args为 {Term:2 CandidateId:4 LastLogIndex:1 LastLogTerm:1} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 1, votedFor: 3
+017998 VOTE S4 term 2 的情况下 向0要票结束, 结果为true
+017992 VOTE S4开始向1要票
+017999 VOTE S4 要票，args为 {Term:2 CandidateId:4 LastLogIndex:1 LastLogTerm:1} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 1, votedFor: 3
+018000 VOTE S4 term 2 的情况下 向1要票结束, 结果为true
+018001 VOTE S4 预选举成功
+018001 VOTE S4 开始正式选举
+018001 VOTE S4 开始选举 term为2 
+018001 VOTE S4开始向3要票
+018001 VOTE S4开始向0要票
+018002 VOTE S4 要票，args为 {Term:2 CandidateId:4 LastLogIndex:1 LastLogTerm:1} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 2, votedFor: 4
+018003 VOTE S4 term 2 的情况下 向0要票结束, 结果为true
+018003 VOTE S4开始向1要票
+018004 VOTE S4 要票，args为 {Term:2 CandidateId:4 LastLogIndex:1 LastLogTerm:1} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 2, votedFor: 4
+018005 VOTE S4 term 2 的情况下 向1要票结束, 结果为true
+018005 LOG1 S4 选举成功
+018005 VOTE S4 选举成功 term为: 2
+018005 LEAD S4 成为leader
+018006 VOTE S4开始向2要票
+018007 VOTE S4 要票，args为 {Term:2 CandidateId:4 LastLogIndex:1 LastLogTerm:1} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 1, votedFor: 3
+018007 VOTE S4 term 2 的情况下 向2要票结束, 结果为true
+018007 LEAD S4 开始发送群体日志-----
+018009 VOTE S4 要票，args为 {Term:2 CandidateId:4 LastLogIndex:1 LastLogTerm:1} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 2, votedFor: 4
+018010 VOTE S4 term 2 的情况下 向2要票结束, 结果为true
+018198 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+018198 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+018198 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+018198 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+019211 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+019211 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+019211 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+019211 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+020222 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+020225 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+020225 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+020225 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+021235 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+021236 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+021237 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 2
+021237 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+022240 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+022240 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+022241 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+023245 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+023248 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+023248 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+024248 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+024251 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+024251 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+025254 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+025255 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+025255 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+026262 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+026264 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+026264 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+027278 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+027279 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+027279 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+028290 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+028290 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+028290 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+028430 VOTE S0 开始预选举 term为2 
+028436 VOTE S0开始向4要票
+028437 VOTE S0开始向3要票
+028436 VOTE S0开始向2要票
+028437 VOTE S0开始向1要票
+028443 VOTE S0 要票，args为 {Term:3 CandidateId:0 LastLogIndex:1 LastLogTerm:1} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 2, votedFor: 4
+028443 VOTE S0 要票，args为 {Term:3 CandidateId:0 LastLogIndex:1 LastLogTerm:1} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 2, votedFor: 4
+028445 VOTE S0 term 3 的情况下 向1要票结束, 结果为true
+028446 VOTE S0 term 3 的情况下 向2要票结束, 结果为true
+028446 VOTE S0 预选举成功
+028446 VOTE S0 开始正式选举
+028446 VOTE S0 开始选举 term为3 
+028447 VOTE S0开始向4要票
+028447 VOTE S0开始向1要票
+028447 VOTE S0开始向3要票
+028447 VOTE S0开始向2要票
+028450 VOTE S0 要票，args为 {Term:3 CandidateId:0 LastLogIndex:1 LastLogTerm:1} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 3, votedFor: 0
+028451 VOTE S0 要票，args为 {Term:3 CandidateId:0 LastLogIndex:1 LastLogTerm:1} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 3, votedFor: 0
+028451 VOTE S0 term 3 的情况下 向1要票结束, 结果为true
+028452 VOTE S0 term 3 的情况下 向2要票结束, 结果为true
+028453 LOG1 S0 选举成功
+028453 VOTE S0 选举成功 term为: 3
+028453 LEAD S0 成为leader
+028454 LEAD S0 开始发送群体日志-----
+029299 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+029299 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+029299 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+030031 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+030309 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+030309 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+031038 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+031321 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+031321 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+032048 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+032331 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+032334 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+033058 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+033336 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+033338 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+034071 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+034349 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+034349 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+035092 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+035357 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+035360 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+036105 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+036366 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+036369 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+036777 VOTE S2 开始预选举 term为3 
+036782 VOTE S2开始向4要票
+036782 VOTE S2开始向0要票
+036783 VOTE S2开始向3要票
+036782 VOTE S2开始向1要票
+036786 VOTE S2 要票，args为 {Term:4 CandidateId:2 LastLogIndex:1 LastLogTerm:1} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 3, votedFor: 0
+036786 VOTE S2 要票，args为 {Term:4 CandidateId:2 LastLogIndex:1 LastLogTerm:1} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097}], term: 1, votedFor: 3
+036788 VOTE S3 拒绝给S2 投票2,
+036789 VOTE S2 term 4 的情况下 向3要票结束, 结果为false
+036787 VOTE S2 term 4 的情况下 向1要票结束, 结果为true
+037115 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+037381 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+038128 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+038383 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+039137 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+039396 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+040149 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+040409 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+040579 VOTE S3 开始预选举 term为4 
+040582 VOTE S3开始向4要票
+040583 VOTE S3开始向0要票
+040584 VOTE S3开始向1要票
+040590 VOTE S3开始向2要票
+040592 VOTE S3 要票，args为 {Term:5 CandidateId:3 LastLogIndex:2 LastLogTerm:1} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 4, votedFor: 2
+040594 VOTE S3 term 5 的情况下 向1要票结束, 结果为true
+041263 VOTE S2 预选举失败，获得2票数
+041267 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+041268 VOTE S3 要票，args为 {Term:5 CandidateId:3 LastLogIndex:2 LastLogTerm:1} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 3, votedFor: -1
+041271 VOTE S3 term 5 的情况下 向2要票结束, 结果为true
+041272 VOTE S3 预选举成功
+041272 VOTE S3 开始正式选举
+041272 VOTE S3 开始选举 term为5 
+041272 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+041273 VOTE S3开始向0要票
+041273 VOTE S3开始向1要票
+041273 VOTE S3开始向4要票
+041274 VOTE S3开始向2要票
+041275 VOTE S3 要票，args为 {Term:5 CandidateId:3 LastLogIndex:2 LastLogTerm:1} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 5, votedFor: 3
+041276 VOTE S3 要票，args为 {Term:5 CandidateId:3 LastLogIndex:2 LastLogTerm:1} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 5, votedFor: 3
+041277 VOTE S3 term 5 的情况下 向1要票结束, 结果为true
+041278 VOTE S3 term 5 的情况下 向2要票结束, 结果为true
+041278 LOG1 S3 选举成功
+041278 VOTE S3 选举成功 term为: 5
+041278 LEAD S3 成为leader
+041278 LEAD S3 开始发送群体日志-----
+041378 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+041412 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+042280 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+042383 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+042434 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+043289 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+043391 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+043441 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+044303 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+044399 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+044448 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+045311 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+045410 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+045479 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+046318 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+046412 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+046488 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+047331 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+047424 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+047498 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+048341 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+048439 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+048502 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+049354 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+049441 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+049510 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+049912 VOTE S3 开始预选举 term为5 
+049917 VOTE S3开始向4要票
+049918 VOTE S3开始向0要票
+049920 VOTE S3开始向1要票
+049924 VOTE S3 要票，args为 {Term:6 CandidateId:3 LastLogIndex:3 LastLogTerm:5} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 5, votedFor: 3
+049926 VOTE S3 term 6 的情况下 向1要票结束, 结果为true
+049926 VOTE S3开始向2要票
+049928 VOTE S3 要票，args为 {Term:6 CandidateId:3 LastLogIndex:3 LastLogTerm:5} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 5, votedFor: 3
+049930 VOTE S3 term 6 的情况下 向2要票结束, 结果为true
+049930 VOTE S3 预选举成功
+049930 VOTE S3 开始正式选举
+049931 VOTE S3 开始选举 term为6 
+049931 VOTE S3开始向4要票
+049931 VOTE S3开始向1要票
+049932 VOTE S3开始向0要票
+049931 VOTE S3开始向2要票
+049934 VOTE S3 要票，args为 {Term:6 CandidateId:3 LastLogIndex:3 LastLogTerm:5} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 6, votedFor: 3
+049935 VOTE S3 要票，args为 {Term:6 CandidateId:3 LastLogIndex:3 LastLogTerm:5} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 6, votedFor: 3
+049936 VOTE S3 term 6 的情况下 向1要票结束, 结果为true
+049936 VOTE S3 term 6 的情况下 向2要票结束, 结果为true
+049936 LOG1 S3 选举成功
+049936 VOTE S3 选举成功 term为: 6
+049936 LEAD S3 成为leader
+049936 LEAD S3 开始发送群体日志-----
+050362 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+050446 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+050515 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+051374 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+051459 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+051522 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+052387 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+052468 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 4
+052531 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+052618 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+053398 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+053540 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+053636 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+054412 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+054545 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+054649 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+055425 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+055557 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+055658 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+056438 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+056570 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+056694 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+057443 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+057574 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+057708 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+058451 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+058581 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+058720 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+059464 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+059594 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+059733 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+060478 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+060598 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+060708 VOTE S3 开始预选举 term为6 
+060710 VOTE S3开始向4要票
+060710 VOTE S3开始向0要票
+060710 VOTE S3开始向2要票
+060710 VOTE S3开始向1要票
+060711 VOTE S3 要票，args为 {Term:7 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 6, votedFor: 3
+060712 VOTE S3 要票，args为 {Term:7 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 6, votedFor: 3
+060712 VOTE S3 term 7 的情况下 向2要票结束, 结果为true
+060713 VOTE S3 term 7 的情况下 向1要票结束, 结果为true
+060713 VOTE S3 预选举成功
+060713 VOTE S3 开始正式选举
+060713 VOTE S3 开始选举 term为7 
+060713 VOTE S3开始向4要票
+060713 VOTE S3开始向1要票
+060713 VOTE S3开始向2要票
+060713 VOTE S3开始向0要票
+060714 VOTE S3 要票，args为 {Term:7 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 7, votedFor: 3
+060715 VOTE S3 要票，args为 {Term:7 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 7, votedFor: 3
+060715 VOTE S3 term 7 的情况下 向1要票结束, 结果为true
+060715 VOTE S3 term 7 的情况下 向2要票结束, 结果为true
+060716 LOG1 S3 选举成功
+060716 VOTE S3 选举成功 term为: 7
+060716 LEAD S3 成为leader
+060716 LEAD S3 开始发送群体日志-----
+060738 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+061490 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+061575 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+061603 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+062493 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+062581 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+062606 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+063506 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+063592 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+063608 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+064509 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+064605 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+064609 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+065524 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+065607 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+065611 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+066528 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+066615 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+066617 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+067541 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+067625 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+067626 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+068554 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+068641 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+068642 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+069566 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+069647 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+069648 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+070579 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+070658 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+070658 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+071532 VOTE S0 开始预选举 term为3 
+071536 VOTE S0开始向4要票
+071537 VOTE S0开始向1要票
+071541 VOTE S0开始向2要票
+071542 VOTE S0 要票，args为 {Term:4 CandidateId:0 LastLogIndex:2 LastLogTerm:3} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 7, votedFor: 3
+071542 VOTE S1 拒绝给S0 投票1,
+071544 VOTE S0 term 7 的情况下 向1要票结束, 结果为false
+071545 VOTE S0开始向3要票
+071545 VOTE S0 要票，args为 {Term:4 CandidateId:0 LastLogIndex:2 LastLogTerm:3} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 7, votedFor: 3
+071546 VOTE S2 拒绝给S0 投票1,
+071547 VOTE S0 term 7 的情况下 向2要票结束, 结果为false
+071595 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+071667 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+071668 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+072603 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+072676 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+072677 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+073616 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+073685 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+073686 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+074630 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+074694 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+074696 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+075633 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+075704 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+075704 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+076645 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+076712 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+076713 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+076913 VOTE S1 开始预选举 term为7 
+076917 VOTE S1开始向4要票
+076918 VOTE S1开始向0要票
+076923 VOTE S1 要票，args为 {Term:8 CandidateId:1 LastLogIndex:1 LastLogTerm:1} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544}], term: 7, votedFor: -1
+076924 VOTE S0 拒绝给S1 投票2,
+076926 VOTE S1 term 8 的情况下 向0要票结束, 结果为false
+076926 VOTE S1开始向2要票
+076928 VOTE S1 要票，args为 {Term:8 CandidateId:1 LastLogIndex:1 LastLogTerm:1} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 7, votedFor: 3
+076929 VOTE S1开始向3要票
+076930 VOTE S1 term 8 的情况下 向2要票结束, 结果为true
+077658 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+077720 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+078690 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+078733 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+079699 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+079739 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+080712 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+080744 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+081381 VOTE S1 预选举失败，获得2票数
+081385 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+081713 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+081746 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 3
+082387 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+082486 VOTE S0 开始预选举 term为8 
+082490 VOTE S0开始向2要票
+082491 VOTE S0开始向1要票
+082490 VOTE S0开始向4要票
+082490 VOTE S0开始向3要票
+082494 VOTE S0 要票，args为 {Term:9 CandidateId:0 LastLogIndex:2 LastLogTerm:3} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 8, votedFor: 1
+082496 VOTE S0 term 9 的情况下 向2要票结束, 结果为true
+082496 VOTE S0 要票，args为 {Term:9 CandidateId:0 LastLogIndex:2 LastLogTerm:3} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 7, votedFor: -1
+082498 VOTE S0 term 9 的情况下 向1要票结束, 结果为true
+082498 VOTE S0 预选举成功
+082498 VOTE S0 开始正式选举
+082499 VOTE S0 开始选举 term为9 
+082499 VOTE S0开始向4要票
+082499 VOTE S0开始向1要票
+082501 VOTE S0 要票，args为 {Term:9 CandidateId:0 LastLogIndex:2 LastLogTerm:3} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 9, votedFor: 0
+082503 VOTE S0 term 9 的情况下 向1要票结束, 结果为true
+082504 VOTE S0开始向2要票
+082506 VOTE S0 要票，args为 {Term:9 CandidateId:0 LastLogIndex:2 LastLogTerm:3} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 9, votedFor: 0
+082511 VOTE S0 term 9 的情况下 向2要票结束, 结果为true
+082511 LOG1 S0 选举成功
+082512 VOTE S0 选举成功 term为: 9
+082512 LEAD S0 成为leader
+082512 VOTE S0开始向3要票
+082512 LEAD S0 开始发送群体日志-----
+082668 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+082721 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+083394 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+083677 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+083728 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+084406 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+084689 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+084733 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+085428 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+085702 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+085739 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+086441 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+086713 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+086743 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+087449 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+087726 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+087747 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+088454 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+088766 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+088768 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+089459 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+089776 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+089778 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+090482 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+090779 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+090780 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+091496 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+091577 VOTE S0 开始预选举 term为9 
+091583 VOTE S0开始向4要票
+091584 VOTE S0开始向1要票
+091587 VOTE S0 要票，args为 {Term:10 CandidateId:0 LastLogIndex:3 LastLogTerm:9} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 9, votedFor: 0
+091589 VOTE S0 term 10 的情况下 向1要票结束, 结果为true
+091589 VOTE S0开始向2要票
+091590 VOTE S0 要票，args为 {Term:10 CandidateId:0 LastLogIndex:3 LastLogTerm:9} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 9, votedFor: 0
+091591 VOTE S0 term 10 的情况下 向2要票结束, 结果为true
+091591 VOTE S0 预选举成功
+091591 VOTE S0 开始正式选举
+091591 VOTE S0 开始选举 term为10 
+091592 VOTE S0开始向4要票
+091592 VOTE S0开始向1要票
+091592 VOTE S0开始向2要票
+091593 VOTE S0 要票，args为 {Term:10 CandidateId:0 LastLogIndex:3 LastLogTerm:9} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 10, votedFor: 0
+091594 VOTE S0 要票，args为 {Term:10 CandidateId:0 LastLogIndex:3 LastLogTerm:9} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063}], term: 10, votedFor: 0
+091595 VOTE S0 term 10 的情况下 向1要票结束, 结果为true
+091595 VOTE S0开始向3要票
+091596 VOTE S0 term 10 的情况下 向2要票结束, 结果为true
+091596 LOG1 S0 选举成功
+091596 VOTE S0开始向3要票
+091596 VOTE S0 选举成功 term为: 10
+091597 LEAD S0 成为leader
+091601 LEAD S0 开始发送群体日志-----
+091791 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 4
+091791 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+092500 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+092799 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+092799 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+093514 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+093811 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+093812 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+094526 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 3
+094825 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+094827 LEAD S0 更新commitIndex为：1
+094825 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 5
+095535 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 5
+095615 CMIT S2 更改commitIndex为 1
+095615 CMIT S1 更改commitIndex为 1
+095838 TRCE S2 的lastApplied为 0 commitIndex为 1 log长度为 5
+095840 TRCE S2 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+095840 TRCE S0 的lastApplied为 0 commitIndex为 1 log长度为 5
+095840 TRCE S0 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+095841 LEAD S0 更新commitIndex为：2
+096556 TRCE S1 的lastApplied为 0 commitIndex为 1 log长度为 5
+096558 TRCE S1 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+096851 TRCE S0 的lastApplied为 1 commitIndex为 2 log长度为 5
+096852 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 5
+096854 TRCE S0 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+096855 LEAD S0 更新commitIndex为：3
+097570 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 5
+097625 CMIT S2 更改commitIndex为 3
+097625 CMIT S1 更改commitIndex为 3
+097860 TRCE S2 的lastApplied为 1 commitIndex为 3 log长度为 5
+097862 TRCE S2 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+097863 TRCE S2 提交了日志 {CommandValid:true Command:8428661537785630477 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+098302 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+098582 TRCE S1 的lastApplied为 1 commitIndex为 3 log长度为 5
+098583 TRCE S1 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+098584 TRCE S1 提交了日志 {CommandValid:true Command:8428661537785630477 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+098865 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+099322 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+099604 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+099876 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+100327 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+100615 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+100881 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+101340 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+101628 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+101890 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+102354 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+102640 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+102902 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+103366 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+103651 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+103911 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+104378 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+104655 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+104924 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+105398 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+105665 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+105936 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+106407 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+106675 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+106938 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+107412 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+107688 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+107715 VOTE S3 开始预选举 term为7 
+107718 VOTE S3开始向1要票
+107719 VOTE S3开始向2要票
+107718 VOTE S3开始向4要票
+107722 VOTE S3 要票，args为 {Term:8 CandidateId:3 LastLogIndex:5 LastLogTerm:7} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 10, votedFor: 0
+107723 VOTE S3开始向0要票
+107723 VOTE S1 拒绝给S3 投票1,
+107722 VOTE S3 要票，args为 {Term:8 CandidateId:3 LastLogIndex:5 LastLogTerm:7} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 10, votedFor: 0
+107724 VOTE S2 拒绝给S3 投票1,
+107725 VOTE S3 term 10 的情况下 向1要票结束, 结果为false
+107725 VOTE S3 term 10 的情况下 向2要票结束, 结果为false
+107948 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+108426 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+108699 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 5
+108952 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+109384 VOTE S1 开始预选举 term为10 
+109388 VOTE S1开始向4要票
+109388 VOTE S1开始向3要票
+109387 VOTE S1开始向2要票
+109388 VOTE S1开始向0要票
+109394 VOTE S1 要票，args为 {Term:11 CandidateId:1 LastLogIndex:4 LastLogTerm:10} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 10, votedFor: 0
+109394 VOTE S1 要票，args为 {Term:11 CandidateId:1 LastLogIndex:4 LastLogTerm:10} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 10, votedFor: -1
+109397 VOTE S1 term 11 的情况下 向2要票结束, 结果为true
+109398 VOTE S1 term 11 的情况下 向3要票结束, 结果为true
+109398 VOTE S1 预选举成功
+109398 VOTE S1 开始正式选举
+109399 VOTE S1 开始选举 term为11 
+109399 VOTE S1开始向4要票
+109400 VOTE S1开始向0要票
+109400 VOTE S1开始向2要票
+109401 VOTE S1开始向3要票
+109402 VOTE S1 要票，args为 {Term:11 CandidateId:1 LastLogIndex:4 LastLogTerm:10} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 11, votedFor: 1
+109403 VOTE S1 要票，args为 {Term:11 CandidateId:1 LastLogIndex:4 LastLogTerm:10} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 11, votedFor: 1
+109404 VOTE S1 term 11 的情况下 向2要票结束, 结果为true
+109405 VOTE S1 term 11 的情况下 向3要票结束, 结果为true
+109405 LOG1 S1 选举成功
+109405 VOTE S1 选举成功 term为: 11
+109405 LEAD S1 成为leader
+109406 LEAD S1 开始发送群体日志-----
+109434 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+109960 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+110440 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+110899 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+110963 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+111446 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+111909 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+111968 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+112451 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+112932 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+112974 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+113455 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+113938 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+113979 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+114459 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+114943 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+114985 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+115474 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+115957 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+115990 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+116479 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+116970 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+116993 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+117491 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+117979 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+117995 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+118493 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+118983 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+118997 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+119497 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+119499 VOTE S0 开始预选举 term为10 
+119503 VOTE S0开始向4要票
+119504 VOTE S0开始向1要票
+119505 VOTE S0开始向2要票
+119507 VOTE S0开始向3要票
+119510 VOTE S0 要票，args为 {Term:11 CandidateId:0 LastLogIndex:4 LastLogTerm:10} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 11, votedFor: 1
+119511 VOTE S2 拒绝给S0 投票3 投票者term为: 11,
+119511 VOTE S0 要票，args为 {Term:11 CandidateId:0 LastLogIndex:4 LastLogTerm:10} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 11, votedFor: 1
+119512 VOTE S3 拒绝给S0 投票3 投票者term为: 11,
+119513 VOTE S0 term 11 的情况下 向2要票结束, 结果为false
+119514 VOTE S0 term 11 的情况下 向3要票结束, 结果为false
+119997 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+120510 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+121009 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+121523 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+122022 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+122532 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+123030 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+123620 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+124045 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+124285 VOTE S0 预选举失败，获得1票数
+124288 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 5
+124632 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+124943 VOTE S2 开始预选举 term为11 
+124947 VOTE S2开始向4要票
+124948 VOTE S2开始向3要票
+124947 VOTE S2开始向1要票
+124948 VOTE S2开始向0要票
+124953 VOTE S2 要票，args为 {Term:12 CandidateId:2 LastLogIndex:4 LastLogTerm:10} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 10, votedFor: -1
+124953 VOTE S2 要票，args为 {Term:12 CandidateId:2 LastLogIndex:4 LastLogTerm:10} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 11, votedFor: 1
+124955 VOTE S2 term 12 的情况下 向0要票结束, 结果为true
+124957 VOTE S2 term 12 的情况下 向3要票结束, 结果为true
+124958 VOTE S2 预选举成功
+124958 VOTE S2 开始正式选举
+124958 VOTE S2 开始选举 term为12 
+124958 VOTE S2开始向4要票
+124958 VOTE S2开始向1要票
+124959 VOTE S2开始向3要票
+124959 VOTE S2开始向0要票
+124961 VOTE S2 要票，args为 {Term:12 CandidateId:2 LastLogIndex:4 LastLogTerm:10} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 12, votedFor: 2
+124962 VOTE S2 要票，args为 {Term:12 CandidateId:2 LastLogIndex:4 LastLogTerm:10} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 12, votedFor: 2
+124963 VOTE S2 term 12 的情况下 向3要票结束, 结果为true
+124964 VOTE S2 term 12 的情况下 向0要票结束, 结果为true
+124964 LOG1 S2 选举成功
+124964 VOTE S2 选举成功 term为: 12
+124965 LEAD S2 成为leader
+124965 LEAD S2 开始发送群体日志-----
+124967 CMIT S0 更改commitIndex为 3
+125057 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+125300 TRCE S0 的lastApplied为 0 commitIndex为 3 log长度为 5
+125302 TRCE S0 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+125302 TRCE S0 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+125303 TRCE S0 提交了日志 {CommandValid:true Command:8428661537785630477 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+125646 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+126067 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+126314 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+126657 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+127078 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 5
+127327 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+127481 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+127662 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+128339 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+128484 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+128684 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+129343 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+129489 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+129695 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+130346 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+130495 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+130704 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+131350 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+131507 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+131715 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+132363 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+132520 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+132719 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+133368 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+133528 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+133721 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+134373 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+134532 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+134733 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+135388 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+135536 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+135745 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+136382 VOTE S4 开始预选举 term为2 
+136388 VOTE S4开始向3要票
+136392 VOTE S4 要票，args为 {Term:3 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 12, votedFor: 2
+136392 VOTE S3 拒绝给S4 投票1,
+136393 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+136393 VOTE S4开始向0要票
+136394 VOTE S4 要票，args为 {Term:3 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 12, votedFor: 2
+136394 VOTE S0 拒绝给S4 投票1,
+136395 VOTE S4 term 12 的情况下 向0要票结束, 结果为false
+136395 VOTE S4开始向1要票
+136396 VOTE S4开始向2要票
+136397 VOTE S4 term 12 的情况下 向3要票结束, 结果为false
+136547 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+136758 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+137401 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+137553 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+137769 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+137788 VOTE S3 开始预选举 term为12 
+137791 VOTE S3开始向4要票
+137791 VOTE S3开始向0要票
+137794 VOTE S3 要票，args为 {Term:13 CandidateId:3 LastLogIndex:5 LastLogTerm:7} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913}], term: 12, votedFor: 2
+137795 VOTE S3开始向2要票
+137795 VOTE S0 拒绝给S3 投票2,
+137791 VOTE S3开始向1要票
+137794 VOTE S3 要票，args为 {Term:13 CandidateId:3 LastLogIndex:5 LastLogTerm:7} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 12, votedFor: -1
+137796 VOTE S3 term 13 的情况下 向0要票结束, 结果为false
+137797 VOTE S3 term 13 的情况下 向4要票结束, 结果为true
+138412 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+138566 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+139415 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+139574 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+140429 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+140589 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+141441 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+141600 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+141898 VOTE S3 预选举失败，获得2票数
+141902 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+142445 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+142611 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+142906 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+143448 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+143615 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+143919 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+144250 VOTE S0 开始预选举 term为13 
+144254 VOTE S0开始向4要票
+144255 VOTE S0开始向2要票
+144257 VOTE S0开始向1要票
+144258 VOTE S0开始向3要票
+144259 VOTE S0 要票，args为 {Term:14 CandidateId:0 LastLogIndex:4 LastLogTerm:10} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 13, votedFor: 3
+144261 VOTE S0 term 14 的情况下 向4要票结束, 结果为true
+144261 VOTE S0 要票，args为 {Term:14 CandidateId:0 LastLogIndex:4 LastLogTerm:10} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 12, votedFor: -1
+144264 VOTE S0 term 14 的情况下 向3要票结束, 结果为true
+144264 VOTE S0 预选举成功
+144264 VOTE S0 开始正式选举
+144264 VOTE S0 开始选举 term为14 
+144265 VOTE S0开始向4要票
+144265 VOTE S0开始向1要票
+144266 VOTE S0开始向3要票
+144267 VOTE S0 要票，args为 {Term:14 CandidateId:0 LastLogIndex:4 LastLogTerm:10} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 14, votedFor: 0
+144268 VOTE S0 要票，args为 {Term:14 CandidateId:0 LastLogIndex:4 LastLogTerm:10} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 14, votedFor: 0
+144268 VOTE S0 term 14 的情况下 向4要票结束, 结果为true
+144265 VOTE S0开始向2要票
+144270 VOTE S0 term 14 的情况下 向3要票结束, 结果为true
+144270 LOG1 S0 选举成功
+144270 VOTE S0 选举成功 term为: 14
+144270 LEAD S0 成为leader
+144272 LEAD S0 开始发送群体日志-----
+144451 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+144627 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+144932 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+145464 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+145629 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+145937 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+146477 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+146640 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+146948 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+147480 TRCE S0 的lastApplied为 3 commitIndex为 3 log长度为 5
+147652 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+147961 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+148446 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+148677 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+148962 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+149452 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+149680 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+149969 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+150454 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+150694 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+150972 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+151458 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+151709 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+151981 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+152463 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+152713 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+152994 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+153475 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+153725 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+154006 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+154487 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+154732 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+155019 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+155494 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+155739 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+156033 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+156506 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+156743 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+157045 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+157469 VOTE S1 开始预选举 term为11 
+157473 VOTE S1开始向4要票
+157475 VOTE S1开始向2要票
+157476 VOTE S1开始向0要票
+157477 VOTE S1开始向3要票
+157477 VOTE S1 要票，args为 {Term:12 CandidateId:1 LastLogIndex:5 LastLogTerm:11} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 14, votedFor: 0
+157478 VOTE S4 拒绝给S1 投票1,
+157479 VOTE S1 term 14 的情况下 向4要票结束, 结果为false
+157479 VOTE S1 要票，args为 {Term:12 CandidateId:1 LastLogIndex:5 LastLogTerm:11} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 14, votedFor: 0
+157479 VOTE S3 拒绝给S1 投票1,
+157480 VOTE S1 term 14 的情况下 向3要票结束, 结果为false
+157514 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+157757 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+158050 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+158518 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+158768 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+159056 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+159530 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+159781 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+160062 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+160533 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+160791 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+161075 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+161549 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+161804 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+162078 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+162175 VOTE S3 开始预选举 term为14 
+162179 VOTE S3开始向1要票
+162178 VOTE S3开始向4要票
+162181 VOTE S3开始向0要票
+162179 VOTE S3开始向2要票
+162184 VOTE S3 要票，args为 {Term:15 CandidateId:3 LastLogIndex:5 LastLogTerm:7} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 14, votedFor: 0
+162185 VOTE S3 要票，args为 {Term:15 CandidateId:3 LastLogIndex:5 LastLogTerm:7} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:11 Command:891280966459391728}], term: 14, votedFor: -1
+162186 VOTE S1 拒绝给S3 投票2,
+162186 VOTE S3 term 15 的情况下 向4要票结束, 结果为true
+162187 VOTE S3 term 15 的情况下 向1要票结束, 结果为false
+162562 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+162810 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+163575 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+163823 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+164588 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+164830 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+165597 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+165667 VOTE S1 开始预选举 term为15 
+165668 VOTE S1开始向4要票
+165668 VOTE S1开始向0要票
+165668 VOTE S1开始向2要票
+165669 VOTE S1开始向3要票
+165670 VOTE S1 要票，args为 {Term:16 CandidateId:1 LastLogIndex:5 LastLogTerm:11} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 15, votedFor: 3
+165671 VOTE S1 term 16 的情况下 向4要票结束, 结果为true
+165840 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+166658 VOTE S3 预选举失败，获得2票数
+166717 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+166718 VOTE S1 要票，args为 {Term:16 CandidateId:1 LastLogIndex:5 LastLogTerm:11} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 14, votedFor: -1
+166723 VOTE S1 term 16 的情况下 向3要票结束, 结果为true
+166724 VOTE S1 预选举成功
+166724 VOTE S1 开始正式选举
+166724 VOTE S1 开始选举 term为16 
+166724 VOTE S1开始向4要票
+166727 VOTE S1 要票，args为 {Term:16 CandidateId:1 LastLogIndex:5 LastLogTerm:11} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 16, votedFor: 1
+166729 VOTE S1 term 16 的情况下 向4要票结束, 结果为true
+166729 VOTE S1开始向0要票
+166730 VOTE S1开始向3要票
+166732 VOTE S1 要票，args为 {Term:16 CandidateId:1 LastLogIndex:5 LastLogTerm:11} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 16, votedFor: 1
+166734 VOTE S1 term 16 的情况下 向3要票结束, 结果为true
+166734 LOG1 S1 选举成功
+166734 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+166730 VOTE S1开始向2要票
+166735 VOTE S1 选举成功 term为: 16
+166735 LEAD S1 成为leader
+166739 LEAD S1 开始发送群体日志-----
+166848 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+166872 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+167723 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+167859 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+167874 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+168733 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+168869 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+168876 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+169745 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+169882 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+169883 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+170750 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+170893 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+170894 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+171763 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+171904 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+171905 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+172770 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+172906 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+172906 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+173781 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+173911 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+173913 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+174794 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+174924 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+174926 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+175808 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+175937 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+175937 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+176821 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+176939 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+176940 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+177577 VOTE S1 开始预选举 term为16 
+177584 VOTE S1开始向4要票
+177588 VOTE S1 要票，args为 {Term:17 CandidateId:1 LastLogIndex:6 LastLogTerm:16} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 16, votedFor: 1
+177593 VOTE S1 term 17 的情况下 向4要票结束, 结果为true
+177593 VOTE S1开始向0要票
+177593 VOTE S1开始向2要票
+177594 VOTE S1开始向3要票
+177596 VOTE S1 要票，args为 {Term:17 CandidateId:1 LastLogIndex:6 LastLogTerm:16} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 16, votedFor: 1
+177597 VOTE S1 term 17 的情况下 向3要票结束, 结果为true
+177597 VOTE S1 预选举成功
+177597 VOTE S1 开始正式选举
+177597 VOTE S1 开始选举 term为17 
+177598 VOTE S1开始向4要票
+177599 VOTE S1 要票，args为 {Term:17 CandidateId:1 LastLogIndex:6 LastLogTerm:16} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 17, votedFor: 1
+177600 VOTE S1 term 17 的情况下 向4要票结束, 结果为true
+177600 VOTE S1开始向2要票
+177600 VOTE S1开始向3要票
+177600 VOTE S1开始向0要票
+177603 VOTE S1 要票，args为 {Term:17 CandidateId:1 LastLogIndex:6 LastLogTerm:16} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123} {Term:7 Command:546937958148170118}], term: 17, votedFor: 1
+177604 VOTE S1 term 17 的情况下 向3要票结束, 结果为true
+177604 LOG1 S1 选举成功
+177604 VOTE S1 选举成功 term为: 17
+177605 LEAD S1 成为leader
+177605 LEAD S1 开始发送群体日志-----
+177828 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+177952 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+177954 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+178841 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+178955 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+178957 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+179854 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+179958 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+179959 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+180866 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+180971 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+180971 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+181879 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 6
+181976 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+181976 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 7
+182891 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+182987 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+182987 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+183134 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+183897 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+183989 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+184146 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+184901 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+184999 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+185156 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+185909 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+186011 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+186163 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+186920 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+187023 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+187171 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+187933 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+188032 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+188181 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+188938 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+189045 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+189192 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+189952 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+190057 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+190204 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+190966 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+191069 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+191213 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+191969 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+192081 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+192224 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+192601 VOTE S4 开始预选举 term为17 
+192606 VOTE S4开始向3要票
+192606 VOTE S4开始向0要票
+192606 VOTE S4开始向1要票
+192608 VOTE S4开始向2要票
+192611 VOTE S4 要票，args为 {Term:18 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 17, votedFor: 1
+192611 VOTE S4 要票，args为 {Term:18 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:12 Command:4101407228695547299}], term: 12, votedFor: 2
+192612 VOTE S3 拒绝给S4 投票2,
+192613 VOTE S2 拒绝给S4 投票2,
+192614 VOTE S4 term 18 的情况下 向3要票结束, 结果为false
+192614 VOTE S4 term 18 的情况下 向2要票结束, 结果为false
+192981 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+193236 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+193756 VOTE S2 开始预选举 term为18 
+193760 VOTE S2开始向4要票
+193760 VOTE S2开始向1要票
+193761 VOTE S2开始向3要票
+193760 VOTE S2开始向0要票
+193764 VOTE S2 要票，args为 {Term:19 CandidateId:2 LastLogIndex:5 LastLogTerm:12} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 18, votedFor: 1
+193767 VOTE S2 term 19 的情况下 向3要票结束, 结果为true
+193987 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+194994 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+196000 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+197004 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+197026 VOTE S4 预选举失败，获得1票数
+197028 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+197029 VOTE S2 要票，args为 {Term:19 CandidateId:2 LastLogIndex:5 LastLogTerm:12} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 17, votedFor: -1
+197031 VOTE S2 term 19 的情况下 向4要票结束, 结果为true
+197032 VOTE S2 预选举成功
+197032 VOTE S2 开始正式选举
+197032 VOTE S2 开始选举 term为19 
+197032 VOTE S2开始向4要票
+197034 VOTE S2 要票，args为 {Term:19 CandidateId:2 LastLogIndex:5 LastLogTerm:12} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 19, votedFor: 2
+197035 VOTE S2 term 19 的情况下 向4要票结束, 结果为true
+197035 VOTE S2开始向0要票
+197036 VOTE S2开始向1要票
+197036 VOTE S2开始向3要票
+197039 VOTE S2 要票，args为 {Term:19 CandidateId:2 LastLogIndex:5 LastLogTerm:12} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 19, votedFor: 2
+197040 VOTE S2 term 19 的情况下 向3要票结束, 结果为true
+197040 LOG1 S2 选举成功
+197040 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+197041 VOTE S2 选举成功 term为: 19
+197041 LEAD S2 成为leader
+197043 LEAD S2 开始发送群体日志-----
+197110 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+198016 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+198030 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+198121 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+199029 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+199033 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+199132 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+200043 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+200044 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+200145 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+201057 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+201060 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+201157 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+202069 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+202069 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+202162 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+203090 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+203091 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+203164 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+204097 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+204099 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+204173 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+205112 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+205112 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+205181 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+206125 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+206130 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+206188 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+206246 VOTE S0 开始预选举 term为14 
+206249 VOTE S0开始向4要票
+206254 VOTE S0 要票，args为 {Term:15 CandidateId:0 LastLogIndex:5 LastLogTerm:14} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 19, votedFor: 2
+206254 VOTE S4 拒绝给S0 投票1,
+206256 VOTE S0 term 19 的情况下 向4要票结束, 结果为false
+206256 VOTE S0开始向1要票
+206257 VOTE S0开始向2要票
+206258 VOTE S0开始向3要票
+206260 VOTE S0 要票，args为 {Term:15 CandidateId:0 LastLogIndex:5 LastLogTerm:14} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 19, votedFor: 2
+206260 VOTE S3 拒绝给S0 投票1,
+206261 VOTE S0 term 19 的情况下 向3要票结束, 结果为false
+207141 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+207143 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+207196 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+208154 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+208154 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+208198 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+209161 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+209164 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+209204 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+210164 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+210167 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+210211 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+211171 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+211173 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+211216 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+212183 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+212183 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+212222 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+213196 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+213196 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+213226 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+214210 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+214210 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+214229 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+215224 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+215225 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+215232 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+215422 VOTE S3 开始预选举 term为19 
+215425 VOTE S3开始向4要票
+215430 VOTE S3 要票，args为 {Term:20 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 19, votedFor: 2
+215432 VOTE S3 term 20 的情况下 向4要票结束, 结果为true
+215432 VOTE S3开始向0要票
+215435 VOTE S3 要票，args为 {Term:20 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:14 Command:4587731214795048839}], term: 19, votedFor: -1
+215435 VOTE S0 拒绝给S3 投票2,
+215437 VOTE S3 term 20 的情况下 向0要票结束, 结果为false
+215437 VOTE S3开始向1要票
+215438 VOTE S3开始向2要票
+215838 VOTE S0 开始预选举 term为20 
+215840 VOTE S0开始向4要票
+215840 VOTE S0开始向3要票
+215840 VOTE S0开始向2要票
+215842 VOTE S0 要票，args为 {Term:21 CandidateId:0 LastLogIndex:5 LastLogTerm:14} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 20, votedFor: 3
+215840 VOTE S0开始向1要票
+215843 VOTE S0 term 21 的情况下 向4要票结束, 结果为true
+216236 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+217244 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+218258 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+219271 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+219808 VOTE S3 预选举失败，获得2票数
+219813 VOTE S0 要票，args为 {Term:21 CandidateId:0 LastLogIndex:5 LastLogTerm:14} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 19, votedFor: -1
+219814 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+219817 VOTE S0 term 21 的情况下 向3要票结束, 结果为true
+219818 VOTE S0 预选举成功
+219818 VOTE S0 开始正式选举
+219818 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 6
+219819 VOTE S0 开始选举 term为21 
+219819 VOTE S0开始向4要票
+219820 VOTE S0开始向2要票
+219821 VOTE S0开始向3要票
+219824 VOTE S0 要票，args为 {Term:21 CandidateId:0 LastLogIndex:5 LastLogTerm:14} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 21, votedFor: 0
+219824 VOTE S0 要票，args为 {Term:21 CandidateId:0 LastLogIndex:5 LastLogTerm:14} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 21, votedFor: 0
+219826 VOTE S0 term 21 的情况下 向3要票结束, 结果为true
+219819 VOTE S0开始向1要票
+219827 VOTE S0 term 21 的情况下 向4要票结束, 结果为true
+219827 LOG1 S0 选举成功
+219827 VOTE S0 选举成功 term为: 21
+219827 LEAD S0 成为leader
+219831 LEAD S0 开始发送群体日志-----
+219987 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+220275 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+220826 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+220999 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+221280 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+221831 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+222011 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+222292 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+222843 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+223023 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+223305 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+223846 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+224036 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+224314 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+224848 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+225047 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+225325 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+225858 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+226048 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+226339 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+226863 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+227061 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+227350 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+227875 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+228070 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+228355 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+228890 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+229078 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 7
+229368 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+229896 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+229989 VOTE S0 开始预选举 term为21 
+229994 VOTE S0开始向4要票
+229997 VOTE S0 要票，args为 {Term:22 CandidateId:0 LastLogIndex:6 LastLogTerm:21} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 21, votedFor: 0
+229998 VOTE S0 term 22 的情况下 向4要票结束, 结果为true
+229999 VOTE S0开始向2要票
+229999 VOTE S0开始向3要票
+230000 VOTE S0 要票，args为 {Term:22 CandidateId:0 LastLogIndex:6 LastLogTerm:21} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 21, votedFor: 0
+230002 VOTE S0 term 22 的情况下 向3要票结束, 结果为true
+230002 VOTE S0 预选举成功
+230002 VOTE S0 开始正式选举
+230002 VOTE S0 开始选举 term为22 
+230002 VOTE S0开始向4要票
+230003 VOTE S0 要票，args为 {Term:22 CandidateId:0 LastLogIndex:6 LastLogTerm:21} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 22, votedFor: 0
+230005 VOTE S0 term 22 的情况下 向4要票结束, 结果为true
+230005 VOTE S0开始向1要票
+230005 VOTE S0开始向2要票
+230007 VOTE S0开始向3要票
+230009 VOTE S0 要票，args为 {Term:22 CandidateId:0 LastLogIndex:6 LastLogTerm:21} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 22, votedFor: 0
+230010 VOTE S0 term 22 的情况下 向3要票结束, 结果为true
+230010 LOG1 S0 选举成功
+230010 VOTE S0 选举成功 term为: 22
+230011 LEAD S0 成为leader
+229994 VOTE S0开始向1要票
+230014 LEAD S0 开始发送群体日志-----
+230092 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+230234 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+230379 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+230909 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+231247 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+231392 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+231921 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+232260 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+232404 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+232927 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+233273 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+233412 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+233929 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+234282 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+234423 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+234935 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+235294 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+235432 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+235947 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+236316 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+236439 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+236959 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+237330 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+237448 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+237970 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+238343 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+238458 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+238983 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+239356 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+239463 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+239475 VOTE S1 开始预选举 term为17 
+239477 VOTE S1开始向4要票
+239477 VOTE S1开始向2要票
+239478 VOTE S1开始向0要票
+239478 VOTE S1开始向3要票
+239479 VOTE S1 要票，args为 {Term:18 CandidateId:1 LastLogIndex:7 LastLogTerm:17} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 22, votedFor: 0
+239479 VOTE S4 拒绝给S1 投票1,
+239480 VOTE S1 要票，args为 {Term:18 CandidateId:1 LastLogIndex:7 LastLogTerm:17} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 22, votedFor: 0
+239480 VOTE S3 拒绝给S1 投票1,
+239480 VOTE S1 term 22 的情况下 向4要票结束, 结果为false
+239480 VOTE S1 term 22 的情况下 向3要票结束, 结果为false
+240002 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+240370 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+240467 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+241015 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+241383 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+241479 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+242029 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+242396 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+242491 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+243041 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+243399 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+243503 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+244055 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+244405 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+244514 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+245062 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+245413 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+245526 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+245625 VOTE S4 开始预选举 term为22 
+245627 VOTE S4开始向3要票
+245627 VOTE S4开始向2要票
+245627 VOTE S4开始向1要票
+245627 VOTE S4开始向0要票
+245629 VOTE S4 要票，args为 {Term:23 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 22, votedFor: 0
+245629 VOTE S4 要票，args为 {Term:23 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:11 Command:891280966459391728} {Term:16 Command:4641017075184776463} {Term:17 Command:5028128732035685350}], term: 22, votedFor: -1
+245629 VOTE S3 拒绝给S4 投票2,
+245629 VOTE S1 拒绝给S4 投票2,
+245630 VOTE S4 term 23 的情况下 向3要票结束, 结果为false
+245630 VOTE S4 term 23 的情况下 向1要票结束, 结果为false
+246064 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+246420 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+246999 VOTE S3 开始预选举 term为23 
+247003 VOTE S3开始向4要票
+247007 VOTE S3开始向1要票
+247007 VOTE S3开始向2要票
+247009 VOTE S3开始向0要票
+247012 VOTE S3 要票，args为 {Term:24 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:11 Command:891280966459391728} {Term:16 Command:4641017075184776463} {Term:17 Command:5028128732035685350}], term: 23, votedFor: -1
+247013 VOTE S1 拒绝给S3 投票2,
+247015 VOTE S3 term 24 的情况下 向1要票结束, 结果为false
+247429 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+248442 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+249438 VOTE S4 预选举失败，获得1票数
+249443 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+249443 VOTE S3 要票，args为 {Term:24 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 22, votedFor: -1
+249443 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+249447 VOTE S3 term 24 的情况下 向4要票结束, 结果为true
+250131 VOTE S1 开始预选举 term为24 
+250136 VOTE S1开始向4要票
+250136 VOTE S1开始向2要票
+250138 VOTE S1开始向3要票
+250141 VOTE S1 要票，args为 {Term:25 CandidateId:1 LastLogIndex:7 LastLogTerm:17} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 24, votedFor: 3
+250136 VOTE S1开始向0要票
+250143 VOTE S1 term 25 的情况下 向4要票结束, 结果为true
+250450 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+251462 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+252476 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+252936 VOTE S3 预选举失败，获得2票数
+252939 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+252940 VOTE S1 要票，args为 {Term:25 CandidateId:1 LastLogIndex:7 LastLogTerm:17} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 23, votedFor: -1
+252944 VOTE S1 term 25 的情况下 向3要票结束, 结果为true
+252945 VOTE S1 预选举成功
+252945 VOTE S1 开始正式选举
+252945 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+252945 VOTE S1 开始选举 term为25 
+252946 VOTE S1开始向4要票
+252946 VOTE S1开始向0要票
+252948 VOTE S1开始向3要票
+252950 VOTE S1 要票，args为 {Term:25 CandidateId:1 LastLogIndex:7 LastLogTerm:17} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 25, votedFor: 1
+252950 VOTE S1 要票，args为 {Term:25 CandidateId:1 LastLogIndex:7 LastLogTerm:17} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 25, votedFor: 1
+252952 VOTE S1 term 25 的情况下 向4要票结束, 结果为true
+252946 VOTE S1开始向2要票
+252952 VOTE S1 term 25 的情况下 向3要票结束, 结果为true
+252953 LOG1 S1 选举成功
+252953 VOTE S1 选举成功 term为: 25
+252954 LEAD S1 成为leader
+252955 LEAD S1 开始发送群体日志-----
+253038 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+253481 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+253942 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+254050 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+254489 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+254948 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+255062 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+255526 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+255953 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+256074 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+256531 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+256965 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+257086 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+257544 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+257970 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+258099 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+258548 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+258983 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+259111 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+259561 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+259989 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+260122 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+260574 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+261005 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+261126 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+261584 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+262018 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+262137 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+262594 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+262709 VOTE S0 开始预选举 term为22 
+262714 VOTE S0开始向4要票
+262718 VOTE S0 要票，args为 {Term:23 CandidateId:0 LastLogIndex:7 LastLogTerm:22} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 25, votedFor: 1
+262719 VOTE S4 拒绝给S0 投票1,
+262721 VOTE S0 term 25 的情况下 向4要票结束, 结果为false
+262721 VOTE S0开始向1要票
+262722 VOTE S0开始向2要票
+262723 VOTE S0开始向3要票
+262725 VOTE S0 要票，args为 {Term:23 CandidateId:0 LastLogIndex:7 LastLogTerm:22} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 25, votedFor: 1
+262725 VOTE S3 拒绝给S0 投票1,
+262726 VOTE S0 term 25 的情况下 向3要票结束, 结果为false
+263030 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+263149 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+263607 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+264035 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+264158 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+264621 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+265046 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+265170 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+265633 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+266052 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+266182 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+266645 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+267065 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+267185 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+267647 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+268078 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+268196 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+268660 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+269091 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+269208 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+269694 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+270096 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+270183 VOTE S4 开始预选举 term为25 
+270186 VOTE S4开始向3要票
+270187 VOTE S4开始向0要票
+270188 VOTE S4开始向2要票
+270186 VOTE S4开始向1要票
+270191 VOTE S4 要票，args为 {Term:26 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 25, votedFor: 1
+270192 VOTE S4 要票，args为 {Term:26 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:14 Command:4587731214795048839} {Term:21 Command:5268615662545887489} {Term:22 Command:5527019394854451071}], term: 25, votedFor: -1
+270192 VOTE S3 拒绝给S4 投票2,
+270193 VOTE S0 拒绝给S4 投票2,
+270195 VOTE S4 term 26 的情况下 向3要票结束, 结果为false
+270194 VOTE S4 term 26 的情况下 向0要票结束, 结果为false
+270214 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+271109 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+271216 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+272122 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+272228 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+273132 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+273237 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+273602 VOTE S0 开始预选举 term为26 
+273607 VOTE S0开始向4要票
+273608 VOTE S0开始向1要票
+273609 VOTE S0开始向2要票
+273609 VOTE S0开始向3要票
+273613 VOTE S0 要票，args为 {Term:27 CandidateId:0 LastLogIndex:7 LastLogTerm:22} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 26, votedFor: 1
+273616 VOTE S0 term 27 的情况下 向3要票结束, 结果为true
+274143 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+274686 VOTE S4 预选举失败，获得1票数
+274690 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+274690 VOTE S0 要票，args为 {Term:27 CandidateId:0 LastLogIndex:7 LastLogTerm:22} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 25, votedFor: -1
+274694 VOTE S0 term 27 的情况下 向4要票结束, 结果为true
+274695 VOTE S0 预选举成功
+274695 VOTE S0 开始正式选举
+274695 VOTE S0 开始选举 term为27 
+274695 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 8
+274696 VOTE S0开始向4要票
+274696 VOTE S0开始向2要票
+274697 VOTE S0开始向3要票
+274699 VOTE S0 要票，args为 {Term:27 CandidateId:0 LastLogIndex:7 LastLogTerm:22} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 27, votedFor: 0
+274700 VOTE S0 要票，args为 {Term:27 CandidateId:0 LastLogIndex:7 LastLogTerm:22} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 27, votedFor: 0
+274700 VOTE S0 term 27 的情况下 向4要票结束, 结果为true
+274696 VOTE S0开始向1要票
+274702 VOTE S0 term 27 的情况下 向3要票结束, 结果为true
+274702 LOG1 S0 选举成功
+274702 VOTE S0 选举成功 term为: 27
+274703 LEAD S0 成为leader
+274703 LEAD S0 开始发送群体日志-----
+274846 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+275156 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+275698 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+275858 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+276164 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+276710 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+276865 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+277179 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+277723 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+277877 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+278190 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+278740 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+278886 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+279197 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+279753 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+279898 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+280202 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+280760 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+280910 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+281209 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+281772 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+281923 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+282222 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+282781 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+282935 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+283234 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+283793 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+283947 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+284249 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+284261 VOTE S2 开始预选举 term为19 
+284266 VOTE S2开始向4要票
+284270 VOTE S2 要票，args为 {Term:20 CandidateId:2 LastLogIndex:6 LastLogTerm:19} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 27, votedFor: 0
+284271 VOTE S4 拒绝给S2 投票1,
+284272 VOTE S2 term 27 的情况下 向4要票结束, 结果为false
+284273 VOTE S2开始向0要票
+284274 VOTE S2开始向1要票
+284274 VOTE S2开始向3要票
+284278 VOTE S2 要票，args为 {Term:20 CandidateId:2 LastLogIndex:6 LastLogTerm:19} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 27, votedFor: 0
+284278 VOTE S3 拒绝给S2 投票1,
+284279 VOTE S2 term 27 的情况下 向3要票结束, 结果为false
+284806 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+284960 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+285262 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+285819 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+285972 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+286274 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+286832 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+286982 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+287281 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+287839 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+287993 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+288292 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+288850 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+289008 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+289302 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+289863 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+290020 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+290315 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+290876 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+291034 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+291328 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+291888 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+292047 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+292234 VOTE S3 开始预选举 term为27 
+292237 VOTE S3开始向4要票
+292238 VOTE S3开始向0要票
+292237 VOTE S3开始向1要票
+292240 VOTE S3开始向2要票
+292243 VOTE S3 要票，args为 {Term:28 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 27, votedFor: 0
+292245 VOTE S3 term 28 的情况下 向4要票结束, 结果为true
+292246 VOTE S3 要票，args为 {Term:28 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:12 Command:4101407228695547299} {Term:19 Command:1655494680599965828}], term: 27, votedFor: -1
+292247 VOTE S2 拒绝给S3 投票2,
+292248 VOTE S3 term 28 的情况下 向2要票结束, 结果为false
+292899 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+293053 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+293913 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+294063 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+294774 VOTE S2 开始预选举 term为28 
+294779 VOTE S2开始向4要票
+294779 VOTE S2开始向0要票
+294781 VOTE S2开始向3要票
+294779 VOTE S2开始向1要票
+294783 VOTE S2 要票，args为 {Term:29 CandidateId:2 LastLogIndex:6 LastLogTerm:19} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 28, votedFor: 3
+294784 VOTE S2 term 29 的情况下 向4要票结束, 结果为true
+294925 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+295409 VOTE S3 预选举失败，获得2票数
+295413 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+295413 VOTE S2 要票，args为 {Term:29 CandidateId:2 LastLogIndex:6 LastLogTerm:19} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 27, votedFor: -1
+295417 VOTE S2 term 29 的情况下 向3要票结束, 结果为true
+295417 VOTE S2 预选举成功
+295417 VOTE S2 开始正式选举
+295417 VOTE S2 开始选举 term为29 
+295418 VOTE S2开始向4要票
+295420 VOTE S2 要票，args为 {Term:29 CandidateId:2 LastLogIndex:6 LastLogTerm:19} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 29, votedFor: 2
+295422 VOTE S2 term 29 的情况下 向4要票结束, 结果为true
+295422 VOTE S2开始向0要票
+295423 VOTE S2开始向1要票
+295424 VOTE S2开始向3要票
+295426 VOTE S2 要票，args为 {Term:29 CandidateId:2 LastLogIndex:6 LastLogTerm:19} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 29, votedFor: 2
+295428 VOTE S2 term 29 的情况下 向3要票结束, 结果为true
+295428 LOG1 S2 选举成功
+295428 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 7
+295429 VOTE S2 选举成功 term为: 29
+295429 LEAD S2 成为leader
+295433 LEAD S2 开始发送群体日志-----
+295454 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+295938 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+296424 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+296456 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+296945 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+297427 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+297458 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+297958 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+298440 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+298461 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+298971 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+299453 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+299463 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+299982 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+300457 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+300464 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+300989 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+301469 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+301469 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+302003 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+302482 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+302482 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+303016 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+303488 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+303488 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+304030 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+304495 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+304496 VOTE S0 开始预选举 term为27 
+304500 VOTE S0开始向4要票
+304505 VOTE S0开始向1要票
+304505 VOTE S0 要票，args为 {Term:28 CandidateId:0 LastLogIndex:8 LastLogTerm:27} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 29, votedFor: 2
+304506 VOTE S0开始向2要票
+304506 VOTE S0开始向3要票
+304506 VOTE S4 拒绝给S0 投票1,
+304508 VOTE S0 term 29 的情况下 向4要票结束, 结果为false
+304509 VOTE S0 要票，args为 {Term:28 CandidateId:0 LastLogIndex:8 LastLogTerm:27} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 29, votedFor: 2
+304509 VOTE S3 拒绝给S0 投票1,
+304509 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+304510 VOTE S0 term 29 的情况下 向3要票结束, 结果为false
+305043 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+305507 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+305510 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+306055 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+306520 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+306520 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+307072 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+307532 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+307535 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+308074 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+308545 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+308546 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+309087 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+309548 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+309551 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+310091 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+310555 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+310558 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+311105 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+311563 VOTE S4 开始预选举 term为29 
+311567 VOTE S4开始向3要票
+311570 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+311571 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+311571 VOTE S4开始向1要票
+311572 VOTE S4开始向0要票
+311574 VOTE S4 要票，args为 {Term:30 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:14 Command:4587731214795048839} {Term:21 Command:5268615662545887489} {Term:22 Command:5527019394854451071} {Term:27 Command:2691959238013269721}], term: 29, votedFor: -1
+311576 VOTE S0 拒绝给S4 投票2,
+311578 VOTE S4 term 30 的情况下 向0要票结束, 结果为false
+311579 VOTE S4开始向2要票
+311581 VOTE S4 要票，args为 {Term:30 CandidateId:4 LastLogIndex:2 LastLogTerm:2} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 29, votedFor: 2
+311582 VOTE S3 拒绝给S4 投票2,
+311583 VOTE S4 term 30 的情况下 向3要票结束, 结果为false
+312581 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+312583 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+313591 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+313592 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+314467 VOTE S3 开始预选举 term为30 
+314471 VOTE S3开始向4要票
+314471 VOTE S3开始向2要票
+314471 VOTE S3开始向1要票
+314471 VOTE S3开始向0要票
+314475 VOTE S3 要票，args为 {Term:31 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:14 Command:4587731214795048839} {Term:21 Command:5268615662545887489} {Term:22 Command:5527019394854451071} {Term:27 Command:2691959238013269721}], term: 30, votedFor: -1
+314476 VOTE S0 拒绝给S3 投票2,
+314477 VOTE S3 term 31 的情况下 向0要票结束, 结果为false
+314598 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+315420 VOTE S0 开始预选举 term为31 
+315425 VOTE S0开始向4要票
+315425 VOTE S0开始向3要票
+315425 VOTE S0开始向2要票
+315425 VOTE S0开始向1要票
+315554 VOTE S4 预选举失败，获得1票数
+315556 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+315556 VOTE S3 要票，args为 {Term:31 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 29, votedFor: -1
+315558 VOTE S3 term 31 的情况下 向4要票结束, 结果为true
+315558 VOTE S0 要票，args为 {Term:32 CandidateId:0 LastLogIndex:8 LastLogTerm:27} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 31, votedFor: 3
+315559 VOTE S0 term 32 的情况下 向4要票结束, 结果为true
+316565 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+317577 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+318591 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+319140 VOTE S0 预选举失败，获得2票数
+319146 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+319599 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+320156 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+320503 VOTE S3 预选举失败，获得2票数
+320506 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+320507 VOTE S0 要票，args为 {Term:32 CandidateId:0 LastLogIndex:8 LastLogTerm:27} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 30, votedFor: -1
+320511 VOTE S0 term 32 的情况下 向3要票结束, 结果为true
+320612 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+321170 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+321511 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+321624 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+322184 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+322523 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+322637 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+323198 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+323539 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+323647 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+324209 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+324552 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+324660 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+325213 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+325565 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+325672 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+326227 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+326577 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+326683 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+327238 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+327589 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+327686 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+328252 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+328546 VOTE S0 开始预选举 term为31 
+328552 VOTE S0开始向4要票
+328552 VOTE S0开始向3要票
+328557 VOTE S0 要票，args为 {Term:32 CandidateId:0 LastLogIndex:8 LastLogTerm:27} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 32, votedFor: 0
+328557 VOTE S0 要票，args为 {Term:32 CandidateId:0 LastLogIndex:8 LastLogTerm:27} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 32, votedFor: 0
+328558 VOTE S0 term 32 的情况下 向4要票结束, 结果为true
+328559 VOTE S0 预选举成功
+328559 VOTE S0 开始正式选举
+328559 VOTE S0 开始选举 term为32 
+328559 VOTE S0开始向4要票
+328560 VOTE S0开始向2要票
+328560 VOTE S0开始向3要票
+328561 VOTE S0 要票，args为 {Term:32 CandidateId:0 LastLogIndex:8 LastLogTerm:27} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 32, votedFor: 0
+328562 VOTE S0 要票，args为 {Term:32 CandidateId:0 LastLogIndex:8 LastLogTerm:27} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 32, votedFor: 0
+328567 VOTE S0 term 32 的情况下 向4要票结束, 结果为true
+328559 VOTE S0 term 32 的情况下 向3要票结束, 结果为true
+328572 LOG1 S0 选举成功
+328573 VOTE S0 选举成功 term为: 32
+328573 LEAD S0 成为leader
+328569 VOTE S0 term 32 的情况下 向3要票结束, 结果为true
+328559 VOTE S0开始向1要票
+328552 VOTE S0开始向2要票
+328552 VOTE S0开始向1要票
+328575 LEAD S0 开始发送群体日志-----
+328592 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+328698 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+329271 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 9
+329561 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+329593 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+329701 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+330565 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+330596 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+330712 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+331572 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+331599 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+331722 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+332585 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+332603 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+332735 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+333594 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+333604 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+333744 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+334598 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+334605 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+334747 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+335612 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+335614 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+335760 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+336617 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+336617 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+336763 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+337630 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+337630 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+337775 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+338644 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+338645 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+338780 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+339552 VOTE S0 开始预选举 term为32 
+339554 VOTE S0开始向4要票
+339556 VOTE S0 要票，args为 {Term:33 CandidateId:0 LastLogIndex:9 LastLogTerm:32} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 32, votedFor: 0
+339558 VOTE S0 term 33 的情况下 向4要票结束, 结果为true
+339558 VOTE S0开始向1要票
+339558 VOTE S0开始向2要票
+339558 VOTE S0开始向3要票
+339560 VOTE S0 要票，args为 {Term:33 CandidateId:0 LastLogIndex:9 LastLogTerm:32} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 32, votedFor: 0
+339561 VOTE S0 term 33 的情况下 向3要票结束, 结果为true
+339561 VOTE S0 预选举成功
+339561 VOTE S0 开始正式选举
+339561 VOTE S0 开始选举 term为33 
+339561 VOTE S0开始向4要票
+339561 VOTE S0开始向1要票
+339562 VOTE S0开始向3要票
+339562 VOTE S0 要票，args为 {Term:33 CandidateId:0 LastLogIndex:9 LastLogTerm:32} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 33, votedFor: 0
+339563 VOTE S0 要票，args为 {Term:33 CandidateId:0 LastLogIndex:9 LastLogTerm:32} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 33, votedFor: 0
+339563 VOTE S0 term 33 的情况下 向4要票结束, 结果为true
+339561 VOTE S0开始向2要票
+339564 VOTE S0 term 33 的情况下 向3要票结束, 结果为true
+339564 LOG1 S0 选举成功
+339564 VOTE S0 选举成功 term为: 33
+339564 LEAD S0 成为leader
+339565 LEAD S0 开始发送群体日志-----
+339657 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+339657 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 10
+339793 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+340669 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+340805 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+341680 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+341812 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+342694 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+342822 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+343282 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+343699 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+343831 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+344289 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+344707 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+344843 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+345303 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+345724 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+345858 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+346185 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+346186 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+346311 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+346731 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+346867 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+347197 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+347197 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+347323 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+347735 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+347877 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+348209 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+348209 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+348330 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+348742 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+348889 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+349222 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+349223 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+349343 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+349755 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+349900 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+349958 VOTE S3 开始预选举 term为33 
+349962 VOTE S3开始向4要票
+349965 VOTE S3 要票，args为 {Term:34 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 33, votedFor: 0
+349966 VOTE S3开始向2要票
+349968 VOTE S3 要票，args为 {Term:34 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:12 Command:4101407228695547299} {Term:19 Command:1655494680599965828} {Term:29 Command:6724908644702947332}], term: 29, votedFor: 2
+349968 VOTE S3 term 34 的情况下 向4要票结束, 结果为true
+349965 VOTE S3开始向1要票
+349969 VOTE S3 要票，args为 {Term:34 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:11 Command:891280966459391728} {Term:16 Command:4641017075184776463} {Term:17 Command:5028128732035685350} {Term:25 Command:535399018314730154}], term: 25, votedFor: 1
+349966 VOTE S3开始向0要票
+349970 VOTE S1 拒绝给S3 投票2,
+349971 VOTE S3 term 34 的情况下 向1要票结束, 结果为false
+349968 VOTE S2 拒绝给S3 投票2,
+349971 VOTE S3 要票，args为 {Term:34 CandidateId:3 LastLogIndex:4 LastLogTerm:6} 投票者0条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:14 Command:4587731214795048839} {Term:21 Command:5268615662545887489} {Term:22 Command:5527019394854451071} {Term:27 Command:2691959238013269721} {Term:32 Command:4625654969670648825} {Term:33 Command:2973425657271082930}], term: 33, votedFor: 0
+349972 VOTE S0 拒绝给S3 投票2,
+349971 VOTE S3 term 34 的情况下 向2要票结束, 结果为false
+349973 VOTE S3 term 34 的情况下 向0要票结束, 结果为false
+350235 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+350237 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+350356 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+350912 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+351248 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+351249 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+351363 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+351840 VOTE S0 开始预选举 term为34 
+351845 VOTE S0开始向4要票
+351846 VOTE S0开始向1要票
+351849 VOTE S0 要票，args为 {Term:35 CandidateId:0 LastLogIndex:10 LastLogTerm:33} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 34, votedFor: 3
+351849 VOTE S0 要票，args为 {Term:35 CandidateId:0 LastLogIndex:10 LastLogTerm:33} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:11 Command:891280966459391728} {Term:16 Command:4641017075184776463} {Term:17 Command:5028128732035685350} {Term:25 Command:535399018314730154}], term: 34, votedFor: 1
+351851 VOTE S0 term 35 的情况下 向4要票结束, 结果为true
+351851 VOTE S0开始向3要票
+351851 VOTE S0 term 35 的情况下 向1要票结束, 结果为true
+351852 VOTE S0 预选举成功
+351852 VOTE S0 开始正式选举
+351853 VOTE S0 开始选举 term为35 
+351853 VOTE S0开始向4要票
+351853 VOTE S0开始向1要票
+351855 VOTE S0 要票，args为 {Term:35 CandidateId:0 LastLogIndex:10 LastLogTerm:33} 投票者4条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:2 Command:1169115210222024757}], term: 35, votedFor: 0
+351856 VOTE S0 要票，args为 {Term:35 CandidateId:0 LastLogIndex:10 LastLogTerm:33} 投票者1条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:11 Command:891280966459391728} {Term:16 Command:4641017075184776463} {Term:17 Command:5028128732035685350} {Term:25 Command:535399018314730154}], term: 35, votedFor: 0
+351856 VOTE S0 term 35 的情况下 向4要票结束, 结果为true
+351857 VOTE S0开始向2要票
+351857 VOTE S0 term 35 的情况下 向1要票结束, 结果为true
+351857 LOG1 S0 选举成功
+351857 VOTE S0 选举成功 term为: 35
+351857 LEAD S0 成为leader
+351858 VOTE S0 要票，args为 {Term:35 CandidateId:0 LastLogIndex:10 LastLogTerm:33} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:12 Command:4101407228695547299} {Term:19 Command:1655494680599965828} {Term:29 Command:6724908644702947332}], term: 34, votedFor: 2
+351845 VOTE S0开始向2要票
+351860 VOTE S0 term 35 的情况下 向2要票结束, 结果为true
+351861 VOTE S0开始向3要票
+351861 VOTE S0 要票，args为 {Term:35 CandidateId:0 LastLogIndex:10 LastLogTerm:33} 投票者2条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:3 Command:6373002181515597544} {Term:9 Command:8428661537785630477} {Term:10 Command:7226401056147428913} {Term:12 Command:4101407228695547299} {Term:19 Command:1655494680599965828} {Term:29 Command:6724908644702947332}], term: 35, votedFor: 0
+351862 VOTE S0 term 35 的情况下 向2要票结束, 结果为true
+351865 LEAD S0 开始发送群体日志-----
+351919 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+352259 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+352260 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+352375 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+352926 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+353272 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+353272 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+353386 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 11
+353757 VOTE S3 预选举失败，获得2票数
+353761 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+353762 VOTE S0 要票，args为 {Term:35 CandidateId:0 LastLogIndex:10 LastLogTerm:33} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 33, votedFor: -1
+353766 VOTE S0 term 35 的情况下 向3要票结束, 结果为true
+353766 VOTE S0 要票，args为 {Term:35 CandidateId:0 LastLogIndex:10 LastLogTerm:33} 投票者3条件为 log: [{Term:-1 Command:<nil>} {Term:1 Command:2396697766687996063} {Term:1 Command:3168507023048396097} {Term:5 Command:5702581834078521130} {Term:6 Command:2375546943855215123}], term: 35, votedFor: 0
+353768 VOTE S0 term 35 的情况下 向3要票结束, 结果为true
+353933 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+354285 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+354285 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 9
+354388 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 12
+354767 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+354937 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+355293 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 8
+355293 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 8
+355398 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 12
+355785 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+355940 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+356299 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+356299 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+356410 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 12
+356787 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 5
+356941 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+357302 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 6
+357302 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 6
+357423 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 12
+357424 LEAD S0 更新commitIndex为：1
+357485 CMIT S2 更改commitIndex为 1
+357489 CMIT S1 更改commitIndex为 1
+357789 TRCE S3 的lastApplied为 0 commitIndex为 0 log长度为 3
+357943 TRCE S4 的lastApplied为 0 commitIndex为 0 log长度为 3
+358304 TRCE S1 的lastApplied为 0 commitIndex为 1 log长度为 12
+358304 TRCE S2 的lastApplied为 0 commitIndex为 1 log长度为 12
+358306 TRCE S1 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+358306 TRCE S2 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+358434 TRCE S0 的lastApplied为 0 commitIndex为 1 log长度为 12
+358436 TRCE S0 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+358437 LEAD S0 更新commitIndex为：2
+358502 CMIT S3 更改commitIndex为 1
+358507 CMIT S4 更改commitIndex为 1
+358799 TRCE S3 的lastApplied为 0 commitIndex为 1 log长度为 3
+358802 TRCE S3 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+358948 TRCE S4 的lastApplied为 0 commitIndex为 1 log长度为 3
+358950 TRCE S4 提交了日志 {CommandValid:true Command:2396697766687996063 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+359016 CMIT S4 更改commitIndex为 2
+359018 CMIT S3 更改commitIndex为 2
+359317 TRCE S2 的lastApplied为 1 commitIndex为 1 log长度为 12
+359317 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 12
+359447 TRCE S0 的lastApplied为 1 commitIndex为 2 log长度为 12
+359449 TRCE S0 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+359449 LEAD S0 更新commitIndex为：3
+359803 TRCE S3 的lastApplied为 1 commitIndex为 2 log长度为 12
+359805 TRCE S3 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+359812 CMIT S2 更改commitIndex为 3
+359815 CMIT S3 更改commitIndex为 3
+359817 CMIT S1 更改commitIndex为 3
+359812 CMIT S4 更改commitIndex为 3
+359960 TRCE S4 的lastApplied为 1 commitIndex为 3 log长度为 12
+359961 TRCE S4 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+359962 TRCE S4 提交了日志 {CommandValid:true Command:8428661537785630477 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+360325 TRCE S1 的lastApplied为 1 commitIndex为 3 log长度为 12
+360327 TRCE S1 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+360327 TRCE S1 提交了日志 {CommandValid:true Command:8428661537785630477 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+360327 TRCE S2 的lastApplied为 1 commitIndex为 3 log长度为 12
+360328 TRCE S2 提交了日志 {CommandValid:true Command:6373002181515597544 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+360328 TRCE S2 提交了日志 {CommandValid:true Command:8428661537785630477 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+360459 TRCE S0 的lastApplied为 2 commitIndex为 3 log长度为 12
+360460 TRCE S0 提交了日志 {CommandValid:true Command:8428661537785630477 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+360460 LEAD S0 更新commitIndex为：4
+360806 TRCE S3 的lastApplied为 2 commitIndex为 3 log长度为 12
+360808 TRCE S3 提交了日志 {CommandValid:true Command:8428661537785630477 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+360973 TRCE S4 的lastApplied为 3 commitIndex为 3 log长度为 12
+361338 TRCE S2 的lastApplied为 3 commitIndex为 3 log长度为 12
+361339 TRCE S1 的lastApplied为 3 commitIndex为 3 log长度为 12
+361462 TRCE S0 的lastApplied为 3 commitIndex为 4 log长度为 12
+361464 TRCE S0 提交了日志 {CommandValid:true Command:7226401056147428913 CommandIndex:4 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+361465 LEAD S0 更新commitIndex为：5
+361811 TRCE S3 的lastApplied为 3 commitIndex为 3 log长度为 12
+361825 CMIT S4 更改commitIndex为 5
+361829 CMIT S3 更改commitIndex为 5
+361833 CMIT S1 更改commitIndex为 5
+361825 CMIT S2 更改commitIndex为 5
+361979 TRCE S4 的lastApplied为 3 commitIndex为 5 log长度为 12
+361980 TRCE S4 提交了日志 {CommandValid:true Command:7226401056147428913 CommandIndex:4 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+361980 TRCE S4 提交了日志 {CommandValid:true Command:4587731214795048839 CommandIndex:5 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+362351 TRCE S1 的lastApplied为 3 commitIndex为 5 log长度为 12
+362351 TRCE S2 的lastApplied为 3 commitIndex为 5 log长度为 12
+362352 TRCE S1 提交了日志 {CommandValid:true Command:7226401056147428913 CommandIndex:4 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+362353 TRCE S1 提交了日志 {CommandValid:true Command:4587731214795048839 CommandIndex:5 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+362353 TRCE S2 提交了日志 {CommandValid:true Command:7226401056147428913 CommandIndex:4 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+362353 TRCE S2 提交了日志 {CommandValid:true Command:4587731214795048839 CommandIndex:5 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+362469 TRCE S0 的lastApplied为 4 commitIndex为 5 log长度为 12
+362471 TRCE S0 提交了日志 {CommandValid:true Command:4587731214795048839 CommandIndex:5 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+362471 LEAD S0 更新commitIndex为：6
+362815 TRCE S3 的lastApplied为 3 commitIndex为 5 log长度为 12
+362817 TRCE S3 提交了日志 {CommandValid:true Command:7226401056147428913 CommandIndex:4 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+362818 TRCE S3 提交了日志 {CommandValid:true Command:4587731214795048839 CommandIndex:5 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+362991 TRCE S4 的lastApplied为 5 commitIndex为 5 log长度为 12
+363365 TRCE S1 的lastApplied为 5 commitIndex为 5 log长度为 12
+363365 TRCE S2 的lastApplied为 5 commitIndex为 5 log长度为 12
+363472 TRCE S0 的lastApplied为 5 commitIndex为 6 log长度为 12
+363474 TRCE S0 提交了日志 {CommandValid:true Command:5268615662545887489 CommandIndex:6 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+363474 LEAD S0 更新commitIndex为：7
+363827 TRCE S3 的lastApplied为 5 commitIndex为 5 log长度为 12
+363846 CMIT S4 更改commitIndex为 7
+363848 CMIT S1 更改commitIndex为 7
+363846 CMIT S2 更改commitIndex为 7
+363849 CMIT S3 更改commitIndex为 7
+364004 TRCE S4 的lastApplied为 5 commitIndex为 7 log长度为 12
+364006 TRCE S4 提交了日志 {CommandValid:true Command:5268615662545887489 CommandIndex:6 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+364007 TRCE S4 提交了日志 {CommandValid:true Command:5527019394854451071 CommandIndex:7 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+364375 TRCE S1 的lastApplied为 5 commitIndex为 7 log长度为 12
+364375 TRCE S2 的lastApplied为 5 commitIndex为 7 log长度为 12
+364377 TRCE S2 提交了日志 {CommandValid:true Command:5268615662545887489 CommandIndex:6 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+364378 TRCE S2 提交了日志 {CommandValid:true Command:5527019394854451071 CommandIndex:7 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+364377 TRCE S1 提交了日志 {CommandValid:true Command:5268615662545887489 CommandIndex:6 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+364378 TRCE S1 提交了日志 {CommandValid:true Command:5527019394854451071 CommandIndex:7 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+364485 TRCE S0 的lastApplied为 6 commitIndex为 7 log长度为 12
+364486 TRCE S0 提交了日志 {CommandValid:true Command:5527019394854451071 CommandIndex:7 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+364487 LEAD S0 更新commitIndex为：8
+364839 TRCE S3 的lastApplied为 5 commitIndex为 7 log长度为 12
+364841 TRCE S3 提交了日志 {CommandValid:true Command:5268615662545887489 CommandIndex:6 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+364842 TRCE S3 提交了日志 {CommandValid:true Command:5527019394854451071 CommandIndex:7 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+365018 TRCE S4 的lastApplied为 7 commitIndex为 7 log长度为 12
+365383 TRCE S1 的lastApplied为 7 commitIndex为 7 log长度为 12
+365383 TRCE S2 的lastApplied为 7 commitIndex为 7 log长度为 12
+365493 TRCE S0 的lastApplied为 7 commitIndex为 8 log长度为 12
+365494 TRCE S0 提交了日志 {CommandValid:true Command:2691959238013269721 CommandIndex:8 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+365495 LEAD S0 更新commitIndex为：9
+365850 TRCE S3 的lastApplied为 7 commitIndex为 7 log长度为 12
+365853 CMIT S1 更改commitIndex为 9
+365853 CMIT S4 更改commitIndex为 9
+365853 CMIT S3 更改commitIndex为 9
+365853 CMIT S2 更改commitIndex为 9
+366028 TRCE S4 的lastApplied为 7 commitIndex为 9 log长度为 12
+366030 TRCE S4 提交了日志 {CommandValid:true Command:2691959238013269721 CommandIndex:8 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+366031 TRCE S4 提交了日志 {CommandValid:true Command:4625654969670648825 CommandIndex:9 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+366388 TRCE S2 的lastApplied为 7 commitIndex为 9 log长度为 12
+366388 TRCE S1 的lastApplied为 7 commitIndex为 9 log长度为 12
+366390 TRCE S1 提交了日志 {CommandValid:true Command:2691959238013269721 CommandIndex:8 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+366390 TRCE S1 提交了日志 {CommandValid:true Command:4625654969670648825 CommandIndex:9 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+366389 TRCE S2 提交了日志 {CommandValid:true Command:2691959238013269721 CommandIndex:8 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+366391 TRCE S2 提交了日志 {CommandValid:true Command:4625654969670648825 CommandIndex:9 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+366506 TRCE S0 的lastApplied为 8 commitIndex为 9 log长度为 12
+366508 TRCE S0 提交了日志 {CommandValid:true Command:4625654969670648825 CommandIndex:9 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+366508 LEAD S0 更新commitIndex为：10
+366897 TRCE S3 的lastApplied为 7 commitIndex为 9 log长度为 12
+366899 TRCE S3 提交了日志 {CommandValid:true Command:2691959238013269721 CommandIndex:8 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+366899 TRCE S3 提交了日志 {CommandValid:true Command:4625654969670648825 CommandIndex:9 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+367040 TRCE S4 的lastApplied为 9 commitIndex为 9 log长度为 12
+367402 TRCE S1 的lastApplied为 9 commitIndex为 9 log长度为 12
+367402 TRCE S2 的lastApplied为 9 commitIndex为 9 log长度为 12
+367519 TRCE S0 的lastApplied为 9 commitIndex为 10 log长度为 12
+367520 TRCE S0 提交了日志 {CommandValid:true Command:2973425657271082930 CommandIndex:10 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+367522 LEAD S0 更新commitIndex为：11
+367863 CMIT S4 更改commitIndex为 11
+367867 CMIT S1 更改commitIndex为 11
+367869 CMIT S2 更改commitIndex为 11
+367871 CMIT S3 更改commitIndex为 11
+367904 TRCE S3 的lastApplied为 9 commitIndex为 11 log长度为 12
+367905 TRCE S3 提交了日志 {CommandValid:true Command:2973425657271082930 CommandIndex:10 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+367905 TRCE S3 提交了日志 {CommandValid:true Command:1413672480576213834 CommandIndex:11 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+368042 TRCE S4 的lastApplied为 9 commitIndex为 11 log长度为 12
+368043 TRCE S4 提交了日志 {CommandValid:true Command:2973425657271082930 CommandIndex:10 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+368043 TRCE S4 提交了日志 {CommandValid:true Command:1413672480576213834 CommandIndex:11 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+368410 TRCE S2 的lastApplied为 9 commitIndex为 11 log长度为 12
+368435 TRCE S2 提交了日志 {CommandValid:true Command:2973425657271082930 CommandIndex:10 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+368436 TRCE S2 提交了日志 {CommandValid:true Command:1413672480576213834 CommandIndex:11 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+368437 TRCE S1 的lastApplied为 9 commitIndex为 11 log长度为 12
+368437 TRCE S1 提交了日志 {CommandValid:true Command:2973425657271082930 CommandIndex:10 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+368438 TRCE S1 提交了日志 {CommandValid:true Command:1413672480576213834 CommandIndex:11 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+368532 TRCE S0 的lastApplied为 10 commitIndex为 11 log长度为 12
+368534 TRCE S0 提交了日志 {CommandValid:true Command:1413672480576213834 CommandIndex:11 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+  ... Passed --  36.9  5  565  107274   11
+PASS
+ok  	6.5840/raft	36.872s

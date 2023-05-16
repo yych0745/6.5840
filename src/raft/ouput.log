@@ -1,0 +1,137 @@
+Test (2C): basic persistence ...
+000003 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+000004 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+000004 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+001016 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+001015 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+001016 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+002027 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+002027 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+002027 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+003035 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+003038 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+003038 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+004044 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+004045 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+004046 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+005056 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+005056 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+005057 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+006068 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+006071 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+006071 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+007082 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+007082 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+007082 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+008095 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+008099 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+008103 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+008155 VOTE S1 开始预选举 term为0 
+008159 VOTE S1开始向0要票
+008159 VOTE S1开始向2要票
+008169 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008169 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008171 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+008171 VOTE S1 预选举成功
+008171 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+008171 VOTE S1 开始正式选举
+008171 VOTE S1 开始选举 term为1 
+008172 LOG1 S1 选举成功
+008172 VOTE S1 选举成功 term为: 1
+008172 VOTE S1开始向2要票
+008172 LEAD S1 成为leader
+008173 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+008174 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+008175 LEAD S1 开始发送群体日志-----
+008172 VOTE S1开始向0要票
+008176 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+008177 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+009108 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+009108 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+009108 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+009109 LEAD S1 更新commitIndex为：1
+010157 TRCE S1 的lastApplied为 0 commitIndex为 1 log长度为 2
+010158 TRCE S1 提交了日志 11
+010159 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+010159 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+010183 CMIT S2 更改commitIndex为 1
+010187 CMIT S0 更改commitIndex为 1
+011166 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 2
+011166 TRCE S0 的lastApplied为 0 commitIndex为 1 log长度为 2
+011168 TRCE S0 提交了日志 11
+011166 TRCE S2 的lastApplied为 0 commitIndex为 1 log长度为 2
+011168 TRCE S2 提交了日志 11
+011308 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+011309 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+011309 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+012315 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+012314 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+012315 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+013322 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+013324 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+013325 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+014335 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+014335 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+014335 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+015358 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+015359 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+015359 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+016371 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+016373 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+016373 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+017378 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+017379 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+017379 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+018390 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+018391 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+018391 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+019381 VOTE S2 开始预选举 term为1 
+019385 VOTE S2开始向0要票
+019385 VOTE S2开始向1要票
+019394 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+019394 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+019394 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+019790 VOTE S2 开始预选举 term为0 
+019793 VOTE S2开始向1要票
+019800 VOTE S2开始向0要票
+019803 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+019804 VOTE S2 term 1 的情况下 向1要票结束, 结果为true
+019805 VOTE S2 预选举成功
+019805 VOTE S2 开始正式选举
+019805 VOTE S2 开始选举 term为1 
+019805 VOTE S2开始向1要票
+019806 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 2
+019803 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+019808 VOTE S2 term 1 的情况下 向1要票结束, 结果为true
+019808 LOG1 S2 选举成功
+019808 VOTE S2 选举成功 term为: 1
+019808 LEAD S2 成为leader
+019811 VOTE S2开始向0要票
+019811 VOTE S2 term 1 的情况下 向0要票结束, 结果为true
+019812 LEAD S2 开始发送群体日志-----
+019812 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 2
+019814 VOTE S2 term 1 的情况下 向0要票结束, 结果为true
+cmd: 12 cmd1: 11
+cmd: 12 cmd1: 11
+cmd: 12 cmd1: 11
+020400 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+020401 LEAD S2 更新commitIndex为：1
+020401 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+020402 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+cmd: 12 cmd1: 11
+cmd: 12 cmd1: 11
+cmd: 12 cmd1: 11
+021175 VOTE S0 开始预选举 term为1 
+021177 VOTE S0开始向1要票
+021178 VOTE S0开始向2要票
+cmd: 12 cmd1: 11
+021405 TRCE S2 的lastApplied为 0 commitIndex为 1 log长度为 2
+021405 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+021405 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+021407 TRCE S2 提交了日志 12
+2: log map[1:11]; server map[1:11]
+2: log map[1:11]; server map[1:11]
+2: log map[1:11]; server map[1:11]
+apply error: commit index=1 server=2 12 != server=2 11
+exit status 1
+FAIL	6.5840/raft	2.147s
