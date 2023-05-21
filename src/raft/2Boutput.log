@@ -1,0 +1,97 @@
+Test (2B): basic agreement ...
+000004 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+000003 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+000004 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+000515 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+000515 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+000515 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+001026 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+001026 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+001026 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+001536 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+001537 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+001537 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+002050 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+002052 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+002051 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+002565 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+002566 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+002566 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+003077 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+003077 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+003078 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+003590 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+003596 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+003596 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+004100 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+004100 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+004101 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+004613 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+004614 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+004615 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+005124 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+005124 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+005124 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+005633 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+005635 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+005636 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+006146 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+006147 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+006147 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+006659 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+006660 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+006660 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+007171 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+007173 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+007173 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+007677 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+007679 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+007676 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+008190 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+008190 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+008190 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 1
+008385 VOTE S1 开始预选举 term为0 
+008398 VOTE S1开始向2要票
+008401 VOTE S1开始向0要票
+008403 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008404 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008404 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+008404 VOTE S1 预选举成功
+008405 VOTE S1 开始正式选举
+008405 VOTE S1 开始选举 term为1 
+008405 VOTE S1开始向2要票
+008405 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+008405 LOG1 S1 选举成功
+008406 VOTE S1 选举成功 term为: 1
+008406 LEAD S1 成为leader
+008406 LEAD S1 开始发送群体日志-----
+008406 VOTE S1开始向0要票
+008407 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+008408 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+008406 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+008409 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+008703 LOG1 S1 接收到的命令为100 返回值 index: 1, term 1, isLeader true
+008705 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+008705 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 1
+008705 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 1
+009217 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+009219 TRCE S1 的lastApplied为 0 commitIndex为 0 log长度为 2
+009219 LEAD S1 更新commitIndex为：1
+009219 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+009731 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+009732 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+009732 TRCE S1 的lastApplied为 0 commitIndex为 1 log长度为 2
+009732 TRCE S1 提交了日志 {CommandValid:true Command:100 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+010240 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 2
+010240 TRCE S2 的lastApplied为 0 commitIndex为 0 log长度为 2
+010240 TRCE S0 的lastApplied为 0 commitIndex为 0 log长度为 2
+010413 CMIT S2 更改commitIndex为 1
+010416 CMIT S0 更改commitIndex为 1
+010751 TRCE S0 的lastApplied为 0 commitIndex为 1 log长度为 2
+010752 TRCE S1 的lastApplied为 1 commitIndex为 1 log长度为 2
+010752 TRCE S2 的lastApplied为 0 commitIndex为 1 log长度为 2
+010753 TRCE S2 提交了日志 {CommandValid:true Command:100 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+010752 TRCE S0 提交了日志 {CommandValid:true Command:100 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+010792 LOG1 S1 接收到的命令为200 返回值 index: 2, term 1, isLeader true
+signal: interrupt
+FAIL	6.5840/raft	1.129s

@@ -926,6 +926,7 @@ func TestFigure8Unreliable2C(t *testing.T) {
 	cfg.one(rand.Int()%10000, 1, true)
 
 	nup := servers
+	fmt.Println("********************")
 	for iters := 0; iters < 1000; iters++ {
 		if iters == 200 {
 			cfg.setlongreordering(true)
@@ -959,12 +960,14 @@ func TestFigure8Unreliable2C(t *testing.T) {
 			}
 		}
 	}
+	fmt.Println("-------------------")
 
 	for i := 0; i < servers; i++ {
 		if cfg.connected[i] == false {
 			cfg.connect(i)
 		}
 	}
+	fmt.Println("连接全部完成")
 
 	cfg.one(rand.Int()%10000, servers, true)
 
