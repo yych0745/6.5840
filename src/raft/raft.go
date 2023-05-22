@@ -202,6 +202,7 @@ type RequestVoteArgs struct {
 	CandidateId  int
 	LastLogIndex int
 	LastLogTerm  int
+	PreElcection bool
 }
 
 // example RequestVote RPC reply structure.
@@ -276,7 +277,7 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 // the leader.
 func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	index := -1
-	term := -1
+	var term int
 	isLeader := false
 
 	// Your code here (2B).
@@ -340,7 +341,7 @@ func (rf *Raft) ticker() {
 		} else {
 
 			Debug(dLeader, "S%d 成为leader\n", rf.me)
-			for i, _ := range rf.peers {
+			for i := range rf.peers {
 				rf.nextIndex[i] = len(rf.Log)
 			}
 			rf.matchIndex = make([]int, len(rf.peers))
@@ -676,7 +677,6 @@ func (rf *Raft) election() bool {
 
 func (rf *Raft) preElection1() bool {
 	defer rf.rlock.Unlock()
-	conectNum := 0
 	rf.rlock.Lock()
 	if !rf.startElection {
 		Debug(dVote, "S%d 退出预选举\n", rf.me)
@@ -696,6 +696,7 @@ func (rf *Raft) preElection1() bool {
 		rf.rlock.Lock()
 
 		args := RequestVoteArgs{}
+		args.PreElcection = true
 		args.CandidateId = rf.me
 		args.LastLogIndex = len(rf.Log) - 1
 		args.LastLogTerm = rf.Log[args.LastLogIndex].Term
@@ -711,7 +712,6 @@ ForEnd:
 	for {
 		select {
 		case reply = <-rf.electionChan:
-			conectNum += 1
 			if reply.Term == term && reply.VoteGranted {
 				votedNum++
 				if votedNum*2 > len(rf.peers) {
@@ -754,54 +754,6 @@ func (rf *Raft) electionRequest(u int, peer *labrpc.ClientEnd, args RequestVoteA
 func (rf *Raft) sendAppendEntrie(server int, args AppendEntrieArgs, reply *AppendEntrieReply) bool {
 	ok := rf.peers[server].Call("Raft.AppendEntrie", args, reply)
 	return ok
-}
-
-// example RequestVote RPC handler.
-func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
-	// Your code here (2A, 2B).
-	// 如果Candidate的term小于自身term，拒绝投票
-	defer rf.rlock.Unlock()
-	rf.rlock.Lock()
-	// Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 %+v", args.CandidateId, args, rf.me, rf)
-	Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 log: %+v, term: %d, votedFor: %d", args.CandidateId, args, rf.me, rf.Log, rf.Term, rf.VotedFor)
-	if rf.Term > args.Term {
-		reply.Term = rf.Term
-		reply.VoteGranted = false
-		Debug(dVote, "S%d 拒绝给S%d 原因1,", rf.me, args.CandidateId)
-		return
-	}
-	if args.LastLogTerm < rf.Log[len(rf.Log)-1].Term || args.LastLogTerm == rf.Log[len(rf.Log)-1].Term && args.LastLogIndex < len(rf.Log)-1 {
-		reply.Term = args.Term
-		if rf.Term < args.Term {
-			rf.Term = args.Term
-			rf.persist()
-		}
-		Debug(dVote, "S%d 拒绝给S%d 原因2,", rf.me, args.CandidateId)
-		return
-	}
-
-	if rf.Term == args.Term {
-		reply.Term = args.Term
-		if rf.VotedFor == -1 || rf.VotedFor == args.CandidateId {
-			rf.VotedFor = args.CandidateId
-			rf.persist()
-			reply.VoteGranted = true
-		} else {
-			reply.VoteGranted = false
-			Debug(dVote, "S%d 拒绝给S%d 原因3 投票者term为: %d,", rf.me, args.CandidateId, rf.Term)
-		}
-		return
-	}
-	// 如果Candidate的term更大，那么不管什么，就投它
-	rf.Term = args.Term
-	rf.leaderId = -1
-	rf.VotedFor = args.CandidateId
-	reply.Term = rf.Term
-	rf.persist()
-	reply.VoteGranted = true
-	// 收到请求投票后就重置时间
-	rf.startElection = false
-	return
 }
 
 func (rf *Raft) commit() {

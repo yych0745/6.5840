@@ -1,5 +1,61 @@
 package raft
+// example RequestVote RPC handler.
+func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
+	// Your code here (2A, 2B).
+	// 如果Candidate的term小于自身term，拒绝投票
+	defer rf.rlock.Unlock()
+	rf.rlock.Lock()
+	// 收到请求投票后就重置时间
+	rf.startElection = false
 
+	// Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 %+v", args.CandidateId, args, rf.me, rf)
+	Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 log: %+v, term: %d, votedFor: %d", args.CandidateId, args, rf.me, rf.Log, rf.Term, rf.VotedFor)
+	if rf.Term > args.Term {
+		reply.Term = rf.Term
+		reply.VoteGranted = false
+		Debug(dVote, "S%d 拒绝给S%d 原因1,", rf.me, args.CandidateId)
+		return
+	}
+	if args.LastLogTerm < rf.Log[len(rf.Log)-1].Term || args.LastLogTerm == rf.Log[len(rf.Log)-1].Term && args.LastLogIndex < len(rf.Log)-1 {
+		reply.Term = args.Term
+		if rf.Term < args.Term && !args.PreElcection {
+			rf.Term = args.Term
+			rf.persist()
+		}
+		Debug(dVote, "S%d 拒绝给S%d 原因2, S%d的lastLogIndex为:%d lastlogTerm为：%d", rf.me, args.CandidateId, rf.me, len(rf.Log)-1, rf.Log[len(rf.Log)-1].Term)
+		return
+	}
+
+	if rf.Term == args.Term {
+		reply.Term = args.Term
+		if args.PreElcection {
+			reply.VoteGranted = true
+			return
+		}
+		if rf.VotedFor == -1 || rf.VotedFor == args.CandidateId {
+			rf.VotedFor = args.CandidateId
+			rf.persist()
+			reply.VoteGranted = true
+		} else {
+			reply.VoteGranted = false
+			Debug(dVote, "S%d 拒绝给S%d 原因3 投票者term为: %d,", rf.me, args.CandidateId, rf.Term)
+		}
+		return
+	}
+	// 如果Candidate的term更大，那么不管什么，就投它
+	if !args.PreElcection {
+		rf.Term = args.Term
+	}
+	rf.VotedFor = args.CandidateId
+	rf.leaderId = -1
+	reply.Term = args.Term
+	rf.persist()
+	if rf.leaderId == rf.me {
+		Debug(dLeader, "S%d 在收到S%d的竞选消息后放弃leader", rf.leaderId, rf.me)
+	}
+	reply.VoteGranted = true
+	return
+}
 func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	reply.Id = rf.me
 	reply.ReplyIndex = 0
