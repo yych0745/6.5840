@@ -22,6 +22,7 @@ import (
 
 	"bytes"
 	"errors"
+	"fmt"
 	"log"
 	"math/rand"
 	"sync"
@@ -67,6 +68,7 @@ type Raft struct {
 	Term          int
 	startElection bool
 	electionChan  chan RequestVoteReply
+	commitChan    chan int
 	heartChan     chan AppendEntrieReply
 	applyMsgChan  chan ApplyMsg
 	// endChan       chan End
@@ -83,6 +85,11 @@ type Raft struct {
 	// state a Raft server must maintain.
 
 }
+
+func (rf *Raft) String() string {
+	return fmt.Sprintf("S%d 的term: %d votedFor:%d nextIndex: %v matchIndex: %v log:%v", rf.me, rf.Term, rf.VotedFor, rf.nextIndex, rf.matchIndex, rf.Log)
+}
+
 type End struct {
 	end      bool
 	exitLead bool
@@ -313,7 +320,7 @@ func (rf *Raft) killed() bool {
 }
 
 func (rf *Raft) ticker() {
-	go rf.commit()
+	// go rf.commit()
 	for rf.killed() == false {
 
 		// Your code here (2A)
@@ -342,7 +349,7 @@ func (rf *Raft) ticker() {
 	}
 }
 
-func (rf *Raft) commit() {
+func (rf *Raft) commit1() {
 	for rf.killed() == false {
 		rf.rlock.Lock()
 		Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, len(rf.Log))
@@ -395,6 +402,27 @@ func (rf *Raft) leadL() {
 		args := AppendEntrieArgs{}
 		args.Term = rf.Term
 		args.LeaderId = rf.me
+		rf.matchIndex[rf.me] = len(rf.Log) - 1
+		index := rf.commitIndex
+		for ; index <= lastIndex(rf.Log); index++ {
+			sum := 0
+			for _, v := range rf.matchIndex {
+				if v > index {
+					sum++
+				}
+			}
+			if sum*2 < len(rf.peers) {
+				break
+			}
+		}
+		Debug(dLeader, "%+v", rf)
+		if index < len(rf.Log) && (rf.Log[max(index, 0)].Term == rf.Term || rf.Log[rf.commitIndex].Term == rf.Term) {
+			if index > rf.commitIndex {
+				rf.commitIndex = max(index, 0)
+				rf.wakeCommit()
+				Debug(dLeader, "S%d 更新commitIndex为：%d", rf.me, rf.commitIndex)
+			}
+		}
 		for i, peer := range rf.peers {
 			if i == rf.me {
 				continue
@@ -440,6 +468,12 @@ func (rf *Raft) leadL() {
 		}
 		rf.rlock.Lock()
 	}
+}
+
+func (rf *Raft) wakeCommit() {
+	Debug(dLeader, "S%d 唤醒commitChan1 开始", rf.me)
+	rf.commitChan <- 1
+	Debug(dLeader, "S%d 唤醒commitChan1 成功", rf.me)
 }
 
 func (rf *Raft) groupLogReplication() {
@@ -495,9 +529,9 @@ func (rf *Raft) logReplication(id int, peer *labrpc.ClientEnd) {
 			rf.rlock.Lock()
 			if reply.Success {
 				if afterFirstEqual {
-				// 	rf.nextIndex[id] = len(rf.Log)
+					// 	rf.nextIndex[id] = len(rf.Log)
 				} else {
-				// 	rf.nextIndex[id]++
+					// 	rf.nextIndex[id]++
 					afterFirstEqual = true
 				}
 				rf.nextIndex[id] = reply.ReplyIndex
@@ -770,6 +804,29 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	return
 }
 
+func (rf *Raft) commit() {
+	for rf.killed() == false {
+		select {
+		case <-rf.commitChan:
+			Debug(dInfo, "S%d commit被唤醒", rf.me)
+			rf.rlock.Lock()
+			Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, len(rf.Log))
+			for rf.lastApplied < rf.commitIndex && rf.lastApplied+1 < len(rf.Log) {
+				index := rf.lastApplied + 1
+				msg := ApplyMsg{CommandIndex: index, Command: rf.Log[index].Command, CommandValid: true}
+				Debug(dTrace, "S%d 提交了日志 %+v", rf.me, msg)
+				rf.applyMsgChan <- msg
+				rf.lastApplied = index
+			}
+			rf.rlock.Unlock()
+		default:
+			ms := 100
+			// Debug(dInfo, "S%d commit睡眠", rf.me)
+			time.Sleep(time.Duration(ms) * time.Millisecond)
+		}
+	}
+}
+
 // the service or tester wants to create a Raft server. the ports
 // of all the Raft servers (including this one) are in peers[]. this
 // server's port is peers[me]. all the servers' peers[] arrays
@@ -794,12 +851,14 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.nextIndex = make([]int, len(peers))
 	rf.matchIndex = make([]int, len(peers))
 
+	rf.commitChan = make(chan int, 10)
+
 	rf.applyMsgChan = applyCh
 	rf.Log = append(rf.Log, LogEntry{Term: -1})
 	rf.readPersist(persister.ReadRaftState())
 
 	// start ticker goroutine to start elections
 	go rf.ticker()
-
+	go rf.commit()
 	return rf
 }

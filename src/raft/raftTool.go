@@ -23,8 +23,10 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	Debug(dLeader, "S%d 目前有%v日志, 长度为%d, 接收S%d 的参数为%+v", rf.me, rf.Log, len(rf.Log), args.LeaderId, args)
 
 	if args.PrevLogIndex == -1 || args.PrevLogIndex < len(rf.Log) && rf.Log[args.PrevLogIndex].Term == args.PrevLogTerm {
-		if args.LeaderCommit > rf.commitIndex {
-			rf.commitIndex = min(args.LeaderCommit, len(rf.Log)-1)
+		index := min(args.LeaderCommit, len(rf.Log)-1)
+		if index > rf.commitIndex {
+			rf.commitIndex = index
+			rf.wakeCommit()
 			Debug(dCommit, "S%d 更改commitIndex为 %d", rf.me, rf.commitIndex)
 		}
 	}
