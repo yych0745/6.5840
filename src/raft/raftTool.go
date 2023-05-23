@@ -1,4 +1,5 @@
 package raft
+
 // example RequestVote RPC handler.
 func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (2A, 2B).
@@ -7,6 +8,7 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	rf.rlock.Lock()
 	// 收到请求投票后就重置时间
 	rf.startElection = false
+	reply.PreElcection = args.PreElcection
 
 	// Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 %+v", args.CandidateId, args, rf.me, rf)
 	Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 log: %+v, term: %d, votedFor: %d", args.CandidateId, args, rf.me, rf.Log, rf.Term, rf.VotedFor)
@@ -45,18 +47,19 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	// 如果Candidate的term更大，那么不管什么，就投它
 	if !args.PreElcection {
 		rf.Term = args.Term
+		rf.VotedFor = args.CandidateId
+		rf.leaderId = -1
 	}
-	rf.VotedFor = args.CandidateId
-	rf.leaderId = -1
 	reply.Term = args.Term
 	rf.persist()
 	if rf.leaderId == rf.me {
-		Debug(dLeader, "S%d 在收到S%d的竞选消息后放弃leader", rf.leaderId, rf.me)
+		Debug(dLeader, "S%d 在收到S%d的竞选消息后放弃leader", rf.me, args.CandidateId)
 	}
 	reply.VoteGranted = true
 	return
 }
 func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
+	defer Debug(dLeader, "S%d 接收S%d的日志的回复为%+v", args.LeaderId, rf.me, reply)
 	reply.Id = rf.me
 	reply.ReplyIndex = 0
 	rf.rlock.Lock()
@@ -88,7 +91,7 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	}
 
 	if args.PrevLogIndex >= len(rf.Log) {
-		reply.ReplyIndex = len(rf.Log) - 1
+		reply.ReplyIndex = len(rf.Log)
 
 		if len(args.Entries) == 0 {
 			reply.Success = true
@@ -102,7 +105,7 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	}
 
 	if args.PrevLogIndex == -1 || rf.Log[args.PrevLogIndex].Term == args.PrevLogTerm {
-		reply.NotHearbeat = true
+		reply.NotHeartbeat = true
 		reply.Success = true
 
 		if len(args.Entries) == 0 {
@@ -129,6 +132,7 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 				break
 			}
 		}
+		index = min(index+1, args.PrevLogIndex)
 		rf.Log = rf.Log[:index+1]
 		rf.persist()
 		Debug(dLog, "S%d 的log 因为接收到S%d 的内容%v，被切掉了log, 剩下的长度为%d，返回的index为: %d\n", rf.me, args.LeaderId, args, len(rf.Log), index)

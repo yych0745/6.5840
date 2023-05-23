@@ -1,0 +1,403 @@
+Test (2C): Figure 8 (unreliable) ...
+009274 VOTE S3 开始预选举 term为0 
+009306 VOTE S3开始向0要票
+009310 VOTE S3开始向4要票
+009310 VOTE S3开始向1要票
+009310 VOTE S3开始向2要票
+009362 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+009370 VOTE S3 term 1 的情况下 向1要票结束, 结果为true
+009590 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+009590 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+009595 VOTE S3 term 1 的情况下 向0要票结束, 结果为true
+009596 VOTE S3 预选举成功
+009595 VOTE S3 term 1 的情况下 向2要票结束, 结果为true
+009596 VOTE S3 开始正式选举
+009597 VOTE S3 开始选举 term为1 
+009598 VOTE S3开始向0要票
+009599 VOTE S3开始向1要票
+009599 VOTE S3开始向2要票
+009600 VOTE S3开始向4要票
+009637 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+009643 VOTE S3 term 1 的情况下 向1要票结束, 结果为true
+009643 LOG1 S3 选举成功
+009643 VOTE S3 选举成功 term为: 1
+009645 LOG1 S3 接收到的命令为9215 返回值 index: 1, term 1, isLeader true
+009646 WARN S2 被塞了消息9215
+009646 LEAD S3 成为leader
+009647 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+009646 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+009649 LEAD S3 准备开启给S0发送日志的协程
+009650 LEAD S3 开启给S0发送日志的协程
+009651 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+009652 LEAD S3 准备开启给S1发送日志的协程
+009652 LEAD S3 开启给S1发送日志的协程
+009653 VOTE S3 term 1 的情况下 向2要票结束, 结果为true
+009653 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+009654 LEAD S3 准备开启给S2发送日志的协程
+009655 LEAD S3 开启给S2发送日志的协程
+009656 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+009658 LEAD S3 准备开启给S4发送日志的协程
+009659 LEAD S3 开启给S4发送日志的协程
+009660 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+009664 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+009753 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+009823 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+009826 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: -1
+009831 VOTE S3 term 1 的情况下 向0要票结束, 结果为true
+010158 LEAD S3 关闭给S1 发送日志的携程 4
+010158 LEAD S3 关闭给S2 发送日志的携程 4
+010159 LEAD S3 关闭给S0 发送日志的携程 4
+010161 LEAD S3 关闭给S4 发送日志的携程 4
+010829 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+010830 LEAD S3 准备开启给S0发送日志的协程
+010830 LEAD S3 开启给S0发送日志的协程
+010831 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+010833 LEAD S3 准备开启给S1发送日志的协程
+010833 LEAD S3 开启给S1发送日志的协程
+010834 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+010836 LEAD S3 准备开启给S2发送日志的协程
+010836 LEAD S3 开启给S2发送日志的协程
+010839 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+010840 LEAD S3 准备开启给S4发送日志的协程
+010841 LEAD S3 开启给S4发送日志的协程
+010842 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+010876 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+011038 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+011112 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+011333 LEAD S3 关闭给S0 发送日志的携程 4
+011335 LEAD S3 关闭给S1 发送日志的携程 4
+011340 LEAD S3 关闭给S2 发送日志的携程 4
+011343 LEAD S3 关闭给S4 发送日志的携程 4
+012119 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+012124 LEAD S3 准备开启给S0发送日志的协程
+012125 LEAD S3 开启给S0发送日志的协程
+012127 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+012129 LEAD S3 准备开启给S1发送日志的协程
+012129 LEAD S3 开启给S1发送日志的协程
+012131 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+012132 LEAD S3 准备开启给S2发送日志的协程
+012133 LEAD S3 开启给S2发送日志的协程
+012135 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+012137 LEAD S3 准备开启给S4发送日志的协程
+012138 LEAD S3 开启给S4发送日志的协程
+012141 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+012204 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+012252 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+012312 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+012413 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+012647 LEAD S3 关闭给S1 发送日志的携程 4
+012648 LEAD S3 关闭给S0 发送日志的携程 4
+012657 LEAD S3 关闭给S4 发送日志的携程 4
+012657 LEAD S3 关闭给S2 发送日志的携程 4
+013428 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+013434 LEAD S3 准备开启给S0发送日志的协程
+013434 LEAD S3 开启给S0发送日志的协程
+013436 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+013438 LEAD S3 准备开启给S1发送日志的协程
+013438 LEAD S3 开启给S1发送日志的协程
+013439 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+013441 LEAD S3 准备开启给S2发送日志的协程
+013441 LEAD S3 开启给S2发送日志的协程
+013443 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+013445 LEAD S3 准备开启给S4发送日志的协程
+013446 LEAD S3 开启给S4发送日志的协程
+013447 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+013480 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+013556 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+013584 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+013627 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+013945 LEAD S3 关闭给S0 发送日志的携程 4
+013949 LEAD S3 关闭给S2 发送日志的携程 4
+013955 LEAD S3 关闭给S4 发送日志的携程 4
+013955 LEAD S3 关闭给S1 发送日志的携程 4
+014677 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+014678 LEAD S3 准备开启给S0发送日志的协程
+014679 LEAD S3 开启给S0发送日志的协程
+014679 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+014680 LEAD S3 准备开启给S1发送日志的协程
+014680 LEAD S3 开启给S1发送日志的协程
+014681 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+014681 LEAD S3 准备开启给S2发送日志的协程
+014681 LEAD S3 开启给S2发送日志的协程
+014682 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+014683 LEAD S3 准备开启给S4发送日志的协程
+014683 LEAD S3 开启给S4发送日志的协程
+014683 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+014751 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+014815 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+014838 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+014869 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+015184 LEAD S3 关闭给S4 发送日志的携程 4
+015185 LEAD S3 关闭给S2 发送日志的携程 4
+015184 LEAD S3 关闭给S1 发送日志的携程 4
+015184 LEAD S3 关闭给S0 发送日志的携程 4
+015874 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+015877 LEAD S3 准备开启给S0发送日志的协程
+015878 LEAD S3 开启给S0发送日志的协程
+015880 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+015883 LEAD S3 准备开启给S1发送日志的协程
+015884 LEAD S3 开启给S1发送日志的协程
+015887 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+015890 LEAD S3 准备开启给S2发送日志的协程
+015891 LEAD S3 开启给S2发送日志的协程
+015893 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+015895 LEAD S3 准备开启给S4发送日志的协程
+015896 LEAD S3 开启给S4发送日志的协程
+015898 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+016018 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+016023 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+016059 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+016110 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+016393 LEAD S3 关闭给S0 发送日志的携程 4
+016401 LEAD S3 关闭给S2 发送日志的携程 4
+016402 LEAD S3 关闭给S4 发送日志的携程 4
+016402 LEAD S3 关闭给S1 发送日志的携程 4
+017122 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+017135 LEAD S3 准备开启给S0发送日志的协程
+017135 LEAD S3 开启给S0发送日志的协程
+017137 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+017138 LEAD S3 准备开启给S1发送日志的协程
+017139 LEAD S3 开启给S1发送日志的协程
+017140 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+017141 LEAD S3 准备开启给S2发送日志的协程
+017141 LEAD S3 开启给S2发送日志的协程
+017143 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+017144 LEAD S3 准备开启给S4发送日志的协程
+017144 LEAD S3 开启给S4发送日志的协程
+017145 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+017163 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+017305 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+017397 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+017677 LEAD S3 关闭给S1 发送日志的携程 4
+017691 LEAD S3 关闭给S4 发送日志的携程 4
+017694 LEAD S3 关闭给S0 发送日志的携程 4
+017695 LEAD S3 关闭给S2 发送日志的携程 4
+018468 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+018469 LEAD S3 准备开启给S0发送日志的协程
+018493 LEAD S3 开启给S0发送日志的协程
+018497 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+018498 LEAD S3 准备开启给S1发送日志的协程
+018498 LEAD S3 开启给S1发送日志的协程
+018498 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+018521 LEAD S3 准备开启给S2发送日志的协程
+018529 LEAD S3 开启给S2发送日志的协程
+018530 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+018531 LEAD S3 准备开启给S4发送日志的协程
+018531 LEAD S3 开启给S4发送日志的协程
+018531 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+018637 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+018688 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+018696 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+018785 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+019037 LEAD S3 关闭给S4 发送日志的携程 4
+019037 LEAD S3 关闭给S0 发送日志的携程 4
+019037 LEAD S3 关闭给S2 发送日志的携程 4
+019086 LEAD S3 关闭给S1 发送日志的携程 4
+019790 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+019792 LEAD S3 准备开启给S0发送日志的协程
+019793 LEAD S3 开启给S0发送日志的协程
+019795 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+019802 LEAD S3 准备开启给S1发送日志的协程
+019803 LEAD S3 开启给S1发送日志的协程
+019804 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+019805 LEAD S3 准备开启给S2发送日志的协程
+019805 LEAD S3 开启给S2发送日志的协程
+019806 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+019809 LEAD S3 准备开启给S4发送日志的协程
+019809 LEAD S3 开启给S4发送日志的协程
+019810 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+019904 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+019906 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+019945 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+020349 LEAD S3 关闭给S4 发送日志的携程 4
+020349 LEAD S3 关闭给S1 发送日志的携程 4
+020349 LEAD S3 关闭给S0 发送日志的携程 4
+020349 LEAD S3 关闭给S2 发送日志的携程 4
+020988 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+020994 LEAD S3 准备开启给S0发送日志的协程
+020995 LEAD S3 开启给S0发送日志的协程
+020996 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+020997 LEAD S3 准备开启给S1发送日志的协程
+020998 LEAD S3 开启给S1发送日志的协程
+020998 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+021000 LEAD S3 准备开启给S2发送日志的协程
+021000 LEAD S3 开启给S2发送日志的协程
+021001 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+021002 LEAD S3 准备开启给S4发送日志的协程
+021008 LEAD S3 开启给S4发送日志的协程
+021009 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+021042 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+021241 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+021250 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+021267 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+021499 LEAD S3 关闭给S0 发送日志的携程 4
+021513 LEAD S3 关闭给S4 发送日志的携程 4
+021513 LEAD S3 关闭给S1 发送日志的携程 4
+021514 LEAD S3 关闭给S2 发送日志的携程 4
+022280 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+022284 LEAD S3 准备开启给S0发送日志的协程
+022284 LEAD S3 开启给S0发送日志的协程
+022285 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+022287 LEAD S3 准备开启给S1发送日志的协程
+022287 LEAD S3 开启给S1发送日志的协程
+022288 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+022290 LEAD S3 准备开启给S2发送日志的协程
+022290 LEAD S3 开启给S2发送日志的协程
+022291 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+022293 LEAD S3 准备开启给S4发送日志的协程
+022310 LEAD S3 开启给S4发送日志的协程
+022313 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+022431 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+022442 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+022523 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+022558 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+022817 LEAD S3 关闭给S4 发送日志的携程 4
+022824 LEAD S3 关闭给S2 发送日志的携程 4
+022825 LEAD S3 关闭给S1 发送日志的携程 4
+022825 LEAD S3 关闭给S0 发送日志的携程 4
+023577 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+023582 LEAD S3 准备开启给S0发送日志的协程
+023583 LEAD S3 开启给S0发送日志的协程
+023601 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+023604 LEAD S3 准备开启给S1发送日志的协程
+023604 LEAD S3 开启给S1发送日志的协程
+023606 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+023607 LEAD S3 准备开启给S2发送日志的协程
+023607 LEAD S3 开启给S2发送日志的协程
+023608 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+023609 LEAD S3 准备开启给S4发送日志的协程
+023610 LEAD S3 开启给S4发送日志的协程
+023611 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+023715 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+023735 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+023794 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+023829 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+024108 LEAD S3 关闭给S0 发送日志的携程 4
+024112 LEAD S3 关闭给S2 发送日志的携程 4
+024113 LEAD S3 关闭给S4 发送日志的携程 4
+024119 LEAD S3 关闭给S1 发送日志的携程 4
+024843 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+024847 LEAD S3 准备开启给S0发送日志的协程
+024847 LEAD S3 开启给S0发送日志的协程
+024848 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+024850 LEAD S3 准备开启给S1发送日志的协程
+024851 LEAD S3 开启给S1发送日志的协程
+024852 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+024853 LEAD S3 准备开启给S2发送日志的协程
+024854 LEAD S3 开启给S2发送日志的协程
+024855 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+024856 LEAD S3 准备开启给S4发送日志的协程
+024857 LEAD S3 开启给S4发送日志的协程
+024858 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+024878 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+024929 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+024962 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+025045 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+025371 LEAD S3 关闭给S0 发送日志的携程 4
+025374 LEAD S3 关闭给S1 发送日志的携程 4
+025381 LEAD S3 关闭给S2 发送日志的携程 4
+025382 LEAD S3 关闭给S4 发送日志的携程 4
+025975 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+025977 LEAD S3 准备开启给S0发送日志的协程
+025977 LEAD S3 开启给S0发送日志的协程
+025978 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+025980 LEAD S3 准备开启给S1发送日志的协程
+025980 LEAD S3 开启给S1发送日志的协程
+025981 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+025982 LEAD S3 准备开启给S2发送日志的协程
+025982 LEAD S3 开启给S2发送日志的协程
+025983 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+025984 LEAD S3 准备开启给S4发送日志的协程
+025985 LEAD S3 开启给S4发送日志的协程
+025986 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+026065 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+026294 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+026319 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+026489 LEAD S3 关闭给S0 发送日志的携程 4
+026490 LEAD S3 关闭给S2 发送日志的携程 4
+026490 LEAD S3 关闭给S4 发送日志的携程 4
+026490 LEAD S3 关闭给S1 发送日志的携程 4
+027334 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+027344 LEAD S3 准备开启给S0发送日志的协程
+027345 LEAD S3 开启给S0发送日志的协程
+027346 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+027347 LEAD S3 准备开启给S1发送日志的协程
+027348 LEAD S3 开启给S1发送日志的协程
+027348 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+027349 LEAD S3 准备开启给S2发送日志的协程
+027350 LEAD S3 开启给S2发送日志的协程
+027351 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+027351 LEAD S3 准备开启给S4发送日志的协程
+027352 LEAD S3 开启给S4发送日志的协程
+027353 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+027472 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+027482 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+027485 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+027866 LEAD S3 关闭给S4 发送日志的携程 4
+027871 LEAD S3 关闭给S0 发送日志的携程 4
+027878 LEAD S3 关闭给S2 发送日志的携程 4
+027879 LEAD S3 关闭给S1 发送日志的携程 4
+028549 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+028553 LEAD S3 准备开启给S0发送日志的协程
+028554 LEAD S3 开启给S0发送日志的协程
+028556 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+028558 LEAD S3 准备开启给S1发送日志的协程
+028559 LEAD S3 开启给S1发送日志的协程
+028560 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+028562 LEAD S3 准备开启给S2发送日志的协程
+028563 LEAD S3 开启给S2发送日志的协程
+028565 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+028567 LEAD S3 准备开启给S4发送日志的协程
+028568 LEAD S3 开启给S4发送日志的协程
+028569 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+028671 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+028718 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+028773 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+029066 LEAD S3 关闭给S0 发送日志的携程 4
+029074 LEAD S3 关闭给S1 发送日志的携程 4
+029076 LEAD S3 关闭给S2 发送日志的携程 4
+029079 LEAD S3 关闭给S4 发送日志的携程 4
+029789 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 2 2 2 2] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 9215}]
+029792 LEAD S3 准备开启给S0发送日志的协程
+029793 LEAD S3 开启给S0发送日志的协程
+029794 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+029796 LEAD S3 准备开启给S1发送日志的协程
+029797 LEAD S3 开启给S1发送日志的协程
+029798 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+029801 LEAD S3 准备开启给S2发送日志的协程
+029801 LEAD S3 开启给S2发送日志的协程
+029804 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+029806 LEAD S3 准备开启给S4发送日志的协程
+029806 LEAD S3 开启给S4发送日志的协程
+029807 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+029846 LOG1 S3 接收到的命令为9215 返回值 index: 2, term 1, isLeader true
+029848 WARN S4 被塞了消息9215
+029859 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+029924 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+029989 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+030053 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+030303 LEAD S3 发送日志{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:9215}] LeaderCommit:0} 给S0 此时S3的nextIndex为：[2 2 2 2 2]
+030316 LEAD S3 发送日志{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:9215}] LeaderCommit:0} 给S1 此时S3的nextIndex为：[2 2 2 2 2]
+030327 LEAD S3 发送日志{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:9215}] LeaderCommit:0} 给S2 此时S3的nextIndex为：[2 2 2 2 2]
+030342 LEAD S3 发送日志{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:9215}] LeaderCommit:0} 给S4 此时S3的nextIndex为：[2 2 2 2 2]
+030368 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:9215}] LeaderCommit:0}
+030391 LEAD S3 准备更新nextIndex[2]从2 到 0: 
+030394 LEAD S3 已经更新nextIndex[2]从2 到 0: 
+030422 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:9215}] LeaderCommit:0}
+030443 LEAD S3 准备更新nextIndex[1]从2 到 0: 
+030444 LEAD S3 已经更新nextIndex[1]从2 到 0: 
+030456 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:9215}] LeaderCommit:0}
+030462 LEAD S3 准备更新nextIndex[0]从2 到 0: 
+030463 LEAD S3 已经更新nextIndex[0]从2 到 0: 
+030513 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:9215}] LeaderCommit:0}
+030521 LEAD S3 准备更新nextIndex[4]从2 到 0: 
+030521 LEAD S3 已经更新nextIndex[4]从2 到 0: 
+panic: runtime error: index out of range [-1]
+
+goroutine 310 [running]:
+6.5840/raft.(*Raft).logReplication1(0xc0001922d0, 0x2, 0x0?)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:526 +0x11e8
+created by 6.5840/raft.(*Raft).leadL
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:442 +0x6e8
+exit status 2
+FAIL	6.5840/raft	3.113s

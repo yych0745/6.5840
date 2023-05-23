@@ -75,6 +75,7 @@ type Raft struct {
 	VotedFor int
 	rlock    sync.Mutex
 	Log      []LogEntry
+	logRepu  []bool
 
 	commitIndex int //index of highest log entry known to becommitted (initialized to 0, increasesmonotonically)
 	lastApplied int
@@ -209,8 +210,9 @@ type RequestVoteArgs struct {
 // field names must start with capital letters!
 type RequestVoteReply struct {
 	// Your data here (2A).
-	Term        int
-	VoteGranted bool
+	Term         int
+	VoteGranted  bool
+	PreElcection bool
 }
 
 type AppendEntrieArgs struct {
@@ -221,14 +223,25 @@ type AppendEntrieArgs struct {
 	Entries      []LogEntry
 	LeaderCommit int
 }
+
+func (r *AppendEntrieArgs) String() string {
+	return fmt.Sprintf("Term: %d LeaderId: %d PrevLogIndex: %d PrevLogTerm: %d Entries %+v LeaderCommit: %d",
+		r.Term, r.LeaderId, r.PrevLogIndex, r.PrevLogTerm, r.Entries, r.LeaderCommit)
+}
+
 type AppendEntrieReply struct {
 	Term    int
 	Success bool
 	Id      int
 
-	NotHearbeat bool
-	ReplyIndex  int
-	ReplyTerm   int
+	NotHeartbeat bool
+	ReplyIndex   int
+	ReplyTerm    int
+}
+
+func (r *AppendEntrieReply) String() string {
+	return fmt.Sprintf("Term: %d Success: %v Id: %d NotHeartBeat: %v ReplyIndex%+v ReplyTerm: %v",
+		r.Term, r.Success, r.Id, r.NotHeartbeat, r.ReplyIndex, r.ReplyTerm)
 }
 
 // example code to send a RequestVote RPC to a server.
@@ -389,7 +402,7 @@ func (rf *Raft) commit1() {
 }
 
 func (rf *Raft) leadL() {
-	go rf.groupLogReplication()
+	// go rf.groupLogReplication()
 	for {
 		// Debug(dLeader, "S%d :i am leader\n", rf.me)
 		if rf.killed() {
@@ -427,6 +440,14 @@ func (rf *Raft) leadL() {
 		for i, peer := range rf.peers {
 			if i == rf.me {
 				continue
+			}
+			if rf.matchIndex[i] < len(rf.Log)-1 {
+				Debug(dLeader, "S%d 准备开启给S%d发送日志的协程", rf.me, i)
+				if !rf.logRepu[i] {
+					Debug(dLeader, "S%d 开启给S%d发送日志的协程", rf.me, i)
+					go rf.logReplication1(i, peer)
+					rf.logRepu[i] = true
+				}
 			}
 			args.PrevLogIndex = rf.nextIndex[i] - 1
 			if args.PrevLogIndex >= len(rf.Log) {
@@ -488,16 +509,98 @@ func (rf *Raft) groupLogReplication() {
 
 }
 
-func (rf *Raft) logReplication(id int, peer *labrpc.ClientEnd) {
+func (rf *Raft) logReplication1(id int, peer *labrpc.ClientEnd) {
 	afterFirstEqual := false
 
 	for !rf.killed() {
 		ms := 50
-		time.Sleep(time.Duration(ms) * time.Millisecond)
-		// args.LeaderCommit = rf.commitIndex
+		time.Sleep(time.Millisecond * time.Duration(ms))
 		rf.rlock.Lock()
 		if rf.nextIndex[id] < len(rf.Log) {
-			// rf.rlock.Lock()
+			if rf.me != rf.leaderId {
+				Debug(dLeader, "S%d 关闭给S%d 发送日志的携程 1", rf.me, id)
+				rf.logRepu[id] = false
+				rf.rlock.Unlock()
+				return
+			}
+			args := AppendEntrieArgs{}
+			args.Term = rf.Term
+			args.LeaderId = rf.me
+			reply := AppendEntrieReply{}
+			// reply.FLogcnt = 100
+			args.PrevLogIndex = rf.nextIndex[id] - 1
+			args.PrevLogTerm = rf.Log[args.PrevLogIndex].Term
+			args.LeaderCommit = min(rf.commitIndex, args.PrevLogIndex)
+			if afterFirstEqual {
+				for i := rf.nextIndex[id]; i < len(rf.Log); i++ {
+					o := LogEntry{Term: rf.Log[i].Term, Command: rf.Log[i].Command}
+					args.Entries = append(args.Entries, o)
+				}
+			} else {
+				for i := rf.nextIndex[id]; i < rf.nextIndex[id]+1; i++ {
+					o := LogEntry{Term: rf.Log[i].Term, Command: rf.Log[i].Command}
+					args.Entries = append(args.Entries, o)
+				}
+			}
+			Debug(dLeader, "S%d 发送日志%+v 给S%d 此时S%d的nextIndex为：%+v", rf.me, args, id, rf.me, rf.nextIndex)
+			if len(args.Entries) == 0 {
+				Debug(dLeader, "S%d 关闭给S%d 发送日志的携程 2", rf.me, id)
+				rf.logRepu[id] = false
+				rf.rlock.Unlock()
+				return
+			}
+			rf.rlock.Unlock()
+			ok := peer.Call("Raft.AppendEntrie", args, &reply)
+
+			if !ok {
+				continue
+			}
+			rf.rlock.Lock()
+			if reply.Success {
+				afterFirstEqual = true
+				Debug(dLeader, "S%d LW 发送给S%d的日志提交成功 reply: %+v", rf.me, id, reply)
+				rf.nextIndex[id] = reply.ReplyIndex
+				Debug(dLeader, "S%d LN 发送给S%d的日志提交成功，更新nextIndex为：%+v", rf.me, id, rf.nextIndex)
+				rf.matchIndex[reply.Id] = rf.nextIndex[reply.Id] - 1
+			} else {
+				if reply.Term > rf.Term {
+					Debug(dLeader, "S%d 给S%d发送日志后放弃成为lead\n", rf.me, reply.Id)
+					rf.Term = reply.Term
+					rf.leaderId = -1
+					rf.startElection = false
+					rf.persist()
+					rf.logRepu[id] = false
+					rf.rlock.Unlock()
+					Debug(dLeader, "S%d 关闭给S%d 发送日志的携程 3", rf.me, id)
+					return
+				}
+				Debug(dLeader, "S%d 准备更新nextIndex[%d]从%d 到 %d: ", rf.me, id, rf.nextIndex[id], reply.ReplyIndex)
+				if reply.ReplyIndex > 0 {
+					Debug(dLeader, "S%d 已经更新nextIndex[%d]从%d 到 %d: ", rf.me, id, rf.nextIndex[id], reply.ReplyIndex)
+					rf.nextIndex[id] = reply.ReplyIndex
+				} else {
+					rf.nextIndex[id] = 1
+				}
+			}
+			rf.rlock.Unlock()
+		} else {
+			rf.logRepu[id] = false
+			rf.rlock.Unlock()
+			Debug(dLeader, "S%d 关闭给S%d 发送日志的携程 4", rf.me, id)
+			return
+		}
+
+	}
+}
+
+func (rf *Raft) logReplication(id int, peer *labrpc.ClientEnd) {
+	afterFirstEqual := false
+
+	for !rf.killed() {
+		// ms := 50
+		// time.Sleep(time.Duration(ms) * time.Millisecond)
+		rf.rlock.Lock()
+		if rf.nextIndex[id] < len(rf.Log) {
 			if rf.me != rf.leaderId {
 				rf.rlock.Unlock()
 				return
@@ -549,11 +652,11 @@ func (rf *Raft) logReplication(id int, peer *labrpc.ClientEnd) {
 					return
 				}
 				Debug(dLeader, "S%d 准备更新nextIndex[%d]从%d 到 %d: ", rf.me, id, rf.nextIndex[id], reply.ReplyIndex+1)
-				if reply.ReplyIndex >= 0 {
+				if reply.ReplyIndex > 0 {
 					Debug(dLeader, "S%d 已经更新nextIndex[%d]从%d 到 %d: ", rf.me, id, rf.nextIndex[id], reply.ReplyIndex+1)
-					rf.nextIndex[id] = reply.ReplyIndex + 1
+					rf.nextIndex[id] = reply.ReplyIndex
 				} else {
-					rf.nextIndex[id]--
+					rf.nextIndex[id] = 1
 				}
 			}
 		}
@@ -639,7 +742,7 @@ func (rf *Raft) election() bool {
 			select {
 			case reply = <-rf.electionChan:
 				conectNum += 1
-				if reply.Term == rf.Term && reply.VoteGranted {
+				if reply.Term == rf.Term && reply.VoteGranted && !reply.PreElcection {
 					votedNum++
 					if votedNum*2 > len(rf.peers) {
 						Debug(dLog, "S%d 选举成功", rf.me)
@@ -802,6 +905,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.heartChan = make(chan AppendEntrieReply, 10)
 	rf.nextIndex = make([]int, len(peers))
 	rf.matchIndex = make([]int, len(peers))
+	rf.logRepu = make([]bool, len(peers))
 
 	rf.commitChan = make(chan int, 10)
 

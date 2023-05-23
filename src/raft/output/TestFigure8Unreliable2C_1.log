@@ -1,0 +1,320 @@
+Test (2C): Figure 8 (unreliable) ...
+008093 VOTE S3 开始预选举 term为0 
+008110 VOTE S3开始向0要票
+008114 VOTE S3开始向4要票
+008114 VOTE S3开始向2要票
+008114 VOTE S3开始向1要票
+008130 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008138 VOTE S3 term 1 的情况下 向1要票结束, 结果为true
+008203 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008210 VOTE S3 term 1 的情况下 向4要票结束, 结果为true
+008211 VOTE S3 预选举成功
+008211 VOTE S3 开始正式选举
+008212 VOTE S3 开始选举 term为1 
+008213 VOTE S3开始向0要票
+008214 VOTE S3开始向1要票
+008215 VOTE S3开始向2要票
+008216 VOTE S3开始向4要票
+008235 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008244 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008244 VOTE S3 term 1 的情况下 向2要票结束, 结果为true
+008245 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+008251 VOTE S3 term 1 的情况下 向0要票结束, 结果为true
+008251 LOG1 S3 选举成功
+008252 VOTE S3 选举成功 term为: 1
+008252 LEAD S3 成为leader
+008252 VOTE S3 term 1 的情况下 向2要票结束, 结果为true
+008253 LEAD S3 的term: 1 votedFor:3 nextIndex: [1 1 1 1 1] matchIndex: [0 0 0 0 0] log:[{-1 <nil>}]
+008254 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1]
+008255 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1]
+008257 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1]
+008258 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1]
+008264 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+008269 VOTE S3 term 1 的情况下 向0要票结束, 结果为true
+008339 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+008342 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+008367 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+008409 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: 3
+008417 VOTE S3 term 1 的情况下 向4要票结束, 结果为true
+008420 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+008500 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+008724 LOG1 S3 接收到的命令为5518 返回值 index: 1, term 1, isLeader true
+008725 WARN S2 被塞了消息5518
+009507 LEAD S3 的term: 1 votedFor:3 nextIndex: [1 1 1 1 1] matchIndex: [0 0 0 1 0] log:[{-1 <nil>} {1 5518}]
+009509 LEAD S3 准备开启给S0发送日志的协程
+009509 LEAD S3 开启给S0发送日志的协程
+009511 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1]
+009511 WARN S3 log位置1
+009512 LEAD S3 准备开启给S1发送日志的协程
+009513 LEAD S3 开启给S1发送日志的协程
+009514 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1]
+009514 WARN S3 log位置1
+009515 LEAD S3 准备开启给S2发送日志的协程
+009515 LEAD S3 开启给S2发送日志的协程
+009516 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1]
+009517 WARN S3 log位置1
+009517 LEAD S3 准备开启给S4发送日志的协程
+009517 LEAD S3 开启给S4发送日志的协程
+009518 WARN S3 log位置1
+009518 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1]
+009538 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+009634 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+009663 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+009753 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+010030 WARN S3 log位置2
+010031 WARN S3 log位置3
+010032 WARN S3 log位置4
+010032 LEAD S3 发送日志{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0} 给S0 此时S3的nextIndex为：[1 1 1 1 1]
+010158 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0}
+010162 LEAD S0 接收到S3的内容 {Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0} 当前S0的日志为 [{-1 <nil>} {1 5518}] commitIndex为 0 返回值为+&{1 true 0 true 2 0}
+010169 WARN S3 log位置5
+010169 WARN S3 log位置7
+010535 WARN S3 log位置2
+010537 WARN S3 log位置3
+010541 WARN S3 log位置4
+010542 LEAD S3 发送日志{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0} 给S1 此时S3的nextIndex为：[1 1 1 1 1]
+010746 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0}
+010750 LEAD S1 接收到S3的内容 {Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0} 当前S1的日志为 [{-1 <nil>} {1 5518}] commitIndex为 0 返回值为+&{1 true 1 true 2 0}
+010756 WARN S3 log位置5
+010757 WARN S3 log位置7
+011061 WARN S3 log位置2
+011063 WARN S3 log位置3
+011064 WARN S3 log位置4
+011064 LEAD S3 发送日志{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0} 给S2 此时S3的nextIndex为：[1 1 1 1 1]
+011245 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0}
+011248 LEAD S2 接收到S3的内容 {Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0} 当前S2的日志为 [{-1 <nil>} {1 5518}] commitIndex为 0 返回值为+&{1 true 2 true 2 0}
+011255 WARN S3 log位置5
+011255 WARN S3 log位置7
+011583 WARN S3 log位置2
+011584 WARN S3 log位置3
+011585 WARN S3 log位置4
+011585 LEAD S3 发送日志{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0} 给S4 此时S3的nextIndex为：[1 1 1 1 1]
+011587 LEAD S3 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:2 ReplyTerm:0}
+011588 LEAD S3 LN 发送给S0的日志提交成功，更新nextIndex为：[2 1 1 1 1]
+011589 WARN S3 log位置8
+011589 WARN S3 log位置10
+011589 LEAD S3 的term: 1 votedFor:3 nextIndex: [2 1 1 1 1] matchIndex: [1 0 0 1 0] log:[{-1 <nil>} {1 5518}]
+011591 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 1 1 1 1]
+011593 LEAD S3 准备开启给S1发送日志的协程
+011594 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 1 1 1 1]
+011595 LEAD S3 准备开启给S2发送日志的协程
+011596 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 1 1 1 1]
+011597 LEAD S3 准备开启给S4发送日志的协程
+011598 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [2 1 1 1 1]
+011599 LEAD S3 LW 发送给S1的日志提交成功 reply: {Term:1 Success:true Id:1 NotHearbeat:true ReplyIndex:2 ReplyTerm:0}
+011600 LEAD S3 LN 发送给S1的日志提交成功，更新nextIndex为：[2 2 1 1 1]
+011601 WARN S3 log位置8
+011601 WARN S3 log位置10
+011602 LEAD S3 LW 发送给S2的日志提交成功 reply: {Term:1 Success:true Id:2 NotHearbeat:true ReplyIndex:2 ReplyTerm:0}
+011602 LEAD S3 LN 发送给S2的日志提交成功，更新nextIndex为：[2 2 2 1 1]
+011603 WARN S3 log位置8
+011603 WARN S3 log位置10
+011618 LEAD S0 目前有[{-1 <nil>} {1 5518}]日志, 长度为2, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+011631 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+011707 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0}
+011709 LEAD S4 接收到S3的内容 {Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:5518}] LeaderCommit:0} 当前S4的日志为 [{-1 <nil>} {1 5518}] commitIndex为 0 返回值为+&{1 true 4 true 2 0}
+011714 WARN S3 log位置5
+011715 WARN S3 log位置7
+011715 LEAD S3 LW 发送给S4的日志提交成功 reply: {Term:1 Success:true Id:4 NotHearbeat:true ReplyIndex:2 ReplyTerm:0}
+011716 LEAD S3 LN 发送给S4的日志提交成功，更新nextIndex为：[2 2 2 1 2]
+011716 WARN S3 log位置8
+011716 WARN S3 log位置10
+011747 LEAD S1 目前有[{-1 <nil>} {1 5518}]日志, 长度为2, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+011809 LEAD S2 目前有[{-1 <nil>} {1 5518}]日志, 长度为2, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+012095 WARN S3 log位置2
+012098 WARN S3 log位置9
+fatal error: sync: unlock of unlocked mutex
+
+goroutine 45 [running]:
+runtime.throw({0x105174f24?, 0x104fab2bc?})
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/panic.go:992 +0x50 fp=0xc00029fc20 sp=0xc00029fbf0 pc=0x104f6bd10
+sync.throw({0x105174f24?, 0x1ffffffff?})
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/panic.go:978 +0x24 fp=0xc00029fc40 sp=0xc00029fc20 pc=0x104f9b3f4
+sync.(*Mutex).unlockSlow(0xc00018a348, 0xffffffff)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:220 +0x48 fp=0xc00029fc70 sp=0xc00029fc40 pc=0x104fab2d8
+sync.(*Mutex).Unlock(0xc00018a348)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214 +0x54 fp=0xc00029fc90 sp=0xc00029fc70 pc=0x104fab264
+6.5840/raft.(*Raft).logReplication1(0xc00018a2d0, 0x0, 0xc00008c100?)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:585 +0xe6c fp=0xc00029ff90 sp=0xc00029fc90 pc=0x10515fb8c
+6.5840/raft.(*Raft).leadL.func1()
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:436 +0x54 fp=0xc00029ffd0 sp=0xc00029ff90 pc=0x10515ebc4
+runtime.goexit()
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/asm_arm64.s:1263 +0x4 fp=0xc00029ffd0 sp=0xc00029ffd0 pc=0x104fa0714
+created by 6.5840/raft.(*Raft).leadL
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:436 +0x6e8
+
+goroutine 1 [chan receive]:
+testing.(*T).Run(0xc000107a00, {0x105172532, 0x17}, 0x10522fbc0)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/testing/testing.go:1487 +0x580
+testing.runTests.func1(0x0?)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/testing/testing.go:1839 +0x98
+testing.tRunner(0xc000107a00, 0xc00016bb98)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/testing/testing.go:1439 +0x190
+testing.runTests(0xc00013c140?, {0x105382ba0, 0x1c, 0x1c}, {0xc000116c60?, 0x105043610?, 0x105386840?})
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/testing/testing.go:1837 +0x6cc
+testing.(*M).Run(0xc00013c140)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/testing/testing.go:1719 +0x87c
+main.main()
+	_testmain.go:101 +0x300
+
+goroutine 19 [sleep]:
+time.Sleep(0x1312d00)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*config).one(0xc00013e280, {0x1051eab80?, 0xc000120538}, 0x1, 0x1)
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:597 +0x464
+6.5840/raft.TestFigure8Unreliable2C(0x0?)
+	/Users/yych/repositry/6.6840_back/src/raft/test_test.go:926 +0xd0
+testing.tRunner(0xc000107ba0, 0x10522fbc0)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/testing/testing.go:1439 +0x190
+created by testing.(*T).Run
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/testing/testing.go:1486 +0x564
+
+goroutine 20 [select]:
+6.5840/labrpc.MakeNetwork.func1()
+	/Users/yych/repositry/6.6840_back/src/labrpc/labrpc.go:153 +0xd0
+created by 6.5840/labrpc.MakeNetwork
+	/Users/yych/repositry/6.6840_back/src/labrpc/labrpc.go:151 +0x2b8
+
+goroutine 21 [sleep]:
+time.Sleep(0x3e3a2d00)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).follow(0xc00018a000)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:684 +0xf0
+6.5840/raft.(*Raft).ticker(0xc00018a000)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:334 +0x9c
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:915 +0x530
+
+goroutine 22 [sleep]:
+time.Sleep(0x5f5e100)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).commit(0xc00018a000)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:878 +0x1cc
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:916 +0x594
+
+goroutine 23 [chan receive]:
+6.5840/raft.(*config).applier(0xc00013e280, 0x0, 0x0?)
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:166 +0x58
+created by 6.5840/raft.(*config).start1
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:328 +0x8b0
+
+goroutine 24 [sleep]:
+time.Sleep(0x33058600)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).follow(0xc00018a0f0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:684 +0xf0
+6.5840/raft.(*Raft).ticker(0xc00018a0f0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:334 +0x9c
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:915 +0x530
+
+goroutine 25 [sleep]:
+time.Sleep(0x5f5e100)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).commit(0xc00018a0f0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:878 +0x1cc
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:916 +0x594
+
+goroutine 26 [chan receive]:
+6.5840/raft.(*config).applier(0xc00013e280, 0x1, 0x0?)
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:166 +0x58
+created by 6.5840/raft.(*config).start1
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:328 +0x8b0
+
+goroutine 27 [sleep]:
+time.Sleep(0x39d10680)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).follow(0xc00018a1e0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:684 +0xf0
+6.5840/raft.(*Raft).ticker(0xc00018a1e0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:334 +0x9c
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:915 +0x530
+
+goroutine 28 [sleep]:
+time.Sleep(0x5f5e100)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).commit(0xc00018a1e0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:878 +0x1cc
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:916 +0x594
+
+goroutine 29 [chan receive]:
+6.5840/raft.(*config).applier(0xc00013e280, 0x2, 0x0?)
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:166 +0x58
+created by 6.5840/raft.(*config).start1
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:328 +0x8b0
+
+goroutine 30 [select]:
+6.5840/raft.(*Raft).leadL(0xc00018a2d0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:455 +0xb80
+6.5840/raft.(*Raft).ticker(0xc00018a2d0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:349 +0x24c
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:915 +0x530
+
+goroutine 31 [sleep]:
+time.Sleep(0x5f5e100)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).commit(0xc00018a2d0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:878 +0x1cc
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:916 +0x594
+
+goroutine 32 [chan receive]:
+6.5840/raft.(*config).applier(0xc00013e280, 0x3, 0x0?)
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:166 +0x58
+created by 6.5840/raft.(*config).start1
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:328 +0x8b0
+
+goroutine 33 [sleep]:
+time.Sleep(0x387212c0)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).follow(0xc00018a3c0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:684 +0xf0
+6.5840/raft.(*Raft).ticker(0xc00018a3c0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:334 +0x9c
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:915 +0x530
+
+goroutine 34 [sleep]:
+time.Sleep(0x5f5e100)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).commit(0xc00018a3c0)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:878 +0x1cc
+created by 6.5840/raft.Make
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:916 +0x594
+
+goroutine 35 [chan receive]:
+6.5840/raft.(*config).applier(0xc00013e280, 0x4, 0x0?)
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:166 +0x58
+created by 6.5840/raft.(*config).start1
+	/Users/yych/repositry/6.6840_back/src/raft/config.go:328 +0x8b0
+
+goroutine 82 [sleep]:
+time.Sleep(0x2faf080)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).logReplication1(0xc00018a2d0, 0x4, 0x0?)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:507 +0xd0
+created by 6.5840/raft.(*Raft).leadL
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:436 +0x6e8
+
+goroutine 62 [sleep]:
+time.Sleep(0x2faf080)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).logReplication1(0xc00018a2d0, 0x1, 0xc00008c100?)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:507 +0xd0
+created by 6.5840/raft.(*Raft).leadL
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:436 +0x6e8
+
+goroutine 64 [sleep]:
+time.Sleep(0x2faf080)
+	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/time.go:194 +0x11c
+6.5840/raft.(*Raft).logReplication1(0xc00018a2d0, 0x2, 0xc000254300?)
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:507 +0xd0
+created by 6.5840/raft.(*Raft).leadL
+	/Users/yych/repositry/6.6840_back/src/raft/raft.go:436 +0x6e8
+exit status 2
+FAIL	6.5840/raft	1.230s

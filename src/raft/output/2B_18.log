@@ -1,0 +1,1173 @@
+Test (2B): agreement after follower reconnects ...
+180701 VOTE S1 开始预选举 term为2 
+180706 VOTE S1开始向0要票
+180706 VOTE S1开始向2要票
+185397 VOTE S1 预选举失败，获得1票数
+189687 VOTE S1 开始预选举 term为0 
+189693 VOTE S1开始向0要票
+189695 VOTE S1开始向2要票
+189705 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+189711 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+189715 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+189715 VOTE S1 预选举成功
+189716 VOTE S1 开始正式选举
+189716 VOTE S1 开始选举 term为1 
+189717 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+189718 VOTE S1开始向2要票
+189717 VOTE S1开始向0要票
+189723 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+189727 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+189730 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+189736 LOG1 S1 选举成功
+189736 VOTE S1 选举成功 term为: 1
+189737 LEAD S1 成为leader
+189740 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+189741 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+189742 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+189763 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+189773 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+189774 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+190180 LOG1 S1 接收到的命令为101 返回值 index: 1, term 1, isLeader true
+190182 WARN S0 被塞了消息101
+190808 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 1 0] log:[{-1 <nil>} {1 101}]
+190810 LEAD S1 准备开启给S0发送日志的协程
+190810 LEAD S1 开启给S0发送日志的协程
+190811 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+190812 LEAD S1 准备开启给S2发送日志的协程
+190812 LEAD S1 开启给S2发送日志的协程
+190820 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+190841 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+190872 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+191334 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 给S2 此时S1的nextIndex为：[1 1 1]
+191339 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 给S0 此时S1的nextIndex为：[1 1 1]
+191350 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0}
+191352 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 当前S0的日志为 [{-1 <nil>} {1 101}] commitIndex为 0 返回值为+&{1 true 0 true 2 0}
+191358 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:2 ReplyTerm:0}
+191359 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[2 1 1]
+191361 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0}
+191366 LEAD S2 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[{Term:1 Command:101}] LeaderCommit:0} 当前S2的日志为 [{-1 <nil>} {1 101}] commitIndex为 0 返回值为+&{1 true 2 true 2 0}
+191371 LEAD S1 LW 发送给S2的日志提交成功 reply: {Term:1 Success:true Id:2 NotHearbeat:true ReplyIndex:2 ReplyTerm:0}
+191372 LEAD S1 LN 发送给S2的日志提交成功，更新nextIndex为：[2 1 2]
+191862 LEAD S1 关闭给S0 发送日志的携程 4
+191874 LEAD S1 关闭给S2 发送日志的携程 4
+191890 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 1 2] matchIndex: [1 1 1] log:[{-1 <nil>} {1 101}]
+191892 LEAD S1 唤醒commitChan1 开始
+191893 LEAD S1 唤醒commitChan1 成功
+191893 LEAD S1 更新commitIndex为：1
+191893 LOG2 S1 发送给S0 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+191895 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+191975 LEAD S0 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+191977 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+191978 LEAD S2 唤醒commitChan1 开始
+191978 LEAD S2 唤醒commitChan1 成功
+191978 CMIT S2 更改commitIndex为 1
+191977 LEAD S0 唤醒commitChan1 开始
+191981 LEAD S0 唤醒commitChan1 成功
+191981 CMIT S0 更改commitIndex为 1
+192628 INFO S0 commit被唤醒
+192629 INFO S1 commit被唤醒
+192629 TRCE S0 的lastApplied为 0 commitIndex为 1 log长度为 2
+192630 TRCE S1 的lastApplied为 0 commitIndex为 1 log长度为 2
+192630 TRCE S0 提交了日志 {CommandValid:true Command:101 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+192628 INFO S2 commit被唤醒
+192632 TRCE S2 的lastApplied为 0 commitIndex为 1 log长度为 2
+192631 TRCE S1 提交了日志 {CommandValid:true Command:101 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+192633 TRCE S2 提交了日志 {CommandValid:true Command:101 CommandIndex:1 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+192989 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 1 2] matchIndex: [1 1 1] log:[{-1 <nil>} {1 101}]
+192991 LOG2 S1 发送给S0 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+192992 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+193004 LEAD S0 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+193004 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+194017 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 1 2] matchIndex: [1 1 1] log:[{-1 <nil>} {1 101}]
+194021 LOG2 S1 发送给S0 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+194023 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+194037 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+194038 LEAD S0 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+195058 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 1 2] matchIndex: [1 1 1] log:[{-1 <nil>} {1 101}]
+195063 LOG2 S1 发送给S0 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+195068 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+195179 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+195182 LEAD S0 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+196196 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 1 2] matchIndex: [1 1 1] log:[{-1 <nil>} {1 101}]
+196199 LOG2 S1 发送给S0 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+196201 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+196219 LEAD S0 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+196245 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+197261 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 1 2] matchIndex: [1 1 1] log:[{-1 <nil>} {1 101}]
+197264 LOG2 S1 发送给S0 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+197267 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+197305 LEAD S0 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+197312 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+197972 INFO S1 think itself is leader ,term is 1
+197974 LOG2 S2 ---------------disconnect
+197977 LOG1 S1 接收到的命令为102 返回值 index: 2, term 1, isLeader true
+197978 WARN S0 被塞了消息102
+198327 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 1 2] matchIndex: [1 2 1] log:[{-1 <nil>} {1 101} {1 102}]
+198329 LEAD S1 准备开启给S0发送日志的协程
+198329 LEAD S1 开启给S0发送日志的协程
+198330 LOG2 S1 发送给S0 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+198332 LEAD S1 准备开启给S2发送日志的协程
+198332 LEAD S1 开启给S2发送日志的协程
+198333 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 1 nextIndex为: [2 1 2]
+198351 LEAD S0 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+198866 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1} 给S2 此时S1的nextIndex为：[2 1 2]
+198873 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1} 给S0 此时S1的nextIndex为：[2 1 2]
+198886 LEAD S0 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1}
+198889 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1} 当前S0的日志为 [{-1 <nil>} {1 101} {1 102}] commitIndex为 1 返回值为+&{1 true 0 true 3 0}
+198896 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:3 ReplyTerm:0}
+198897 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[3 1 2]
+199363 LEAD S1 的term: 1 votedFor:1 nextIndex: [3 1 2] matchIndex: [2 2 1] log:[{-1 <nil>} {1 101} {1 102}]
+199366 LEAD S1 唤醒commitChan1 开始
+199366 LEAD S1 唤醒commitChan1 成功
+199367 LEAD S1 更新commitIndex为：2
+199368 LOG2 S1 发送给S0 commitIndex为 2 S1的CommitIndex: 2 nextIndex为: [3 1 2]
+199370 LEAD S1 准备开启给S2发送日志的协程
+199371 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 2 nextIndex为: [3 1 2]
+199394 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102}]日志, 长度为3, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[] LeaderCommit:2}
+199397 LEAD S0 唤醒commitChan1 开始
+199398 LEAD S0 唤醒commitChan1 成功
+199398 CMIT S0 更改commitIndex为 2
+199402 LEAD S1 关闭给S0 发送日志的携程 4
+199687 INFO S0 commit被唤醒
+199688 TRCE S0 的lastApplied为 1 commitIndex为 2 log长度为 3
+199689 TRCE S0 提交了日志 {CommandValid:true Command:102 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+199692 INFO S1 commit被唤醒
+199692 TRCE S1 的lastApplied为 1 commitIndex为 2 log长度为 3
+199693 TRCE S1 提交了日志 {CommandValid:true Command:102 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+199847 LOG1 S1 接收到的命令为103 返回值 index: 3, term 1, isLeader true
+199849 WARN S0 被塞了消息103
+200412 LEAD S1 的term: 1 votedFor:1 nextIndex: [3 1 2] matchIndex: [2 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+200415 LEAD S1 准备开启给S0发送日志的协程
+200416 LEAD S1 开启给S0发送日志的协程
+200417 LOG2 S1 发送给S0 commitIndex为 2 S1的CommitIndex: 2 nextIndex为: [3 1 2]
+200418 LEAD S1 准备开启给S2发送日志的协程
+200419 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 2 nextIndex为: [3 1 2]
+200432 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102}]日志, 长度为3, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[] LeaderCommit:2}
+200937 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[{Term:1 Command:103}] LeaderCommit:2} 给S0 此时S1的nextIndex为：[3 1 2]
+200954 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102}]日志, 长度为3, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[{Term:1 Command:103}] LeaderCommit:2}
+200957 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[{Term:1 Command:103}] LeaderCommit:2} 当前S0的日志为 [{-1 <nil>} {1 101} {1 102} {1 103}] commitIndex为 2 返回值为+&{1 true 0 true 4 0}
+200963 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:4 ReplyTerm:0}
+200963 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[4 1 2]
+201444 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+201446 LEAD S1 唤醒commitChan1 开始
+201446 LEAD S1 唤醒commitChan1 成功
+201447 LEAD S1 更新commitIndex为：3
+201448 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+201449 LEAD S1 准备开启给S2发送日志的协程
+201450 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+201492 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+201495 LEAD S0 唤醒commitChan1 开始
+201495 LEAD S0 唤醒commitChan1 成功
+201495 CMIT S0 更改commitIndex为 3
+201574 LEAD S1 关闭给S0 发送日志的携程 4
+201711 INFO S0 commit被唤醒
+201712 INFO S1 commit被唤醒
+201712 TRCE S0 的lastApplied为 2 commitIndex为 3 log长度为 4
+201712 TRCE S1 的lastApplied为 2 commitIndex为 3 log长度为 4
+201712 TRCE S0 提交了日志 {CommandValid:true Command:103 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+201713 TRCE S1 提交了日志 {CommandValid:true Command:103 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+202590 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+202592 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+202593 LEAD S1 准备开启给S2发送日志的协程
+202594 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+202609 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+203617 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+203618 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+203619 LEAD S1 准备开启给S2发送日志的协程
+203619 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+203624 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+204628 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+204655 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+204657 LEAD S1 准备开启给S2发送日志的协程
+204657 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+204669 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+205680 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+205684 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+205686 LEAD S1 准备开启给S2发送日志的协程
+205687 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+205708 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+206732 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+206734 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+206735 LEAD S1 准备开启给S2发送日志的协程
+206736 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+206764 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+207774 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+207777 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+207779 LEAD S1 准备开启给S2发送日志的协程
+207786 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+207800 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+208803 VOTE S2 开始预选举 term为1 
+208811 VOTE S2开始向0要票
+208811 VOTE S2开始向1要票
+208815 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+208817 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+208819 LEAD S1 准备开启给S2发送日志的协程
+208820 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+208838 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+209862 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+209870 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+209872 LEAD S1 准备开启给S2发送日志的协程
+209872 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+209888 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+210898 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+210900 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+210901 LEAD S1 准备开启给S2发送日志的协程
+210902 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+210917 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+211966 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 3 1] log:[{-1 <nil>} {1 101} {1 102} {1 103}]
+211966 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+211967 LEAD S1 准备开启给S2发送日志的协程
+211967 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+211970 LOG1 S1 接收到的命令为104 返回值 index: 4, term 1, isLeader true
+211970 WARN S0 被塞了消息104
+211973 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+212977 LEAD S1 的term: 1 votedFor:1 nextIndex: [4 1 2] matchIndex: [3 4 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]
+212980 LEAD S1 准备开启给S0发送日志的协程
+212981 LEAD S1 开启给S0发送日志的协程
+212982 LOG2 S1 发送给S0 commitIndex为 3 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+212984 LEAD S1 准备开启给S2发送日志的协程
+212984 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 3 nextIndex为: [4 1 2]
+213004 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[] LeaderCommit:3}
+213126 VOTE S2 预选举失败，获得1票数
+213489 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[{Term:1 Command:104}] LeaderCommit:3} 给S0 此时S1的nextIndex为：[4 1 2]
+213512 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103}]日志, 长度为4, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[{Term:1 Command:104}] LeaderCommit:3}
+213519 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:3 PrevLogTerm:1 Entries:[{Term:1 Command:104}] LeaderCommit:3} 当前S0的日志为 [{-1 <nil>} {1 101} {1 102} {1 103} {1 104}] commitIndex为 3 返回值为+&{1 true 0 true 5 0}
+213531 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:5 ReplyTerm:0}
+213532 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[5 1 2]
+214018 LEAD S1 的term: 1 votedFor:1 nextIndex: [5 1 2] matchIndex: [4 4 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]
+214023 LEAD S1 唤醒commitChan1 开始
+214023 LEAD S1 唤醒commitChan1 成功
+214024 LEAD S1 更新commitIndex为：4
+214025 LOG2 S1 发送给S0 commitIndex为 4 S1的CommitIndex: 4 nextIndex为: [5 1 2]
+214027 LEAD S1 准备开启给S2发送日志的协程
+214027 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 4 nextIndex为: [5 1 2]
+214034 LEAD S1 关闭给S0 发送日志的携程 4
+214047 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]日志, 长度为5, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:4 PrevLogTerm:1 Entries:[] LeaderCommit:4}
+214049 LEAD S0 唤醒commitChan1 开始
+214050 LEAD S0 唤醒commitChan1 成功
+214051 CMIT S0 更改commitIndex为 4
+214986 INFO S1 commit被唤醒
+214988 TRCE S1 的lastApplied为 3 commitIndex为 4 log长度为 5
+214988 TRCE S1 提交了日志 {CommandValid:true Command:104 CommandIndex:4 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+214990 INFO S0 commit被唤醒
+214990 TRCE S0 的lastApplied为 3 commitIndex为 4 log长度为 5
+214991 TRCE S0 提交了日志 {CommandValid:true Command:104 CommandIndex:4 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+215076 LEAD S1 的term: 1 votedFor:1 nextIndex: [5 1 2] matchIndex: [4 4 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]
+215078 LOG2 S1 发送给S0 commitIndex为 4 S1的CommitIndex: 4 nextIndex为: [5 1 2]
+215079 LEAD S1 准备开启给S2发送日志的协程
+215080 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 4 nextIndex为: [5 1 2]
+215085 LOG1 S1 接收到的命令为105 返回值 index: 5, term 1, isLeader true
+215085 WARN S0 被塞了消息105
+215099 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]日志, 长度为5, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:4 PrevLogTerm:1 Entries:[] LeaderCommit:4}
+216147 LEAD S1 的term: 1 votedFor:1 nextIndex: [5 1 2] matchIndex: [4 5 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105}]
+216150 LEAD S1 准备开启给S0发送日志的协程
+216151 LEAD S1 开启给S0发送日志的协程
+216153 LOG2 S1 发送给S0 commitIndex为 4 S1的CommitIndex: 4 nextIndex为: [5 1 2]
+216156 LEAD S1 准备开启给S2发送日志的协程
+216157 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 4 nextIndex为: [5 1 2]
+216176 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]日志, 长度为5, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:4 PrevLogTerm:1 Entries:[] LeaderCommit:4}
+216665 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:4 PrevLogTerm:1 Entries:[{Term:1 Command:105}] LeaderCommit:4} 给S0 此时S1的nextIndex为：[5 1 2]
+216688 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]日志, 长度为5, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:4 PrevLogTerm:1 Entries:[{Term:1 Command:105}] LeaderCommit:4}
+216695 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:4 PrevLogTerm:1 Entries:[{Term:1 Command:105}] LeaderCommit:4} 当前S0的日志为 [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105}] commitIndex为 4 返回值为+&{1 true 0 true 6 0}
+216706 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:6 ReplyTerm:0}
+216708 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[6 1 2]
+217212 LEAD S1 的term: 1 votedFor:1 nextIndex: [6 1 2] matchIndex: [5 5 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105}]
+217218 LEAD S1 唤醒commitChan1 开始
+217219 LEAD S1 唤醒commitChan1 成功
+217219 LEAD S1 更新commitIndex为：5
+217220 LOG2 S1 发送给S0 commitIndex为 5 S1的CommitIndex: 5 nextIndex为: [6 1 2]
+217221 LEAD S1 准备开启给S2发送日志的协程
+217222 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 5 nextIndex为: [6 1 2]
+217233 LEAD S1 关闭给S0 发送日志的携程 4
+217242 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105}]日志, 长度为6, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:5 PrevLogTerm:1 Entries:[] LeaderCommit:5}
+217243 LEAD S0 唤醒commitChan1 开始
+217244 LEAD S0 唤醒commitChan1 成功
+217244 CMIT S0 更改commitIndex为 5
+218007 INFO S1 commit被唤醒
+218007 INFO S0 commit被唤醒
+218009 TRCE S1 的lastApplied为 4 commitIndex为 5 log长度为 6
+218010 TRCE S0 的lastApplied为 4 commitIndex为 5 log长度为 6
+218011 TRCE S1 提交了日志 {CommandValid:true Command:105 CommandIndex:5 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+218012 TRCE S0 提交了日志 {CommandValid:true Command:105 CommandIndex:5 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+218105 LOG2 S2 ---------------reconnect
+218114 LOG1 S1 接收到的命令为106 返回值 index: 6, term 1, isLeader true
+218115 WARN S0 被塞了消息106
+218282 LEAD S1 的term: 1 votedFor:1 nextIndex: [6 1 2] matchIndex: [5 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+218284 LEAD S1 准备开启给S0发送日志的协程
+218284 LEAD S1 开启给S0发送日志的协程
+218285 LOG2 S1 发送给S0 commitIndex为 5 S1的CommitIndex: 5 nextIndex为: [6 1 2]
+218286 LEAD S1 准备开启给S2发送日志的协程
+218287 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 5 nextIndex为: [6 1 2]
+218302 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+218302 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105}]日志, 长度为6, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:5 PrevLogTerm:1 Entries:[] LeaderCommit:5}
+218791 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:5 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:5} 给S0 此时S1的nextIndex为：[6 1 2]
+218846 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105}]日志, 长度为6, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:5 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:5}
+218855 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:5 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:5} 当前S0的日志为 [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}] commitIndex为 5 返回值为+&{1 true 0 true 7 0}
+218869 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:7 ReplyTerm:0}
+218870 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[7 1 2]
+219317 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+219320 LEAD S1 唤醒commitChan1 开始
+219320 LEAD S1 唤醒commitChan1 成功
+219321 LEAD S1 更新commitIndex为：6
+219322 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+219323 LEAD S1 准备开启给S2发送日志的协程
+219325 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+219348 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+219351 LEAD S0 唤醒commitChan1 开始
+219352 LEAD S0 唤醒commitChan1 成功
+219352 CMIT S0 更改commitIndex为 6
+219362 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+219373 LEAD S1 关闭给S0 发送日志的携程 4
+220032 INFO S1 commit被唤醒
+220032 INFO S0 commit被唤醒
+220033 TRCE S1 的lastApplied为 5 commitIndex为 6 log长度为 7
+220034 TRCE S0 的lastApplied为 5 commitIndex为 6 log长度为 7
+220035 TRCE S0 提交了日志 {CommandValid:true Command:106 CommandIndex:6 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+220034 TRCE S1 提交了日志 {CommandValid:true Command:106 CommandIndex:6 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+220374 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+220386 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+220388 LEAD S1 准备开启给S2发送日志的协程
+220389 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+220407 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+220419 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+221432 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+221434 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+221435 LEAD S1 准备开启给S2发送日志的协程
+221435 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+221453 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+221455 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+222468 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+222472 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+222474 LEAD S1 准备开启给S2发送日志的协程
+222474 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+222508 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+222519 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+223531 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+223534 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+223535 LEAD S1 准备开启给S2发送日志的协程
+223535 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+223573 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+223573 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+224584 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+224593 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+224595 LEAD S1 准备开启给S2发送日志的协程
+224596 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+224626 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+224633 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+225646 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+225649 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+225650 LEAD S1 准备开启给S2发送日志的协程
+225650 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+225662 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+225665 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+226675 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+226678 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+226680 LEAD S1 准备开启给S2发送日志的协程
+226681 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+226704 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+226716 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+227729 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+227732 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+227734 LEAD S1 准备开启给S2发送日志的协程
+227735 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+227749 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+227767 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+228774 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+228780 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+228783 LEAD S1 准备开启给S2发送日志的协程
+228783 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+228803 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+228807 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+229826 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+229828 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+229830 LEAD S1 准备开启给S2发送日志的协程
+229830 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+229841 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+229861 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+230873 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+230880 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+230882 LEAD S1 准备开启给S2发送日志的协程
+230888 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+230921 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+230943 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+231977 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+231990 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+231992 LEAD S1 准备开启给S2发送日志的协程
+231993 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+232053 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+232060 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+233106 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+233111 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+233113 LEAD S1 准备开启给S2发送日志的协程
+233114 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+233133 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+233150 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+234160 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+234164 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+234166 LEAD S1 准备开启给S2发送日志的协程
+234169 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+234183 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+234185 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+235194 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+235198 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+235200 LEAD S1 准备开启给S2发送日志的协程
+235201 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+235220 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+235230 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+236251 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+236254 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+236256 LEAD S1 准备开启给S2发送日志的协程
+236257 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+236276 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+236276 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+237305 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 6 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+237308 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+237310 LEAD S1 准备开启给S2发送日志的协程
+237310 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+237336 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+237347 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+238186 LOG1 S1 接收到的命令为106 返回值 index: 7, term 1, isLeader true
+238189 WARN S2 被塞了消息106
+238375 LEAD S1 的term: 1 votedFor:1 nextIndex: [7 1 2] matchIndex: [6 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+238384 LEAD S1 准备开启给S0发送日志的协程
+238384 LEAD S1 开启给S0发送日志的协程
+238386 LOG2 S1 发送给S0 commitIndex为 6 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+238387 LEAD S1 准备开启给S2发送日志的协程
+238387 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 6 nextIndex为: [7 1 2]
+238400 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+238452 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[] LeaderCommit:6}
+238909 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:6} 给S0 此时S1的nextIndex为：[7 1 2]
+238940 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]日志, 长度为7, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:6}
+238946 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:6 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:6} 当前S0的日志为 [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}] commitIndex为 6 返回值为+&{1 true 0 true 8 0}
+238958 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:8 ReplyTerm:0}
+238960 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[8 1 2]
+239468 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+239473 LEAD S1 唤醒commitChan1 开始
+239474 LEAD S1 唤醒commitChan1 成功
+239475 LEAD S1 更新commitIndex为：7
+239476 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+239478 LEAD S1 准备开启给S2发送日志的协程
+239479 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+239483 LEAD S1 关闭给S0 发送日志的携程 4
+239519 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+239524 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+239527 LEAD S0 唤醒commitChan1 开始
+239528 LEAD S0 唤醒commitChan1 成功
+239529 CMIT S0 更改commitIndex为 7
+240165 INFO S1 commit被唤醒
+240165 INFO S0 commit被唤醒
+240166 TRCE S1 的lastApplied为 6 commitIndex为 7 log长度为 8
+240166 TRCE S0 的lastApplied为 6 commitIndex为 7 log长度为 8
+240167 TRCE S1 提交了日志 {CommandValid:true Command:106 CommandIndex:7 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+240167 TRCE S0 提交了日志 {CommandValid:true Command:106 CommandIndex:7 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+240550 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+240564 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+240565 LEAD S1 准备开启给S2发送日志的协程
+240565 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+240576 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+240577 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+241584 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+241588 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+241591 LEAD S1 准备开启给S2发送日志的协程
+241592 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+241611 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+241616 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+242644 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+242655 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+242658 LEAD S1 准备开启给S2发送日志的协程
+242658 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+242682 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+242684 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+243727 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+243735 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+243737 LEAD S1 准备开启给S2发送日志的协程
+243738 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+243769 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+243753 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+244797 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+244803 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+244806 LEAD S1 准备开启给S2发送日志的协程
+244807 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+244828 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+244848 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+245856 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+245861 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+245864 LEAD S1 准备开启给S2发送日志的协程
+245864 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+245885 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+245884 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+246912 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+246919 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+246921 LEAD S1 准备开启给S2发送日志的协程
+246921 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+246937 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+246939 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+247964 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+247969 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+247971 LEAD S1 准备开启给S2发送日志的协程
+247971 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+247991 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+247992 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+249014 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+249026 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+249069 LEAD S1 准备开启给S2发送日志的协程
+249071 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+249096 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+249097 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+250105 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+250111 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+250115 LEAD S1 准备开启给S2发送日志的协程
+250116 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+250132 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+250133 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+251146 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+251151 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+251152 LEAD S1 准备开启给S2发送日志的协程
+251153 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+251169 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+251172 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+252202 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+252206 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+252208 LEAD S1 准备开启给S2发送日志的协程
+252208 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+252229 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+252229 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+253246 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+253324 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+253325 LEAD S1 准备开启给S2发送日志的协程
+253325 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+253331 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+253332 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+254337 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+254341 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+254343 LEAD S1 准备开启给S2发送日志的协程
+254344 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+254363 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+254365 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+255383 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+255389 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+255391 LEAD S1 准备开启给S2发送日志的协程
+255392 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+255424 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+255428 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+256442 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+256499 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+256507 LEAD S1 准备开启给S2发送日志的协程
+256507 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+256536 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+256540 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+257551 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 7 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]
+257558 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+257561 LEAD S1 准备开启给S2发送日志的协程
+257562 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+257595 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+257603 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+258306 LOG1 S1 接收到的命令为106 返回值 index: 8, term 1, isLeader true
+258308 WARN S2 被塞了消息106
+258620 LEAD S1 的term: 1 votedFor:1 nextIndex: [8 1 2] matchIndex: [7 8 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+258625 LEAD S1 准备开启给S0发送日志的协程
+258625 LEAD S1 开启给S0发送日志的协程
+258627 LOG2 S1 发送给S0 commitIndex为 7 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+258629 LEAD S1 准备开启给S2发送日志的协程
+258630 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 7 nextIndex为: [8 1 2]
+258654 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[] LeaderCommit:7}
+258671 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+259129 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:7} 给S0 此时S1的nextIndex为：[8 1 2]
+259153 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106}]日志, 长度为8, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:7}
+259157 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:7 PrevLogTerm:1 Entries:[{Term:1 Command:106}] LeaderCommit:7} 当前S0的日志为 [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}] commitIndex为 7 返回值为+&{1 true 0 true 9 0}
+259164 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:9 ReplyTerm:0}
+259164 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[9 1 2]
+259668 LEAD S1 关闭给S0 发送日志的携程 4
+259678 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 2] matchIndex: [8 8 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+259682 LEAD S1 唤醒commitChan1 开始
+259683 LEAD S1 唤醒commitChan1 成功
+259684 LEAD S1 更新commitIndex为：8
+259684 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 2]
+259687 LEAD S1 准备开启给S2发送日志的协程
+259687 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 8 nextIndex为: [9 1 2]
+259709 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+259717 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+259721 LEAD S0 唤醒commitChan1 开始
+259722 LEAD S0 唤醒commitChan1 成功
+259722 CMIT S0 更改commitIndex为 8
+260462 INFO S1 commit被唤醒
+260474 INFO S0 commit被唤醒
+260476 TRCE S1 的lastApplied为 7 commitIndex为 8 log长度为 9
+260476 TRCE S0 的lastApplied为 7 commitIndex为 8 log长度为 9
+260477 TRCE S1 提交了日志 {CommandValid:true Command:106 CommandIndex:8 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+260477 TRCE S0 提交了日志 {CommandValid:true Command:106 CommandIndex:8 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+260736 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 2] matchIndex: [8 8 1] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+260741 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 2]
+260743 LEAD S1 准备开启给S2发送日志的协程
+260744 LOG2 S1 发送给S2 commitIndex为 1 S1的CommitIndex: 8 nextIndex为: [9 1 2]
+260764 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:1}
+260765 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+261583 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1} 给S2 此时S1的nextIndex为：[9 1 2]
+261604 LEAD S2 目前有[{-1 <nil>} {1 101}]日志, 长度为2, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1}
+261618 LEAD S2 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[{Term:1 Command:102}] LeaderCommit:1} 当前S2的日志为 [{-1 <nil>} {1 101} {1 102}] commitIndex为 1 返回值为+&{1 true 2 true 3 0}
+261630 LEAD S1 LW 发送给S2的日志提交成功 reply: {Term:1 Success:true Id:2 NotHearbeat:true ReplyIndex:3 ReplyTerm:0}
+261632 LEAD S1 LN 发送给S2的日志提交成功，更新nextIndex为：[9 1 3]
+261776 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 3] matchIndex: [8 8 2] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+261779 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 3]
+261781 LEAD S1 准备开启给S2发送日志的协程
+261782 LOG2 S1 发送给S2 commitIndex为 2 S1的CommitIndex: 8 nextIndex为: [9 1 3]
+261801 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+261832 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102}]日志, 长度为3, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[] LeaderCommit:2}
+261833 LEAD S2 唤醒commitChan1 开始
+261834 LEAD S2 唤醒commitChan1 成功
+261834 CMIT S2 更改commitIndex为 2
+262134 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[{Term:1 Command:103} {Term:1 Command:104} {Term:1 Command:105} {Term:1 Command:106} {Term:1 Command:106} {Term:1 Command:106}] LeaderCommit:2} 给S2 此时S1的nextIndex为：[9 1 3]
+262159 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102}]日志, 长度为3, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[{Term:1 Command:103} {Term:1 Command:104} {Term:1 Command:105} {Term:1 Command:106} {Term:1 Command:106} {Term:1 Command:106}] LeaderCommit:2}
+262164 LEAD S2 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:2 PrevLogTerm:1 Entries:[{Term:1 Command:103} {Term:1 Command:104} {Term:1 Command:105} {Term:1 Command:106} {Term:1 Command:106} {Term:1 Command:106}] LeaderCommit:2} 当前S2的日志为 [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}] commitIndex为 2 返回值为+&{1 true 2 true 9 0}
+262177 LEAD S1 LW 发送给S2的日志提交成功 reply: {Term:1 Success:true Id:2 NotHearbeat:true ReplyIndex:9 ReplyTerm:0}
+262178 LEAD S1 LN 发送给S2的日志提交成功，更新nextIndex为：[9 1 9]
+262495 INFO S2 commit被唤醒
+262498 TRCE S2 的lastApplied为 1 commitIndex为 2 log长度为 9
+262499 TRCE S2 提交了日志 {CommandValid:true Command:102 CommandIndex:2 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+262681 LEAD S1 关闭给S2 发送日志的携程 4
+262843 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+262850 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+262851 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+262871 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+262874 LEAD S2 唤醒commitChan1 开始
+262874 LEAD S2 唤醒commitChan1 成功
+262875 CMIT S2 更改commitIndex为 8
+262877 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+263504 INFO S2 commit被唤醒
+263512 TRCE S2 的lastApplied为 2 commitIndex为 8 log长度为 9
+263513 TRCE S2 提交了日志 {CommandValid:true Command:103 CommandIndex:3 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+263515 TRCE S2 提交了日志 {CommandValid:true Command:104 CommandIndex:4 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+263517 TRCE S2 提交了日志 {CommandValid:true Command:105 CommandIndex:5 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+263518 TRCE S2 提交了日志 {CommandValid:true Command:106 CommandIndex:6 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+263521 TRCE S2 提交了日志 {CommandValid:true Command:106 CommandIndex:7 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+263522 TRCE S2 提交了日志 {CommandValid:true Command:106 CommandIndex:8 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+263888 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+263892 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+263894 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+263930 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+263934 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+264945 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+264947 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+264949 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+264960 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+264975 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+265997 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+266000 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+266002 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+266013 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+266016 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+267023 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+267026 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+267027 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+267038 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+267038 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+268051 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+268056 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+268058 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+268087 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+268107 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+269114 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+269117 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+269118 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+269131 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+269133 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+270156 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+270159 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+270160 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+270174 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+270177 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+271183 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+271185 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+271186 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+271214 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+271214 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+272229 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+272235 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+272237 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+272257 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+272259 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+273272 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 8 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]
+273277 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+273279 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+273327 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+273381 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+273663 LOG1 S1 接收到的命令为107 返回值 index: 9, term 1, isLeader true
+273664 WARN S0 被塞了消息107
+274401 LEAD S1 的term: 1 votedFor:1 nextIndex: [9 1 9] matchIndex: [8 9 8] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106} {1 107}]
+274404 LEAD S1 准备开启给S0发送日志的协程
+274404 LEAD S1 开启给S0发送日志的协程
+274405 LOG2 S1 发送给S0 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+274406 LEAD S1 准备开启给S2发送日志的协程
+274407 LEAD S1 开启给S2发送日志的协程
+274408 LOG2 S1 发送给S2 commitIndex为 8 S1的CommitIndex: 8 nextIndex为: [9 1 9]
+274419 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+274421 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[] LeaderCommit:8}
+274911 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[{Term:1 Command:107}] LeaderCommit:8} 给S0 此时S1的nextIndex为：[9 1 9]
+274955 LEAD S1 发送日志{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[{Term:1 Command:107}] LeaderCommit:8} 给S2 此时S1的nextIndex为：[9 1 9]
+274956 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[{Term:1 Command:107}] LeaderCommit:8}
+274967 LEAD S0 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[{Term:1 Command:107}] LeaderCommit:8} 当前S0的日志为 [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106} {1 107}] commitIndex为 8 返回值为+&{1 true 0 true 10 0}
+274975 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106}]日志, 长度为9, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[{Term:1 Command:107}] LeaderCommit:8}
+274977 LEAD S1 LW 发送给S0的日志提交成功 reply: {Term:1 Success:true Id:0 NotHearbeat:true ReplyIndex:10 ReplyTerm:0}
+274978 LEAD S1 LN 发送给S0的日志提交成功，更新nextIndex为：[10 1 9]
+274981 LEAD S2 接收到S1的内容 {Term:1 LeaderId:1 PrevLogIndex:8 PrevLogTerm:1 Entries:[{Term:1 Command:107}] LeaderCommit:8} 当前S2的日志为 [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106} {1 107}] commitIndex为 8 返回值为+&{1 true 2 true 10 0}
+274986 LEAD S1 LW 发送给S2的日志提交成功 reply: {Term:1 Success:true Id:2 NotHearbeat:true ReplyIndex:10 ReplyTerm:0}
+274987 LEAD S1 LN 发送给S2的日志提交成功，更新nextIndex为：[10 1 10]
+275429 LEAD S1 的term: 1 votedFor:1 nextIndex: [10 1 10] matchIndex: [9 9 9] log:[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106} {1 107}]
+275441 LEAD S1 唤醒commitChan1 开始
+275442 LEAD S1 唤醒commitChan1 成功
+275442 LEAD S1 更新commitIndex为：9
+275443 LOG2 S1 发送给S0 commitIndex为 9 S1的CommitIndex: 9 nextIndex为: [10 1 10]
+275444 LOG2 S1 发送给S2 commitIndex为 9 S1的CommitIndex: 9 nextIndex为: [10 1 10]
+275489 LEAD S0 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106} {1 107}]日志, 长度为10, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:9 PrevLogTerm:1 Entries:[] LeaderCommit:9}
+275492 LEAD S0 唤醒commitChan1 开始
+275493 LEAD S0 唤醒commitChan1 成功
+275493 CMIT S0 更改commitIndex为 9
+275530 LEAD S1 关闭给S0 发送日志的携程 4
+275532 LEAD S1 关闭给S2 发送日志的携程 4
+275531 LEAD S2 目前有[{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106} {1 106} {1 106} {1 107}]日志, 长度为10, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:9 PrevLogTerm:1 Entries:[] LeaderCommit:9}
+275534 LEAD S2 唤醒commitChan1 开始
+275534 LEAD S2 唤醒commitChan1 成功
+275534 CMIT S2 更改commitIndex为 9
+275610 INFO S0 commit被唤醒
+275610 INFO S1 commit被唤醒
+275612 TRCE S1 的lastApplied为 8 commitIndex为 9 log长度为 10
+275612 TRCE S0 的lastApplied为 8 commitIndex为 9 log长度为 10
+275612 TRCE S1 提交了日志 {CommandValid:true Command:107 CommandIndex:9 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+275613 TRCE S0 提交了日志 {CommandValid:true Command:107 CommandIndex:9 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+275679 INFO S2 commit被唤醒
+275679 TRCE S2 的lastApplied为 8 commitIndex为 9 log长度为 10
+275680 TRCE S2 提交了日志 {CommandValid:true Command:107 CommandIndex:9 SnapshotValid:false Snapshot:[] SnapshotTerm:0 SnapshotIndex:0}
+  ... Passed --   9.5  3  184   53075    9
+Test (2B): no agreement if too many followers disconnect ...
+278836 VOTE S2 退出预选举
+283341 VOTE S0 退出预选举
+283807 VOTE S1 开始预选举 term为0 
+283814 VOTE S1开始向4要票
+283821 VOTE S1开始向2要票
+283824 VOTE S1开始向0要票
+283827 VOTE S1开始向3要票
+283841 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+283851 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+283857 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+283857 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者3条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+283932 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+283943 VOTE S1 term 1 的情况下 向3要票结束, 结果为true
+283944 VOTE S1 预选举成功
+283945 VOTE S1 开始正式选举
+283945 VOTE S1 开始选举 term为1 
+283948 VOTE S1开始向4要票
+283955 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+283956 VOTE S1开始向0要票
+283959 VOTE S1开始向2要票
+283961 VOTE S1开始向3要票
+283966 VOTE S1 term 1 的情况下 向4要票结束, 结果为true
+283973 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+283982 VOTE S1 term 1 的情况下 向4要票结束, 结果为true
+283988 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+283988 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+283995 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者3条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+283999 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+283999 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+284000 LOG1 S1 选举成功
+284001 VOTE S1 选举成功 term为: 1
+284001 VOTE S1 term 1 的情况下 向3要票结束, 结果为true
+284002 LOG1 S1 接收到的命令为10 返回值 index: 1, term 1, isLeader true
+284002 WARN S0 被塞了消息10
+284002 LEAD S1 成为leader
+284003 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+284003 LEAD S1 准备开启给S0发送日志的协程
+284004 LEAD S1 开启给S0发送日志的协程
+284004 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+284005 LEAD S1 准备开启给S2发送日志的协程
+284005 LEAD S1 开启给S2发送日志的协程
+284005 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+284006 LEAD S1 准备开启给S3发送日志的协程
+284006 LEAD S1 开启给S3发送日志的协程
+284007 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+284007 LEAD S1 准备开启给S4发送日志的协程
+284007 LEAD S1 开启给S4发送日志的协程
+284008 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+284010 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+284011 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+284012 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+284013 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+284518 LEAD S1 关闭给S4 发送日志的携程 4
+284523 LEAD S1 关闭给S3 发送日志的携程 4
+284525 LEAD S1 关闭给S2 发送日志的携程 4
+284526 LEAD S1 关闭给S0 发送日志的携程 4
+285027 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+285111 LEAD S1 准备开启给S0发送日志的协程
+285120 LEAD S1 开启给S0发送日志的协程
+285134 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+285136 LEAD S1 准备开启给S2发送日志的协程
+285136 LEAD S1 开启给S2发送日志的协程
+285137 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+285236 LEAD S1 准备开启给S3发送日志的协程
+285240 LEAD S1 开启给S3发送日志的协程
+285242 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+285244 LEAD S1 准备开启给S4发送日志的协程
+285246 LEAD S1 开启给S4发送日志的协程
+285246 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+285276 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+285277 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+285278 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+285279 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+285769 LEAD S1 关闭给S0 发送日志的携程 4
+285771 LEAD S1 关闭给S4 发送日志的携程 4
+285772 LEAD S1 关闭给S2 发送日志的携程 4
+285772 LEAD S1 关闭给S3 发送日志的携程 4
+286285 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+286288 LEAD S1 准备开启给S0发送日志的协程
+286289 LEAD S1 开启给S0发送日志的协程
+286290 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+286292 LEAD S1 准备开启给S2发送日志的协程
+286293 LEAD S1 开启给S2发送日志的协程
+286294 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+286300 LEAD S1 准备开启给S3发送日志的协程
+286301 LEAD S1 开启给S3发送日志的协程
+286301 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+286302 LEAD S1 准备开启给S4发送日志的协程
+286303 LEAD S1 开启给S4发送日志的协程
+286303 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+286310 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+286326 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+286328 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+286339 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+286810 LEAD S1 关闭给S4 发送日志的携程 4
+286811 LEAD S1 关闭给S3 发送日志的携程 4
+286811 LEAD S1 关闭给S2 发送日志的携程 4
+286810 LEAD S1 关闭给S0 发送日志的携程 4
+287348 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+287350 LEAD S1 准备开启给S0发送日志的协程
+287350 LEAD S1 开启给S0发送日志的协程
+287351 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+287352 LEAD S1 准备开启给S2发送日志的协程
+287353 LEAD S1 开启给S2发送日志的协程
+287353 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+287354 LEAD S1 准备开启给S3发送日志的协程
+287354 LEAD S1 开启给S3发送日志的协程
+287355 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+287356 LEAD S1 准备开启给S4发送日志的协程
+287356 LEAD S1 开启给S4发送日志的协程
+287357 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+287362 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+287367 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+287376 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+287395 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+287863 LEAD S1 关闭给S0 发送日志的携程 4
+287869 LEAD S1 关闭给S2 发送日志的携程 4
+287869 LEAD S1 关闭给S3 发送日志的携程 4
+287874 LEAD S1 关闭给S4 发送日志的携程 4
+288410 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+288411 LEAD S1 准备开启给S0发送日志的协程
+288412 LEAD S1 开启给S0发送日志的协程
+288412 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+288413 LEAD S1 准备开启给S2发送日志的协程
+288413 LEAD S1 开启给S2发送日志的协程
+288413 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+288414 LEAD S1 准备开启给S3发送日志的协程
+288414 LEAD S1 开启给S3发送日志的协程
+288414 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+288415 LEAD S1 准备开启给S4发送日志的协程
+288415 LEAD S1 开启给S4发送日志的协程
+288416 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+288418 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+288419 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+288420 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+288420 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+288943 LEAD S1 关闭给S0 发送日志的携程 4
+288947 LEAD S1 关闭给S2 发送日志的携程 4
+288948 LEAD S1 关闭给S3 发送日志的携程 4
+288949 LEAD S1 关闭给S4 发送日志的携程 4
+289424 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+289427 LEAD S1 准备开启给S0发送日志的协程
+289428 LEAD S1 开启给S0发送日志的协程
+289430 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+289432 LEAD S1 准备开启给S2发送日志的协程
+289432 LEAD S1 开启给S2发送日志的协程
+289434 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+289437 LEAD S1 准备开启给S3发送日志的协程
+289437 LEAD S1 开启给S3发送日志的协程
+289439 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+289443 LEAD S1 准备开启给S4发送日志的协程
+289444 LEAD S1 开启给S4发送日志的协程
+289456 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+289464 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+289479 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+289488 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+289495 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+289941 LEAD S1 关闭给S0 发送日志的携程 4
+289958 LEAD S1 关闭给S3 发送日志的携程 4
+289962 LEAD S1 关闭给S2 发送日志的携程 4
+289964 LEAD S1 关闭给S4 发送日志的携程 4
+290502 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+290504 LEAD S1 准备开启给S0发送日志的协程
+290505 LEAD S1 开启给S0发送日志的协程
+290505 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+290506 LEAD S1 准备开启给S2发送日志的协程
+290507 LEAD S1 开启给S2发送日志的协程
+290507 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+290508 LEAD S1 准备开启给S3发送日志的协程
+290509 LEAD S1 开启给S3发送日志的协程
+290509 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+290510 LEAD S1 准备开启给S4发送日志的协程
+290510 LEAD S1 开启给S4发送日志的协程
+290511 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+290516 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+290531 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+290534 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+290554 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+291020 LEAD S1 关闭给S0 发送日志的携程 4
+291025 LEAD S1 关闭给S2 发送日志的携程 4
+291025 LEAD S1 关闭给S3 发送日志的携程 4
+291026 LEAD S1 关闭给S4 发送日志的携程 4
+291605 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+291607 LEAD S1 准备开启给S0发送日志的协程
+291608 LEAD S1 开启给S0发送日志的协程
+291609 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+291611 LEAD S1 准备开启给S2发送日志的协程
+291611 LEAD S1 开启给S2发送日志的协程
+291612 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+291614 LEAD S1 准备开启给S3发送日志的协程
+291614 LEAD S1 开启给S3发送日志的协程
+291615 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+291617 LEAD S1 准备开启给S4发送日志的协程
+291617 LEAD S1 开启给S4发送日志的协程
+291618 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+291623 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+291635 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+291636 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+291644 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+292119 LEAD S1 关闭给S0 发送日志的携程 4
+292124 LEAD S1 关闭给S2 发送日志的携程 4
+292127 LEAD S1 关闭给S3 发送日志的携程 4
+292127 LEAD S1 关闭给S4 发送日志的携程 4
+292657 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+292659 LEAD S1 准备开启给S0发送日志的协程
+292660 LEAD S1 开启给S0发送日志的协程
+292661 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+292662 LEAD S1 准备开启给S2发送日志的协程
+292662 LEAD S1 开启给S2发送日志的协程
+292663 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+292667 LEAD S1 准备开启给S3发送日志的协程
+292668 LEAD S1 开启给S3发送日志的协程
+292668 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+292669 LEAD S1 准备开启给S4发送日志的协程
+292670 LEAD S1 开启给S4发送日志的协程
+292670 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+292680 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+292681 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+292688 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+292697 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+293172 LEAD S1 关闭给S0 发送日志的携程 4
+293175 LEAD S1 关闭给S2 发送日志的携程 4
+293176 LEAD S1 关闭给S4 发送日志的携程 4
+293177 LEAD S1 关闭给S3 发送日志的携程 4
+293706 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+293708 LEAD S1 准备开启给S0发送日志的协程
+293708 LEAD S1 开启给S0发送日志的协程
+293710 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+293711 LEAD S1 准备开启给S2发送日志的协程
+293711 LEAD S1 开启给S2发送日志的协程
+293712 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+293713 LEAD S1 准备开启给S3发送日志的协程
+293713 LEAD S1 开启给S3发送日志的协程
+293714 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+293715 LEAD S1 准备开启给S4发送日志的协程
+293716 LEAD S1 开启给S4发送日志的协程
+293716 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+293721 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+293748 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+293753 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+293761 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+294221 LEAD S1 关闭给S0 发送日志的携程 4
+294223 LEAD S1 关闭给S2 发送日志的携程 4
+294223 LEAD S1 关闭给S3 发送日志的携程 4
+294225 LEAD S1 关闭给S4 发送日志的携程 4
+294769 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+294771 LEAD S1 准备开启给S0发送日志的协程
+294772 LEAD S1 开启给S0发送日志的协程
+294773 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+294774 LEAD S1 准备开启给S2发送日志的协程
+294774 LEAD S1 开启给S2发送日志的协程
+294775 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+294776 LEAD S1 准备开启给S3发送日志的协程
+294776 LEAD S1 开启给S3发送日志的协程
+294777 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+294778 LEAD S1 准备开启给S4发送日志的协程
+294778 LEAD S1 开启给S4发送日志的协程
+294778 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+294783 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+294795 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+294795 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+294813 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+295298 LEAD S1 关闭给S0 发送日志的携程 4
+295301 LEAD S1 关闭给S2 发送日志的携程 4
+295303 LEAD S1 关闭给S4 发送日志的携程 4
+295304 LEAD S1 关闭给S3 发送日志的携程 4
+295843 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+295847 LEAD S1 准备开启给S0发送日志的协程
+295848 LEAD S1 开启给S0发送日志的协程
+295849 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+295851 LEAD S1 准备开启给S2发送日志的协程
+295852 LEAD S1 开启给S2发送日志的协程
+295854 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+295855 LEAD S1 准备开启给S3发送日志的协程
+295856 LEAD S1 开启给S3发送日志的协程
+295857 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+295859 LEAD S1 准备开启给S4发送日志的协程
+295860 LEAD S1 开启给S4发送日志的协程
+295861 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+295871 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+295891 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+295893 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+295906 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+296366 LEAD S1 关闭给S0 发送日志的携程 4
+296369 LEAD S1 关闭给S3 发送日志的携程 4
+296370 LEAD S1 关闭给S4 发送日志的携程 4
+296371 LEAD S1 关闭给S2 发送日志的携程 4
+296998 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+297000 LEAD S1 准备开启给S0发送日志的协程
+297001 LEAD S1 开启给S0发送日志的协程
+297002 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+297003 LEAD S1 准备开启给S2发送日志的协程
+297004 LEAD S1 开启给S2发送日志的协程
+297004 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+297007 LEAD S1 准备开启给S3发送日志的协程
+297007 LEAD S1 开启给S3发送日志的协程
+297008 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+297009 LEAD S1 准备开启给S4发送日志的协程
+297009 LEAD S1 开启给S4发送日志的协程
+297010 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+297017 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+297023 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+297033 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+297035 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+297527 LEAD S1 关闭给S3 发送日志的携程 4
+297532 LEAD S1 关闭给S2 发送日志的携程 4
+297532 LEAD S1 关闭给S0 发送日志的携程 4
+297531 LEAD S1 关闭给S4 发送日志的携程 4
+298057 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+298059 LEAD S1 准备开启给S0发送日志的协程
+298060 LEAD S1 开启给S0发送日志的协程
+298061 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+298062 LEAD S1 准备开启给S2发送日志的协程
+298062 LEAD S1 开启给S2发送日志的协程
+298063 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+298064 LEAD S1 准备开启给S3发送日志的协程
+298064 LEAD S1 开启给S3发送日志的协程
+298065 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+298065 LEAD S1 准备开启给S4发送日志的协程
+298066 LEAD S1 开启给S4发送日志的协程
+298066 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+298071 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+298075 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+298093 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+298115 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+298572 LEAD S1 关闭给S0 发送日志的携程 4
+298577 LEAD S1 关闭给S3 发送日志的携程 4
+298579 LEAD S1 关闭给S4 发送日志的携程 4
+298580 LEAD S1 关闭给S2 发送日志的携程 4
+299146 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+299161 LEAD S1 准备开启给S0发送日志的协程
+299162 LEAD S1 开启给S0发送日志的协程
+299163 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+299164 LEAD S1 准备开启给S2发送日志的协程
+299164 LEAD S1 开启给S2发送日志的协程
+299165 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+299200 LEAD S1 准备开启给S3发送日志的协程
+299200 LEAD S1 开启给S3发送日志的协程
+299201 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+299206 LEAD S1 准备开启给S4发送日志的协程
+299207 LEAD S1 开启给S4发送日志的协程
+299208 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+299252 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+299263 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+299287 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+299295 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+299711 LEAD S1 关闭给S3 发送日志的携程 4
+299711 LEAD S1 关闭给S0 发送日志的携程 4
+299715 LEAD S1 关闭给S2 发送日志的携程 4
+299814 LEAD S1 关闭给S4 发送日志的携程 4
+300308 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+300310 LEAD S1 准备开启给S0发送日志的协程
+300310 LEAD S1 开启给S0发送日志的协程
+300311 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+300313 LEAD S1 准备开启给S2发送日志的协程
+300313 LEAD S1 开启给S2发送日志的协程
+300314 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+300315 LEAD S1 准备开启给S3发送日志的协程
+300315 LEAD S1 开启给S3发送日志的协程
+300316 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+300317 LEAD S1 准备开启给S4发送日志的协程
+300318 LEAD S1 开启给S4发送日志的协程
+300319 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+300324 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+300342 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+300352 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+300379 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+300838 LEAD S1 关闭给S3 发送日志的携程 4
+300846 LEAD S1 关闭给S4 发送日志的携程 4
+300850 LEAD S1 关闭给S2 发送日志的携程 4
+300851 LEAD S1 关闭给S0 发送日志的携程 4
+301405 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+301407 LEAD S1 准备开启给S0发送日志的协程
+301407 LEAD S1 开启给S0发送日志的协程
+301408 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+301409 LEAD S1 准备开启给S2发送日志的协程
+301409 LEAD S1 开启给S2发送日志的协程
+301410 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+301411 LEAD S1 准备开启给S3发送日志的协程
+301411 LEAD S1 开启给S3发送日志的协程
+301412 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+301413 LEAD S1 准备开启给S4发送日志的协程
+301413 LEAD S1 开启给S4发送日志的协程
+301414 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+301452 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+301477 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+301507 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+301526 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+301957 LEAD S1 关闭给S4 发送日志的携程 4
+301961 LEAD S1 关闭给S0 发送日志的携程 4
+301962 LEAD S1 关闭给S2 发送日志的携程 4
+301963 LEAD S1 关闭给S3 发送日志的携程 4
+302535 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+302538 LEAD S1 准备开启给S0发送日志的协程
+302538 LEAD S1 开启给S0发送日志的协程
+302539 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+302540 LEAD S1 准备开启给S2发送日志的协程
+302541 LEAD S1 开启给S2发送日志的协程
+302542 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+302543 LEAD S1 准备开启给S3发送日志的协程
+302544 LEAD S1 开启给S3发送日志的协程
+302545 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+302546 LEAD S1 准备开启给S4发送日志的协程
+302546 LEAD S1 开启给S4发送日志的协程
+302547 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+302551 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+302562 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+302573 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+302625 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+303043 LEAD S1 关闭给S0 发送日志的携程 4
+303052 LEAD S1 关闭给S2 发送日志的携程 4
+303052 LEAD S1 关闭给S3 发送日志的携程 4
+303053 LEAD S1 关闭给S4 发送日志的携程 4
+303652 LEAD S1 的term: 1 votedFor:1 nextIndex: [2 2 2 2 2] matchIndex: [0 1 0 0 0] log:[{-1 <nil>} {1 10}]
+303654 LEAD S1 准备开启给S0发送日志的协程
+303654 LEAD S1 开启给S0发送日志的协程
+303655 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+303656 LEAD S1 准备开启给S2发送日志的协程
+303656 LEAD S1 开启给S2发送日志的协程
+303657 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+303658 LEAD S1 准备开启给S3发送日志的协程
+303658 LEAD S1 开启给S3发送日志的协程
+303659 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+303659 LEAD S1 准备开启给S4发送日志的协程
+303660 LEAD S1 开启给S4发送日志的协程
+303660 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [2 2 2 2 2]
+303664 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+303673 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+303673 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+303678 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:1 Entries:[] LeaderCommit:0}
+--- FAIL: TestFailNoAgree2B (2.84s)
+    config.go:600: one(10) failed to reach agreement

@@ -1,0 +1,556 @@
+Test (2A): initial election ...
+008381 VOTE S1 开始预选举 term为0 
+008411 VOTE S1开始向2要票
+008411 VOTE S1开始向0要票
+008445 VOTE S0 开始预选举 term为0 
+008506 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008511 VOTE S0开始向2要票
+008515 VOTE S0开始向1要票
+008517 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+008518 VOTE S1 预选举成功
+008518 VOTE S1 开始正式选举
+008518 VOTE S1 开始选举 term为1 
+008521 VOTE S1开始向2要票
+008522 VOTE S1开始向0要票
+008523 VOTE S0 要票，args为 {Term:1 CandidateId:0 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008528 VOTE S0 term 1 的情况下 向2要票结束, 结果为true
+008557 VOTE S0 预选举成功
+008557 VOTE S0 开始正式选举
+008557 VOTE S0 开始选举 term为1 
+008560 VOTE S0开始向1要票
+008562 VOTE S0开始向2要票
+008587 VOTE S0 要票，args为 {Term:1 CandidateId:0 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+008594 VOTE S0 term 1 的情况下 向2要票结束, 结果为true
+008595 LOG1 S0 选举成功
+008595 VOTE S0 选举成功 term为: 1
+008595 LEAD S0 成为leader
+008596 LEAD S0 的term: 1 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+008597 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+008598 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+008599 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 0
+008600 VOTE S0 拒绝给S1 原因3 投票者term为: 1,
+008615 VOTE S1 term 1 的情况下 向0要票结束, 结果为false
+008647 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:1 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+008669 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 0
+008670 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 0
+008674 VOTE S2 拒绝给S1 原因3 投票者term为: 1,
+008677 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+008678 LOG1 S1 选举成功
+008678 VOTE S1 选举成功 term为: 1
+008679 LEAD S1 成为leader
+008679 VOTE S1 term 1 的情况下 向2要票结束, 结果为false
+008679 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+008680 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+008681 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+008684 VOTE S0 要票，args为 {Term:1 CandidateId:0 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+008685 VOTE S0 要票，args为 {Term:1 CandidateId:0 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+008686 VOTE S1 拒绝给S0 原因3 投票者term为: 1,
+008689 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:1 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+008692 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+008703 VOTE S0 term 1 的情况下 向1要票结束, 结果为true
+008714 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+008723 VOTE S0 term 1 的情况下 向1要票结束, 结果为false
+009749 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+009763 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+009768 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+009768 LEAD S0 的term: 1 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+009769 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+009770 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+009785 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:1 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+009788 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+009796 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:1 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+009847 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+010004 INFO S0 think itself is leader ,term is 1
+010007 INFO S1 think itself is leader ,term is 1
+--- FAIL: TestInitialElection2A (1.00s)
+    config.go:447: term 1 has 2 (>1) leaders
+Test (2A): election after network failure ...
+019073 VOTE S1 开始预选举 term为0 
+019082 VOTE S1开始向0要票
+019083 VOTE S1开始向2要票
+019109 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+019136 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+019138 VOTE S1 预选举成功
+019139 VOTE S1 开始正式选举
+019139 VOTE S1 开始选举 term为1 
+019144 VOTE S1开始向0要票
+019148 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+019152 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+019156 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+019156 LOG1 S1 选举成功
+019157 VOTE S1 选举成功 term为: 1
+019157 LEAD S1 成为leader
+019157 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+019158 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+019158 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+019159 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+019142 VOTE S1开始向2要票
+019169 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+019175 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+019179 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: -1
+019185 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+020133 INFO S1 think itself is leader ,term is 1
+020146 INFO S1 断开连接
+020181 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+020184 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+020186 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+020751 VOTE S2 退出预选举
+021193 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+021209 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+021211 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+022215 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+022219 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+022222 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+023228 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+023232 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+023234 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+024246 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+024250 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+024253 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+025261 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+025266 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+025267 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+026272 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+026275 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+026286 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+027300 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+027323 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+027325 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+028338 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+028343 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+028345 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+029359 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+029364 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+029367 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+029695 VOTE S2 开始预选举 term为1 
+029704 VOTE S2开始向0要票
+029709 VOTE S2开始向1要票
+029717 VOTE S2 要票，args为 {Term:2 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+029724 VOTE S2 term 2 的情况下 向0要票结束, 结果为true
+029724 VOTE S2 预选举成功
+029725 VOTE S2 开始正式选举
+029725 VOTE S2 开始选举 term为2 
+029726 VOTE S2开始向0要票
+029726 VOTE S2开始向1要票
+029734 VOTE S2 要票，args为 {Term:2 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+029742 VOTE S2 term 2 的情况下 向0要票结束, 结果为true
+029743 LOG1 S2 选举成功
+029744 VOTE S2 选举成功 term为: 2
+029744 LEAD S2 成为leader
+029744 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+029745 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+029746 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+029773 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+029822 INFO S2 think itself is leader ,term is 2
+029824 INFO S1 重新连接
+030378 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+030385 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+030387 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1]
+030429 LEAD S1 给S2发送信息后放弃成为lead
+030789 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+030793 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+030795 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+030809 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+030809 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+031820 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+031824 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+031827 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+031846 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+031878 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+032918 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+032920 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+032922 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+032936 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+032937 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+033953 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+033973 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+033976 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+034049 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+034053 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:2 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+034657 INFO S2 think itself is leader ,term is 2
+034660 INFO S2 断开连接
+034661 INFO S0 断开连接
+035076 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+035081 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+035082 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+036089 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+036091 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+036092 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+037095 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+037097 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+037099 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+038111 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+038113 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+038115 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+039128 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+039163 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+039164 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+040173 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+040180 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+040188 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+041260 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+041265 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+041267 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+042286 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+042301 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+042303 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+043318 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+043320 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+043323 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+044342 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+044344 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+044346 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+045358 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+045362 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+045364 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+046380 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+046385 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+046387 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+047430 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+047434 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+047435 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+048440 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+048446 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+048448 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+049457 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+049478 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+049481 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+049949 VOTE S0 开始预选举 term为2 
+049996 VOTE S0开始向1要票
+049998 VOTE S0开始向2要票
+050494 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+050498 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+050500 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+050990 VOTE S1 开始预选举 term为2 
+051001 VOTE S1开始向0要票
+051004 VOTE S1开始向2要票
+051503 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+051508 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+051511 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+052514 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+052517 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+052520 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+053530 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+053537 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+053539 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+053539 VOTE S0 预选举失败，获得1票数
+054568 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+054572 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+054573 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+055003 VOTE S1 预选举失败，获得1票数
+055007 INFO S0 重新连接
+055585 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+055588 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+055589 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+056593 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+056598 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+056603 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+057629 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+057632 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+057634 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+058644 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+058648 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+058649 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+059656 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+059661 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+059663 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+060676 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+060680 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+060682 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+061695 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+061700 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+061702 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+062706 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+062709 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+062711 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+062953 VOTE S0 开始预选举 term为2 
+062973 VOTE S0开始向1要票
+062973 VOTE S0开始向2要票
+062995 VOTE S0 要票，args为 {Term:3 CandidateId:0 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 2, votedFor: -1
+063008 VOTE S0 term 3 的情况下 向1要票结束, 结果为true
+063009 VOTE S0 预选举成功
+063010 VOTE S0 开始正式选举
+063010 VOTE S0 开始选举 term为3 
+063011 VOTE S0开始向1要票
+063013 VOTE S0开始向2要票
+063020 VOTE S0 要票，args为 {Term:3 CandidateId:0 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 2, votedFor: -1
+063027 VOTE S0 term 3 的情况下 向1要票结束, 结果为true
+063027 LOG1 S0 选举成功
+063028 VOTE S0 选举成功 term为: 3
+063028 LEAD S0 成为leader
+063028 LEAD S0 的term: 3 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+063029 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+063032 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+063057 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+063715 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+063721 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+063722 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+064070 LEAD S0 的term: 3 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+064076 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+064079 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+064095 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+064440 INFO S0 think itself is leader ,term is 3
+064445 INFO S2 重新连接
+064772 LEAD S2 的term: 2 votedFor:2 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+064775 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+064776 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1]
+064810 LEAD S2 给S1发送信息后放弃成为lead
+065120 LEAD S0 的term: 3 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+065122 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+065123 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+065138 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+065163 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+066186 LEAD S0 的term: 3 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+066188 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+066190 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+066202 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+066204 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+067225 LEAD S0 的term: 3 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+067239 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+067241 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+067258 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+067261 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+068268 LEAD S0 的term: 3 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+068270 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+068272 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+068305 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+068395 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+069421 LEAD S0 的term: 3 votedFor:0 nextIndex: [1 1 1] matchIndex: [0 0 0] log:[{-1 <nil>}]
+069424 LOG2 S0 发送给S1 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+069426 LOG2 S0 发送给S2 commitIndex为 0 S0的CommitIndex: 0 nextIndex为: [1 1 1]
+069448 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+069465 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S0 的参数为{Term:3 LeaderId:0 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+069820 INFO S0 think itself is leader ,term is 3
+  ... Passed --   6.0  3  124   25331    0
+Test (2A): multiple elections ...
+073335 VOTE S1 退出预选举
+074795 VOTE S2 退出预选举
+078429 VOTE S2 开始预选举 term为0 
+078451 VOTE S2开始向5要票
+078456 VOTE S2开始向1要票
+078458 VOTE S2开始向3要票
+078460 VOTE S2开始向4要票
+078489 VOTE S2开始向6要票
+078501 VOTE S2开始向0要票
+078512 VOTE S3 开始预选举 term为0 
+078520 VOTE S3开始向1要票
+078522 VOTE S1 开始预选举 term为0 
+078529 VOTE S1开始向5要票
+078531 VOTE S3开始向0要票
+078532 VOTE S3开始向2要票
+078541 VOTE S1开始向2要票
+078544 VOTE S3开始向5要票
+078545 VOTE S3开始向6要票
+078546 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者5条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078547 VOTE S1开始向0要票
+078551 VOTE S2 term 1 的情况下 向5要票结束, 结果为true
+078551 VOTE S1开始向3要票
+078552 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者5条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078553 VOTE S1开始向4要票
+078554 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078558 VOTE S3 term 1 的情况下 向0要票结束, 结果为true
+078561 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078561 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078565 VOTE S1 term 1 的情况下 向5要票结束, 结果为true
+078566 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078568 VOTE S1 term 1 的情况下 向4要票结束, 结果为true
+078570 VOTE S2 term 1 的情况下 向0要票结束, 结果为true
+078571 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者6条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078575 VOTE S2 term 1 的情况下 向4要票结束, 结果为true
+078575 VOTE S2 term 1 的情况下 向6要票结束, 结果为true
+078575 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者5条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078576 VOTE S1开始向6要票
+078578 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者6条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078580 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者6条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078581 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078581 VOTE S3 term 1 的情况下 向6要票结束, 结果为true
+078575 VOTE S2 预选举成功
+078582 VOTE S2 开始正式选举
+078582 VOTE S2 开始选举 term为1 
+078583 VOTE S1 term 1 的情况下 向6要票结束, 结果为true
+078583 VOTE S1 预选举成功
+078584 VOTE S1 开始正式选举
+078584 VOTE S1 开始选举 term为1 
+078584 VOTE S3 term 1 的情况下 向5要票结束, 结果为true
+078584 VOTE S2开始向6要票
+078585 VOTE S3 预选举成功
+078585 VOTE S3 开始正式选举
+078585 VOTE S3 开始选举 term为1 
+078586 VOTE S2开始向0要票
+078586 VOTE S1开始向5要票
+078587 VOTE S2开始向1要票
+078587 VOTE S1开始向0要票
+078587 VOTE S2开始向3要票
+078587 VOTE S3开始向2要票
+078588 VOTE S1开始向3要票
+078588 VOTE S1开始向2要票
+078589 VOTE S2开始向5要票
+078590 VOTE S1开始向4要票
+078590 VOTE S2开始向4要票
+078590 VOTE S1开始向6要票
+078591 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+078591 VOTE S3开始向0要票
+078592 VOTE S3开始向1要票
+078593 VOTE S3开始向4要票
+078593 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者6条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078593 VOTE S3开始向5要票
+078594 VOTE S3开始向6要票
+078536 VOTE S3开始向4要票
+078596 VOTE S2 term 1 的情况下 向6要票结束, 结果为true
+078600 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078605 VOTE S1 term 1 的情况下 向0要票结束, 结果为true
+078606 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者5条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078610 VOTE S1 term 1 的情况下 向5要票结束, 结果为true
+078610 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者5条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+078611 VOTE S5 拒绝给S3 原因3 投票者term为: 1,
+078613 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+078613 VOTE S0 拒绝给S2 原因3 投票者term为: 1,
+078614 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者5条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+078614 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078615 LOG1 S1 选举成功
+078615 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+078615 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者6条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 2
+078616 VOTE S6 拒绝给S1 原因3 投票者term为: 1,
+078617 VOTE S3 term 1 的情况下 向5要票结束, 结果为false
+078618 VOTE S3 term 1 的情况下 向4要票结束, 结果为true
+078618 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 0, votedFor: -1
+078615 VOTE S5 拒绝给S2 原因3 投票者term为: 1,
+078619 VOTE S2 term 1 的情况下 向0要票结束, 结果为false
+078619 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者0条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+078620 VOTE S0 拒绝给S3 原因3 投票者term为: 1,
+078621 VOTE S2 term 1 的情况下 向1要票结束, 结果为true
+078621 VOTE S2 term 1 的情况下 向5要票结束, 结果为false
+078616 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+078621 LOG1 S2 选举成功
+078622 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+078623 VOTE S1 拒绝给S2 原因3 投票者term为: 1,
+078623 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者6条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 2
+078623 VOTE S1 term 1 的情况下 向6要票结束, 结果为false
+078623 VOTE S6 拒绝给S3 原因3 投票者term为: 1,
+078624 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 2
+078624 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+078624 VOTE S4 拒绝给S2 原因3 投票者term为: 1,
+078624 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 2
+078623 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者1条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 1
+078624 VOTE S3 要票，args为 {Term:1 CandidateId:3 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 2
+078625 VOTE S2 拒绝给S3 原因3 投票者term为: 1,
+078625 VOTE S1 拒绝给S3 原因3 投票者term为: 1,
+078625 VOTE S1 选举成功 term为: 1
+078626 LEAD S1 成为leader
+078626 VOTE S3 term 1 的情况下 向0要票结束, 结果为false
+078626 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1 1 1 1 1] matchIndex: [0 0 0 0 0 0 0] log:[{-1 <nil>}]
+078626 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078627 VOTE S3 term 1 的情况下 向4要票结束, 结果为true
+078627 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078627 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者4条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+078628 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者2条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 2
+078628 VOTE S2 拒绝给S1 原因3 投票者term为: 1,
+078628 VOTE S3 term 1 的情况下 向2要票结束, 结果为true
+078628 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078629 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078630 VOTE S2 term 1 的情况下 向4要票结束, 结果为false
+078630 LOG2 S1 发送给S5 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078630 VOTE S2 选举成功 term为: 1
+078631 LEAD S2 成为leader
+078631 LOG2 S1 发送给S6 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078631 LEAD S2 的term: 1 votedFor:2 nextIndex: [1 1 1 1 1 1 1] matchIndex: [0 0 0 0 0 0 0] log:[{-1 <nil>}]
+078632 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078632 VOTE S3 term 1 的情况下 向2要票结束, 结果为false
+078632 VOTE S2 term 1 的情况下 向1要票结束, 结果为false
+078632 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078633 LOG1 S3 选举成功
+078633 LOG2 S2 发送给S3 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078634 VOTE S3 term 1 的情况下 向1要票结束, 结果为false
+078634 LOG2 S2 发送给S4 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078635 LOG2 S2 发送给S5 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078635 LOG2 S2 发送给S6 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078628 VOTE S4 拒绝给S1 原因3 投票者term为: 1,
+078633 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者3条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+078639 VOTE S1 term 1 的情况下 向2要票结束, 结果为false
+078639 VOTE S1 term 1 的情况下 向4要票结束, 结果为false
+078639 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:true} 投票者3条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+078640 VOTE S1 要票，args为 {Term:1 CandidateId:1 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者3条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+078640 VOTE S3 拒绝给S1 原因3 投票者term为: 1,
+078640 VOTE S3 term 1 的情况下 向1要票结束, 结果为true
+078640 VOTE S2 要票，args为 {Term:1 CandidateId:2 LastLogIndex:0 LastLogTerm:-1 PreElcection:false} 投票者3条件为 log: [{Term:-1 Command:<nil>}], term: 1, votedFor: 3
+078640 VOTE S1 term 1 的情况下 向2要票结束, 结果为true
+078641 VOTE S3 拒绝给S2 原因3 投票者term为: 1,
+078627 VOTE S3 term 1 的情况下 向6要票结束, 结果为false
+078642 VOTE S3 选举成功 term为: 1
+078642 LEAD S3 成为leader
+078643 LEAD S3 的term: 1 votedFor:3 nextIndex: [1 1 1 1 1 1 1] matchIndex: [0 0 0 0 0 0 0] log:[{-1 <nil>}]
+078643 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078644 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078644 VOTE S1 term 1 的情况下 向3要票结束, 结果为false
+078644 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078644 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078645 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078646 VOTE S1 term 1 的情况下 向3要票结束, 结果为true
+078646 LOG2 S3 发送给S5 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078647 LOG2 S3 发送给S6 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+078649 LEAD S5 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078649 VOTE S2 term 1 的情况下 向3要票结束, 结果为false
+078650 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078653 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078656 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078658 VOTE S2 term 1 的情况下 向3要票结束, 结果为true
+078659 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078663 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078663 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078663 LEAD S6 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078666 LEAD S5 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078669 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078671 LEAD S6 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078673 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078674 LEAD S5 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078674 LEAD S6 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078675 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078680 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+078680 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079692 LEAD S2 的term: 1 votedFor:2 nextIndex: [1 1 1 1 1 1 1] matchIndex: [0 0 0 0 0 0 0] log:[{-1 <nil>}]
+079699 LEAD S1 的term: 1 votedFor:1 nextIndex: [1 1 1 1 1 1 1] matchIndex: [0 0 0 0 0 0 0] log:[{-1 <nil>}]
+079709 LOG2 S1 发送给S0 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079713 LOG2 S1 发送给S2 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079719 LOG2 S1 发送给S3 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079720 LOG2 S1 发送给S4 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079721 LOG2 S1 发送给S5 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079723 LOG2 S1 发送给S6 commitIndex为 0 S1的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079707 LEAD S3 的term: 1 votedFor:3 nextIndex: [1 1 1 1 1 1 1] matchIndex: [0 0 0 0 0 0 0] log:[{-1 <nil>}]
+079729 LOG2 S3 发送给S0 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079730 LOG2 S3 发送给S1 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079731 LOG2 S3 发送给S2 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079734 LOG2 S3 发送给S4 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079735 LOG2 S3 发送给S5 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079737 LOG2 S3 发送给S6 commitIndex为 0 S3的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079706 LOG2 S2 发送给S0 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079761 LOG2 S2 发送给S1 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079763 LOG2 S2 发送给S3 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079764 LOG2 S2 发送给S4 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079766 LOG2 S2 发送给S5 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079767 LOG2 S2 发送给S6 commitIndex为 0 S2的CommitIndex: 0 nextIndex为: [1 1 1 1 1 1 1]
+079805 LEAD S5 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079806 LEAD S6 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079761 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079832 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079842 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079850 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079859 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079860 LEAD S3 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079879 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079886 LEAD S6 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079887 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079890 LEAD S0 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079892 LEAD S4 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079894 LEAD S1 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079896 LEAD S2 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079902 LEAD S5 目前有[{-1 <nil>}]日志, 长度为1, 接收S3 的参数为{Term:1 LeaderId:3 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079904 LEAD S5 目前有[{-1 <nil>}]日志, 长度为1, 接收S2 的参数为{Term:1 LeaderId:2 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+079968 LEAD S6 目前有[{-1 <nil>}]日志, 长度为1, 接收S1 的参数为{Term:1 LeaderId:1 PrevLogIndex:0 PrevLogTerm:-1 Entries:[] LeaderCommit:0}
+080095 INFO S1 think itself is leader ,term is 1
+080096 INFO S2 think itself is leader ,term is 1
+080096 INFO S3 think itself is leader ,term is 1
+--- FAIL: TestManyElections2A (1.03s)
+    config.go:447: term 1 has 3 (>1) leaders
+FAIL
+exit status 1
+FAIL	6.5840/raft	8.023s
