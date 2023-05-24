@@ -1,0 +1,4 @@
+# 6.5840/raft [6.5840/raft.test]
+./raft.go:459:47: rf.提交成功，更新nextIndex为matchIndex undefined (type *Raft has no field or method 提交成功，更新nextIndex为matchIndex)
+./raft.go:459:59: invalid character U+FF0C '，' in identifier
+FAIL	6.5840/raft [build failed]

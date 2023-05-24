@@ -1,0 +1,4 @@
+# 6.5840/raft [6.5840/raft.test]
+./raft.go:193:93: invalid operation: cannot slice rf.Log (variable of type Log)
+./raft.go:370:122: invalid argument: rf.Log (variable of type Log) for len
+FAIL	6.5840/raft [build failed]

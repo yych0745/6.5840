@@ -85,3 +85,49 @@ func min(x, y int) int {
 	}
 	return x
 }
+
+type Log struct {
+	V        []LogEntry
+	LogIndex int
+}
+
+func (l *Log) init() {
+	l.LogIndex = 0
+	l.V = make([]LogEntry, 0)
+	l.append(LogEntry{0, 1})
+}
+
+func (l *Log) len() int {
+	return len(l.V) + l.LogIndex
+}
+
+func (l *Log) command(index int) interface{} {
+	return l.V[index+l.LogIndex].Command
+}
+
+func (l *Log) term(index int) int {
+	// if index < 0 {
+	// 	return 0
+	// }
+	return l.V[index+l.LogIndex].Term
+}
+
+func (l *Log) append(u ...LogEntry) {
+	l.V = append(l.V, u...)
+}
+
+func (l *Log) cut(start int, end int) []LogEntry {
+	l.V = l.V[start:end]
+	return l.V
+}
+
+func (l *Log)valid(args AppendEntrieArgs) string{
+	index := args.PrevLogIndex
+	term := args.PrevLogTerm
+	if index >= l.len() {
+		return fmt.Sprintf("%d的长度大于日志%d", index, l.len())
+	} else if l.term(index) != term {
+		return fmt.Sprintf("args的term:%d 和log的term%d不同", index, l.term(index))
+	}
+	return fmt.Sprintf("args的term%d和log的term%d相同", term, l.term(index))
+}
