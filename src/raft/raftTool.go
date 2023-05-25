@@ -18,7 +18,7 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 		Debug(dVote, "S%d 拒绝给S%d 原因1,", rf.me, args.CandidateId)
 		return
 	}
-	if args.LastLogTerm < rf.Log.term(rf.Log.len()-1) || args.LastLogTerm == rf.Log.term(rf.Log.len()-1) && args.LastLogIndex < rf.Log.len()-1 {
+	if args.LastLogTerm < rf.Log.term(rf.Log.realLen()-1) || args.LastLogTerm == rf.Log.term(rf.Log.realLen()-1) && args.LastLogIndex < rf.Log.realLen()-1 {
 		reply.Term = rf.Term
 		if rf.Term < args.Term && !args.PreElcection {
 			// Debug(dVote, "S%d 的term在S%d的选举中更新了：%d->%d", rf.me, args.CandidateId, rf.Term, args.Term)
@@ -26,7 +26,7 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 			// rf.persist()
 		}
 		reply.VoteGranted = false
-		Debug(dVote, "S%d 拒绝给S%d 原因2, S%d的lastLogIndex为:%d lastlogTerm为：%d", rf.me, args.CandidateId, rf.me, rf.Log.len()-1, rf.Log.term(rf.Log.len()-1))
+		Debug(dVote, "S%d 拒绝给S%d 原因2, S%d的lastLogIndex为:%d lastlogTerm为：%d", rf.me, args.CandidateId, rf.me, rf.Log.realLen()-1, rf.Log.term(rf.Log.realLen()-1))
 		return
 	}
 
@@ -84,13 +84,13 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	rf.persist()
 
 	if len(args.Entries) > 0 {
-		Debug(dLeader, "S%d 接收S%d的日志args: %v term结果为:%v 目前日志长度为%d %v", rf.me, args.LeaderId, args, rf.Log.valid(args), rf.Log.len(), rf.Log)
+		Debug(dLeader, "S%d 接收S%d的日志args: %v term结果为:%v 目前日志长度为%d %v", rf.me, args.LeaderId, args, rf.Log.valid(args), rf.Log.realLen(), rf.Log)
 	} else {
 		Debug(dLeader, "S%d 接收S%d的心跳args: %v term结果为:%v", rf.me, args.LeaderId, args, rf.Log.valid(args))
 	}
 
-	if args.PrevLogIndex == -1 || args.PrevLogIndex < rf.Log.len() && rf.Log.term(args.PrevLogIndex) == args.PrevLogTerm {
-		index := min(args.LeaderCommit, rf.Log.len()-1)
+	if args.PrevLogIndex == -1 || args.PrevLogIndex < rf.Log.realLen() && rf.Log.term(args.PrevLogIndex) == args.PrevLogTerm {
+		index := min(args.LeaderCommit, rf.Log.realLen()-1)
 		if index > rf.commitIndex {
 			rf.commitIndex = index
 			rf.wakeCommit()
@@ -98,8 +98,8 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 		}
 	}
 
-	if args.PrevLogIndex >= rf.Log.len() {
-		reply.ReplyIndex = rf.Log.len()
+	if args.PrevLogIndex >= rf.Log.realLen() {
+		reply.ReplyIndex = rf.Log.realLen()
 
 		if len(args.Entries) == 0 {
 			reply.Success = true
@@ -126,13 +126,13 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 		}
 
 		// 如果是加在当前日志的最后一个，那么直接加上
-		if rf.Log.len() == args.PrevLogIndex+1 {
+		if rf.Log.realLen() == args.PrevLogIndex+1 {
 			rf.Log.append(args.Entries...)
 		} else {
 			rf.Log.cut(0, args.PrevLogIndex+1)
 			rf.Log.append(args.Entries...)
 		}
-		reply.ReplyIndex = rf.Log.len()
+		reply.ReplyIndex = rf.Log.realLen()
 		rf.persist()
 	} else if rf.Log.term(args.PrevLogIndex) != args.PrevLogTerm {
 		reply.Success = false
@@ -145,9 +145,10 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 			}
 		}
 		index = min(index, args.PrevLogIndex)
+		index = max(index, rf.commitIndex)
 		rf.Log.cut(0, index+1)
 		rf.persist()
-		Debug(dLog, "S%d 的log 因为接收到S%d 的内容%+v，被切掉了log, 剩下的长度为%d，返回的index为: %d\n", rf.me, args.LeaderId, args, rf.Log.len(), index+1)
+		Debug(dLog, "S%d 的log 因为接收到S%d 的内容%+v，被切掉了log, 剩下的长度为%d，返回的index为: %d\n", rf.me, args.LeaderId, args, rf.Log.realLen(), index+1)
 		// reply.ReplyTerm = rf.Log.term(index)
 		reply.ReplyIndex = index + 1
 

@@ -74,8 +74,8 @@ type Raft struct {
 	// endChan       chan End
 	VotedFor int
 	rlock    sync.Mutex
+	clock    sync.Mutex
 	Log      Log
-	logIndex int
 	logRepu  []bool
 
 	commitIndex int //index of highest log entry known to becommitted (initialized to 0, increasesmonotonically)
@@ -89,7 +89,7 @@ type Raft struct {
 }
 
 func (rf *Raft) String() string {
-	return fmt.Sprintf("S%d 的term: %d votedFor:%d nextIndex: %v matchIndex: %v logIndex: %v log:%v", rf.me, rf.Term, rf.VotedFor, rf.nextIndex, rf.matchIndex, rf.logIndex, rf.Log)
+	return fmt.Sprintf("S%d 的term: %d votedFor:%d nextIndex: %v matchIndex: %v logIndex: %v log:%v", rf.me, rf.Term, rf.VotedFor, rf.nextIndex, rf.matchIndex, rf.Log.LogIndex, rf.Log)
 }
 
 type End struct {
@@ -190,9 +190,12 @@ func (rf *Raft) readPersist(data []byte) {
 func (rf *Raft) Snapshot(index int, snapshot []byte) {
 	// Your code here (2D).
 	rf.rlock.Lock()
-	Debug(dInfo, "S%d 更新logIndex %d->%d rf.log %v->%v", rf.me, rf.logIndex, index, rf.Log, rf.Log.cut(index+1, rf.Log.len()))
-	rf.logIndex = index
-	// rf.Log = rf.Log[index+1:]
+	tLog := make([]LogEntry, rf.Log.len1())
+	copy(tLog, rf.Log.V)
+	Debug(dInfo, "S%d 开始更新logIndex %d->%d 当前日志长度: %d", rf.me, rf.Log.LogIndex, index, rf.Log.len1())
+	rf.Log.snapshot(index)
+	rf.Log.LogIndex = index
+	Debug(dInfo, "S%d 更新logIndex %d->%d rf.log %v->%v len: %d->%d", rf.me, rf.Log.LogIndex, index, tLog, rf.Log, len(tLog), rf.Log.realLen())
 	rf.rlock.Unlock()
 }
 
@@ -308,7 +311,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	rf.Log.append(entry)
 	rf.persist()
 	// Debug(dTrace, "S%d 增加了日志 %v 当前日志为: %v", rf.me, entry, rf.log)
-	index = rf.Log.len() - 1
+	index = rf.Log.realLen() - 1
 	rf.rlock.Unlock()
 
 	Debug(dLog, "S%d 接收到的命令为%v 返回值 index: %d, term %d, isLeader %v", rf.me, command, index, term, isLeader)
@@ -356,7 +359,7 @@ func (rf *Raft) ticker() {
 
 			Debug(dLeader, "S%d 成为leader\n", rf.me)
 			for i := range rf.peers {
-				rf.nextIndex[i] = rf.Log.len()
+				rf.nextIndex[i] = rf.Log.realLen()
 			}
 			rf.matchIndex = make([]int, len(rf.peers))
 			rf.leadL()
@@ -367,7 +370,7 @@ func (rf *Raft) ticker() {
 func (rf *Raft) commit1() {
 	for rf.killed() == false {
 		rf.rlock.Lock()
-		Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, rf.Log.len())
+		Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, rf.Log.realLen())
 		for rf.lastApplied < rf.commitIndex {
 			index := rf.lastApplied + 1
 			msg := ApplyMsg{CommandIndex: index, Command: rf.Log.command(index), CommandValid: true}
@@ -377,9 +380,9 @@ func (rf *Raft) commit1() {
 		}
 		if rf.me == rf.leaderId {
 
-			rf.matchIndex[rf.me] = rf.Log.len() - 1
+			rf.matchIndex[rf.me] = rf.Log.realLen() - 1
 			index := rf.commitIndex
-			for ; index <= rf.Log.len()-1; index++ {
+			for ; index <= rf.Log.realLen()-1; index++ {
 				sum := 0
 				for _, v := range rf.matchIndex {
 					if v > index {
@@ -417,9 +420,9 @@ func (rf *Raft) leadL() {
 		args := AppendEntrieArgs{}
 		args.Term = rf.Term
 		args.LeaderId = rf.me
-		rf.matchIndex[rf.me] = rf.Log.len() - 1
+		rf.matchIndex[rf.me] = rf.Log.realLen() - 1
 		index := rf.commitIndex
-		for ; index <= rf.Log.len()-1; index++ {
+		for ; index <= rf.Log.realLen()-1; index++ {
 			sum := 0
 			for _, v := range rf.matchIndex {
 				if v > index {
@@ -431,7 +434,7 @@ func (rf *Raft) leadL() {
 			}
 		}
 		Debug(dLeader, "%+v", rf)
-		if index < rf.Log.len() && (rf.Log.term(max(index, 0)) == rf.Term || rf.Log.term(rf.commitIndex) == rf.Term) {
+		if index < rf.Log.realLen() && (rf.Log.term(max(index, 0)) == rf.Term || rf.Log.term(rf.commitIndex) == rf.Term) {
 			if index > rf.commitIndex {
 				rf.commitIndex = max(index, 0)
 				rf.wakeCommit()
@@ -442,7 +445,7 @@ func (rf *Raft) leadL() {
 			if i == rf.me {
 				continue
 			}
-			if rf.matchIndex[i] < rf.Log.len()-1 {
+			if rf.matchIndex[i] < rf.Log.realLen()-1 {
 				Debug(dLeader, "S%d 准备开启给S%d发送日志的协程", rf.me, i)
 				if !rf.logRepu[i] {
 					Debug(dLeader, "S%d 开启给S%d发送日志的协程", rf.me, i)
@@ -451,9 +454,9 @@ func (rf *Raft) leadL() {
 				}
 			}
 			args.PrevLogIndex = rf.nextIndex[i] - 1
-			if args.PrevLogIndex >= rf.Log.len() {
+			if args.PrevLogIndex >= rf.Log.realLen() {
 				Debug(dWarn, "S%d 的日志长度大于leader S%d的本身日志长度 %+v", i, rf.me, rf.nextIndex)
-				args.PrevLogIndex = rf.Log.len() - 1
+				args.PrevLogIndex = rf.Log.realLen() - 1
 			}
 			args.PrevLogTerm = rf.Log.term(args.PrevLogIndex)
 			args.LeaderCommit = min(rf.commitIndex, rf.matchIndex[i])
@@ -517,7 +520,7 @@ func (rf *Raft) logReplication1(id int, peer *labrpc.ClientEnd) {
 		ms := 50
 		time.Sleep(time.Millisecond * time.Duration(ms))
 		rf.rlock.Lock()
-		if rf.nextIndex[id] < rf.Log.len() {
+		if rf.nextIndex[id] < rf.Log.realLen() {
 			if rf.me != rf.leaderId {
 				Debug(dLeader, "S%d 关闭给S%d 发送日志的携程 1", rf.me, id)
 				rf.logRepu[id] = false
@@ -533,7 +536,7 @@ func (rf *Raft) logReplication1(id int, peer *labrpc.ClientEnd) {
 			args.PrevLogTerm = rf.Log.term(args.PrevLogIndex)
 			args.LeaderCommit = min(rf.commitIndex, args.PrevLogIndex)
 			if afterFirstEqual {
-				for i := rf.nextIndex[id]; i < rf.Log.len(); i++ {
+				for i := rf.nextIndex[id]; i < rf.Log.realLen(); i++ {
 					o := LogEntry{Term: rf.Log.term(i), Command: rf.Log.command(i)}
 					args.Entries = append(args.Entries, o)
 				}
@@ -658,7 +661,7 @@ func (rf *Raft) election() bool {
 
 			args.Term = rf.Term
 
-			args.LastLogIndex = rf.Log.len() - 1
+			args.LastLogIndex = rf.Log.realLen() - 1
 			args.LastLogTerm = rf.Log.term(args.LastLogIndex)
 
 			args.Term = rf.Term
@@ -733,7 +736,7 @@ func (rf *Raft) preElection1() bool {
 		args := RequestVoteArgs{}
 		args.PreElcection = true
 		args.CandidateId = rf.me
-		args.LastLogIndex = rf.Log.len() - 1
+		args.LastLogIndex = rf.Log.realLen() - 1
 		args.LastLogTerm = rf.Log.term(args.LastLogIndex)
 		args.Term = term
 
@@ -797,14 +800,20 @@ func (rf *Raft) commit() {
 		case <-rf.commitChan:
 			Debug(dInfo, "S%d commit被唤醒", rf.me)
 			rf.rlock.Lock()
-			Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, rf.Log.len())
-			for rf.lastApplied < rf.commitIndex && rf.lastApplied+1 < rf.Log.len() {
-				index := rf.lastApplied + 1 + rf.logIndex
+			Debug(dTrace, "S%d 的lastApplied为 %d commitIndex为 %d log长度为 %d", rf.me, rf.lastApplied, rf.commitIndex, rf.Log.realLen())
+			for rf.lastApplied < rf.commitIndex && rf.lastApplied+1 < rf.Log.realLen() {
+				rf.clock.Lock()
+				index := rf.lastApplied + 1
 				// index := rf.lastApplied + 1
+				Debug(dInfo, "S%d index为: %d logIndex为: %d", rf.me, index, rf.Log.LogIndex)
 				msg := ApplyMsg{CommandIndex: index, Command: rf.Log.command(index), CommandValid: true}
 				Debug(dTrace, "S%d 提交了日志 %+v", rf.me, msg)
-				rf.applyMsgChan <- msg
+				Debug(dTrace, "S%d 提交完了日志 %+v", rf.me, msg)
 				rf.lastApplied = index
+				rf.rlock.Unlock()
+				rf.applyMsgChan <- msg
+				rf.clock.Unlock()
+				rf.rlock.Lock()
 			}
 			rf.rlock.Unlock()
 		default:

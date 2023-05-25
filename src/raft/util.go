@@ -91,25 +91,41 @@ type Log struct {
 	LogIndex int
 }
 
+func (l *Log) String() string {
+	s := fmt.Sprintf("len: %d { ", l.realLen())
+	for i, v := range l.V {
+		s += fmt.Sprintf("%d: [%v, %v] ", i, v.Term, v.Command)
+	}
+	s += "}"
+	return s
+}
+
 func (l *Log) init() {
 	l.LogIndex = 0
 	l.V = make([]LogEntry, 0)
-	l.append(LogEntry{0, 1})
+	l.append(LogEntry{0, 0})
 }
 
-func (l *Log) len() int {
+func (l *Log) realLen() int {
 	return len(l.V) + l.LogIndex
 }
 
+func (l *Log) len1() int {
+	return len(l.V)
+}
+
 func (l *Log) command(index int) interface{} {
-	return l.V[index+l.LogIndex].Command
+	if index == 0 {
+		return 0
+	}
+	return l.V[index-l.LogIndex].Command
 }
 
 func (l *Log) term(index int) int {
-	// if index < 0 {
-	// 	return 0
-	// }
-	return l.V[index+l.LogIndex].Term
+	if index == 0 {
+		return 0
+	}
+	return l.V[index-l.LogIndex].Term
 }
 
 func (l *Log) append(u ...LogEntry) {
@@ -117,17 +133,29 @@ func (l *Log) append(u ...LogEntry) {
 }
 
 func (l *Log) cut(start int, end int) []LogEntry {
-	l.V = l.V[start:end]
+	l.V = l.cut1(start, end)
 	return l.V
 }
 
-func (l *Log)valid(args AppendEntrieArgs) string{
+func (l *Log) cut1(start int, end int) []LogEntry {
+	return l.V[start:end]
+}
+
+func (l *Log) valid(args AppendEntrieArgs) string {
 	index := args.PrevLogIndex
 	term := args.PrevLogTerm
-	if index >= l.len() {
-		return fmt.Sprintf("%d的长度大于日志%d", index, l.len())
+	if index >= l.realLen() {
+		return fmt.Sprintf("%d的长度大于日志%d", index, l.realLen())
 	} else if l.term(index) != term {
 		return fmt.Sprintf("args的term:%d 和log的term%d不同", index, l.term(index))
 	}
 	return fmt.Sprintf("args的term%d和log的term%d相同", term, l.term(index))
+}
+
+func (l *Log) snapshot(index int) {
+	t := make([]LogEntry, 1)
+	t[0] = LogEntry{0, 0} 
+	t = append(t, l.V[index-l.LogIndex+1:]...)
+	l.V = t
+	Debug(dWarn, "%d   t: %+v", index-l.LogIndex+1, t)
 }

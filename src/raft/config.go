@@ -255,6 +255,7 @@ func (cfg *config) applierSnap(i int, applyCh chan ApplyMsg) {
 					xlog = append(xlog, cfg.logs[i][j])
 				}
 				e.Encode(xlog)
+				Debug(dInfo, "S%d s2napshot", rf.me)
 				rf.Snapshot(m.CommandIndex, w.Bytes())
 			}
 		} else {
