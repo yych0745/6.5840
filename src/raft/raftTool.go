@@ -1,5 +1,11 @@
 package raft
 
+import (
+	"bytes"
+
+	"6.5840/labgob"
+)
+
 // example RequestVote RPC handler.
 func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (2A, 2B).
@@ -129,7 +135,7 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 		if rf.Log.realLen() == args.PrevLogIndex+1 {
 			rf.Log.append(args.Entries...)
 		} else {
-			rf.Log.cut(0, args.PrevLogIndex+1)
+			rf.Log.cut(0, args.PrevLogIndex+1-rf.Log.Base)
 			rf.Log.append(args.Entries...)
 		}
 		reply.ReplyIndex = rf.Log.realLen()
@@ -144,9 +150,10 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 				break
 			}
 		}
+		Debug(dInfo, "S%d 切log的参数min(index: %d, args.PrevLogIndex: %d) log的长度: %d", rf.me, index, args.PrevLogIndex, rf.Log.len1())
 		index = min(index, args.PrevLogIndex)
-		index = max(index, rf.commitIndex)
-		rf.Log.cut(0, index+1)
+		// index = max(index, rf.commitIndex)
+		rf.Log.cut(0, index+1-rf.Log.Base)
 		rf.persist()
 		Debug(dLog, "S%d 的log 因为接收到S%d 的内容%+v，被切掉了log, 剩下的长度为%d，返回的index为: %d\n", rf.me, args.LeaderId, args, rf.Log.realLen(), index+1)
 		// reply.ReplyTerm = rf.Log.term(index)
@@ -165,4 +172,87 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	rf.rlock.Unlock()
 	defer Debug(dLeader, "S%d 接收完S%d的日志的回复为%+v 返回点: %d", args.LeaderId, rf.me, reply, pos)
 
+}
+
+type InstallSnapshotArgs struct {
+	Term, LeaderId, LastIncludedIndex, LastIncludedTerm, Offset int
+	Data                                                        []byte
+	Done                                                        bool
+}
+type InstallSnapshotReply struct {
+	Term int
+}
+
+func (rf *Raft) sendSnapshot(server int, args InstallSnapshotArgs, reply *InstallSnapshotReply) bool {
+	defer rf.rlock.Unlock()
+	ok := rf.peers[server].Call("Raft.InstallSnapshot", args, reply)
+	rf.rlock.Lock()
+	rf.senSnap[server] = false
+	if !ok {
+		return ok
+	}
+	if reply.Term > rf.Term {
+		rf.leaderId = -1
+		rf.startElection = false
+		rf.Term = reply.Term
+		Debug(dLeader, "S%d 给S%d发送snapshot后放弃成为lead\n", rf.me, server)
+	} else {
+		rf.nextIndex[server] = args.LastIncludedIndex + 1
+		rf.matchIndex[server] = args.LastIncludedIndex
+	}
+	return ok
+}
+
+func (rf *Raft) InstallSnapshot(args InstallSnapshotArgs, reply *InstallSnapshotReply) {
+	defer rf.rlock.Unlock()
+	rf.rlock.Lock()
+	reply.Term = rf.Term
+	rf.startElection = false
+	Debug(dInfo, "S%d 收到S%d的snapshot", rf.me, args.LeaderId)
+	// 1: 如果自己term更大，就不管
+	if rf.Term > args.Term {
+		return
+	}
+
+	// 2: 如果自己的更新，那么也不管
+	if rf.Log.Base >= args.LastIncludedIndex {
+		return
+	}
+
+	// 3: 如果自己的没有那么新
+	// 3.1 如果有部分相同的日志和snapshot相同，那么就丢弃这部分日志
+	if rf.Log.realLen() > args.LastIncludedIndex && rf.Log.term(args.LastIncludedIndex) == args.LastIncludedTerm {
+		rf.Log.snapshot(args.LastIncludedIndex)
+		rf.lastIncludedIndex = args.LastIncludedIndex
+		rf.lastIncludedTerm = args.LastIncludedTerm
+		rf.Log.Base = args.LastIncludedIndex
+	} else {
+		// 如果比这个日志小，或者包含的index部分不同，那么就全部丢弃，全拿新的
+		rf.Log.clean()
+		rf.lastIncludedIndex = args.LastIncludedIndex
+		rf.lastIncludedTerm = args.LastIncludedTerm
+		rf.Log.Base = args.LastIncludedIndex
+	}
+	if rf.commitIndex < args.LastIncludedIndex {
+		rf.commitIndex = args.LastIncludedIndex
+		Debug(dTrace, "S%d 的lastApplied更新2： %v -> %v", rf.me, rf.lastApplied, args.LastIncludedIndex)
+		rf.lastApplied = args.LastIncludedIndex
+	}
+
+	w := new(bytes.Buffer)
+	e := labgob.NewEncoder(w)
+	e.Encode(rf.Term)
+	e.Encode(rf.lastIncludedIndex)
+	e.Encode(rf.lastIncludedTerm)
+	e.Encode(rf.VotedFor)
+	e.Encode(rf.Log)
+	raftstate := w.Bytes()
+	rf.persister.Save(raftstate, args.Data)
+	rf.rlock.Unlock()
+	rf.clock.Lock()
+	msg := ApplyMsg{SnapshotValid: true, Snapshot: args.Data, SnapshotTerm: args.LastIncludedTerm, SnapshotIndex: args.LastIncludedIndex}
+	Debug(dCommit, "S%d 上传snapshot: %+v", rf.me, msg)
+	rf.applyMsgChan <- msg
+	rf.clock.Unlock()
+	rf.rlock.Lock()
 }
