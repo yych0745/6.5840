@@ -11,7 +11,6 @@ import (
 	"os"
 	"sort"
 	"sync"
-	"time"
 )
 
 //
@@ -53,6 +52,15 @@ var currentTime int64
 // main/mrworker.go calls this function.
 //
 var tmr string
+var wg sync.WaitGroup
+var conf Conf
+
+func init() {
+	tmr = fmt.Sprintf("mr-tmp")
+	os.Mkdir(tmr, os.ModePerm)
+
+	conf = Conf{gothreadNum: 1}
+}
 
 func Worker(mapf func(string, string) []KeyValue,
 	reducef func(string, []string) string) {
@@ -65,38 +73,38 @@ func Worker(mapf func(string, string) []KeyValue,
 	// 	go CallExample(i)
 	// }
 
-	var wg sync.WaitGroup
-	n := 1
-	currentTime = time.Now().Unix()
-	tmr = fmt.Sprintf("mr-tmp")
-	os.Mkdir(tmr, os.ModePerm)
-	wg.Add(n)
-	conf := Conf{}
+	// fmt.Println(conf.gothreadNum)
+	wg.Add(conf.gothreadNum)
 	tmp := ""
 	ok := call("Coordinator.GetConf", tmp, &conf)
 	if ok {
 	} else {
 		log.Println("call failed")
 	}
-
-	for i := 0; i < n; i++ {
+	for i := 0; i < conf.gothreadNum; i++ {
 		go WorkerMap(mapf, i, &wg)
 	}
 	wg.Wait()
 
 	// 开始走reduce
-
 	log.Println("reduce start!!!!")
-	wg.Add(n)
-	for i := 0; i < n; i++ {
-		go WorkerReduce(n, reducef, &wg)
+
+	wg.Add(conf.gothreadNum)
+	for i := 0; i < conf.gothreadNum; i++ {
+		go WorkerReduce(conf.gothreadNum, reducef, &wg)
 	}
 	wg.Wait()
+
+	// 是否结束
+	Done()
+	log.Println("worker end")
+}
+
+func Done() {
 	done := false
-	ok = call("Coordinator.IsDone", done, &done)
+	ok := call("Coordinator.IsDone", done, &done)
 	if !ok {
 		log.Fatal("call fail")
-		return
 	}
 	for !done {
 		ok = call("Coordinator.IsDone", done, &done)
@@ -105,14 +113,12 @@ func Worker(mapf func(string, string) []KeyValue,
 			return
 		}
 	}
-	log.Println("worker end")
 }
 
 func WorkerReduce(id int, reducef func(string, []string) string, waitGroup *sync.WaitGroup) error {
 	defer waitGroup.Done()
 	for {
 		var ReduceConf Reduce
-		var filename string
 		// 初始化获得reduce的id和需要读取的文件名
 		ok := call("Coordinator.Reduce", id, &ReduceConf)
 		if ok {
@@ -136,28 +142,18 @@ func WorkerReduce(id int, reducef func(string, []string) string, waitGroup *sync
 			}
 			continue
 		}
+
 		// 读取文件
-		intermediate := []KeyValue{}
-		for _, filename = range ReduceConf.FilePaths {
-			file, err := os.Open(filename)
-			if err != nil {
-				log.Fatalf("cannot open %v", filename)
-				return err
-			}
-			dec := json.NewDecoder(file)
-			for {
-				var kv KeyValue
-				if err := dec.Decode(&kv); err != nil {
-					break
-				}
-				intermediate = append(intermediate, kv)
-			}
+		intermediate, err := ReadFile(ReduceConf.FilePaths)
+		if err != nil {
+			return err
 		}
-		sort.Sort(ByKey(intermediate))
+
 		name, err := getTempPath("")
 		if err != nil {
 			return err
 		}
+
 		ofile, _ := os.OpenFile(name, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
 		i := 0
 		for i < len(intermediate) {
@@ -176,6 +172,7 @@ func WorkerReduce(id int, reducef func(string, []string) string, waitGroup *sync
 			i = j
 		}
 		ofile.Close()
+
 		t := false
 		ReduceConf.OutputFileName = name
 		ok = call("Coordinator.RCallBack", ReduceConf, &t)
@@ -185,6 +182,27 @@ func WorkerReduce(id int, reducef func(string, []string) string, waitGroup *sync
 		}
 	}
 	return nil
+}
+
+func ReadFile(FilePaths []string) ([]KeyValue, error) {
+	intermediate := []KeyValue{}
+	for _, filename := range FilePaths {
+		file, err := os.Open(filename)
+		if err != nil {
+			log.Fatalf("cannot open %v", filename)
+			return nil, err
+		}
+		dec := json.NewDecoder(file)
+		for {
+			var kv KeyValue
+			if err := dec.Decode(&kv); err != nil {
+				break
+			}
+			intermediate = append(intermediate, kv)
+		}
+	}
+	sort.Sort(ByKey(intermediate))
+	return intermediate, nil
 }
 
 func getTempPath(dir string) (string, error) {

@@ -1,0 +1,406 @@
+--- mutex:
+cycles/second=1000000000
+sampling period=1
+42720652200 388586 @ 0x1027a0704 0x102962028 0x102962590 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102962027	6.5840/labrpc.(*Network).isServerDead+0x147	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:218
+#	0x10296258f	6.5840/labrpc.(*Network).processReq+0x46f	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:258
+
+4072136790 14 @ 0x1027a0704 0x102b93f4c 0x102b930b8 0x102b904c4 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53		/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b93f4b	6.5840/raft.(*Raft).preElection1+0x68b	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:839
+#	0x102b930b7	6.5840/raft.(*Raft).election+0x37	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:696
+#	0x102b904c3	6.5840/raft.(*Raft).ticker+0xa3		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:392
+
+673171543 5 @ 0x1027a0704 0x10292636c 0x102b8604c 0x102b42bb0 0x102b449f4 0x102b46c00 0x102b41434 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53		/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10292636b	runtime/pprof.StopCPUProfile+0xbb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/runtime/pprof/pprof.go:831
+#	0x102b8604b	net/http/pprof.Profile+0x3ab		/opt/homebrew/Cellar/go/1.18.3/libexec/src/net/http/pprof/pprof.go:143
+#	0x102b42baf	net/http.HandlerFunc.ServeHTTP+0x4f	/opt/homebrew/Cellar/go/1.18.3/libexec/src/net/http/server.go:2084
+#	0x102b449f3	net/http.(*ServeMux).ServeHTTP+0xa3	/opt/homebrew/Cellar/go/1.18.3/libexec/src/net/http/server.go:2462
+#	0x102b46bff	net/http.serverHandler.ServeHTTP+0x6cf	/opt/homebrew/Cellar/go/1.18.3/libexec/src/net/http/server.go:2916
+#	0x102b41433	net/http.(*conn).serve+0x8e3		/opt/homebrew/Cellar/go/1.18.3/libexec/src/net/http/server.go:1966
+
+155957620 1393 @ 0x1027a0704 0x102961da8 0x102962188 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102961da7	6.5840/labrpc.(*Network).readEndnameInfo+0x1a7	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:208
+#	0x102962187	6.5840/labrpc.(*Network).processReq+0x67	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:222
+
+35859212 510 @ 0x1027a0704 0x102962028 0x102962638 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102962027	6.5840/labrpc.(*Network).isServerDead+0x147	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:218
+#	0x102962637	6.5840/labrpc.(*Network).processReq+0x517	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:273
+
+12863204 71 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295ce9c 0x102964760 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295ce9b	6.5840/labgob.(*LabDecoder).Decode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:53
+#	0x10296475f	6.5840/labrpc.(*Service).dispatch+0x23f		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:488
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+12296792 104 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102960f44 0x102b92db8 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53		/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102960f43	6.5840/labrpc.(*ClientEnd).Call+0x113	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:96
+#	0x102b92db7	6.5840/raft.(*Raft).heartbeat+0xd7	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:659
+
+12193250 1 @ 0x1027a0704 0x102958024 0x102957454 0x102951be8 0x102952314 0x10295265c 0x102952ca0 0x10295252c 0x10295cd4c 0x102960f44 0x102b941b0 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102958023	encoding/gob.buildTypeInfo+0xb93		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:761
+#	0x102957453	encoding/gob.getTypeInfo+0x103			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:702
+#	0x102951be7	encoding/gob.(*Encoder).sendActualType+0x97	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:97
+#	0x102952313	encoding/gob.(*Encoder).sendType+0x133		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:169
+#	0x10295265b	encoding/gob.(*Encoder).sendTypeDescriptor+0xeb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:191
+#	0x102952c9f	encoding/gob.(*Encoder).EncodeValue+0x4df	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:244
+#	0x10295252b	encoding/gob.(*Encoder).Encode+0x16b		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:176
+#	0x10295cd4b	6.5840/labgob.(*LabEncoder).Encode+0x5b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:34
+#	0x102960f43	6.5840/labrpc.(*ClientEnd).Call+0x113		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:96
+#	0x102b941af	6.5840/raft.(*Raft).electionRequest+0xcf	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:845
+
+11382543 9 @ 0x1027a0704 0x102b968c4 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b968c3	6.5840/raft.(*Raft).AppendEntrie+0xe63		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:178
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+11078502 122 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f190 0x102b95c58 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f18f	6.5840/raft.(*Raft).persist+0x7f		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:155
+#	0x102b95c57	6.5840/raft.(*Raft).AppendEntrie+0x1f7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:94
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+10044118 135 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f1bc 0x102b95c58 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f1bb	6.5840/raft.(*Raft).persist+0xab		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:156
+#	0x102b95c57	6.5840/raft.(*Raft).AppendEntrie+0x1f7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:94
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+8606037 64 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f240 0x102b95c58 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f23f	6.5840/raft.(*Raft).persist+0x12f		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:159
+#	0x102b95c57	6.5840/raft.(*Raft).AppendEntrie+0x1f7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:94
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+7920042 103 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f1e8 0x102b95c58 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f1e7	6.5840/raft.(*Raft).persist+0xd7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:157
+#	0x102b95c57	6.5840/raft.(*Raft).AppendEntrie+0x1f7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:94
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+7215165 21 @ 0x1027a0704 0x102b90a90 0x102b905bc 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53		/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b90a8f	6.5840/raft.(*Raft).leadL+0x40f		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:486
+#	0x102b905bb	6.5840/raft.(*Raft).ticker+0x19b	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:405
+
+6749960 79 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f214 0x102b95c58 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f213	6.5840/raft.(*Raft).persist+0x103		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:158
+#	0x102b95c57	6.5840/raft.(*Raft).AppendEntrie+0x1f7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:94
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+5017916 77 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cde4 0x102964884 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cde3	6.5840/labgob.(*LabEncoder).EncodeValue+0x53	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:38
+#	0x102964883	6.5840/labrpc.(*Service).dispatch+0x363		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:502
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+4020745 60 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295ce9c 0x102961150 0x102b92db8 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53		/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295ce9b	6.5840/labgob.(*LabDecoder).Decode+0x3b	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:53
+#	0x10296114f	6.5840/labrpc.(*ClientEnd).Call+0x31f	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:119
+#	0x102b92db7	6.5840/raft.(*Raft).heartbeat+0xd7	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:659
+
+3360208 7 @ 0x1027a0704 0x102b9641c 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b9641b	6.5840/raft.(*Raft).AppendEntrie+0x9bb		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:135
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+2201251 9 @ 0x1027a0704 0x102b919d4 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b919d3	6.5840/raft.(*Raft).logReplication+0x103	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:548
+
+589916 2 @ 0x1027a0704 0x102957ea4 0x102957454 0x102951be8 0x102952314 0x10295265c 0x102952ca0 0x10295252c 0x10295cd4c 0x102960f44 0x102b941b0 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102957ea3	encoding/gob.buildTypeInfo+0xa13		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:712
+#	0x102957453	encoding/gob.getTypeInfo+0x103			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:702
+#	0x102951be7	encoding/gob.(*Encoder).sendActualType+0x97	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:97
+#	0x102952313	encoding/gob.(*Encoder).sendType+0x133		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:169
+#	0x10295265b	encoding/gob.(*Encoder).sendTypeDescriptor+0xeb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:191
+#	0x102952c9f	encoding/gob.(*Encoder).EncodeValue+0x4df	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:244
+#	0x10295252b	encoding/gob.(*Encoder).Encode+0x16b		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:176
+#	0x10295cd4b	6.5840/labgob.(*LabEncoder).Encode+0x5b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:34
+#	0x102960f43	6.5840/labrpc.(*ClientEnd).Call+0x113		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:96
+#	0x102b941af	6.5840/raft.(*Raft).electionRequest+0xcf	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:845
+
+299500 17 @ 0x1027a0704 0x102b8a8f4 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53		/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b8a8f3	6.5840/raft.(*config).applier+0x113	/Users/yych/repositry/lab6.5840/6.5840/src/raft/config.go:168
+
+212042 3 @ 0x1027a0704 0x102b9209c 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b9209b	6.5840/raft.(*Raft).logReplication+0x7cb	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:649
+
+136125 1 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f214 0x102b9577c 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f213	6.5840/raft.(*Raft).persist+0x103		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:158
+#	0x102b9577b	6.5840/raft.(*Raft).RequestVote+0x67b		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:63
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+115375 2 @ 0x1027a0704 0x102950f58 0x102950d6c 0x1029510f8 0x102952d30 0x10295252c 0x10295cd4c 0x102960f44 0x102b92db8 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102950f57	encoding/gob.buildEncEngine+0x177		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encode.go:687
+#	0x102950d6b	encoding/gob.getEncEngine+0x6b			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encode.go:666
+#	0x1029510f7	encoding/gob.(*Encoder).encode+0x87		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encode.go:692
+#	0x102952d2f	encoding/gob.(*Encoder).EncodeValue+0x56f	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:251
+#	0x10295252b	encoding/gob.(*Encoder).Encode+0x16b		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:176
+#	0x10295cd4b	6.5840/labgob.(*LabEncoder).Encode+0x5b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:34
+#	0x102960f43	6.5840/labrpc.(*ClientEnd).Call+0x113		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:96
+#	0x102b92db7	6.5840/raft.(*Raft).heartbeat+0xd7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:659
+
+107083 2 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f1bc 0x102b963fc 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f1bb	6.5840/raft.(*Raft).persist+0xab		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:156
+#	0x102b963fb	6.5840/raft.(*Raft).AppendEntrie+0x99b		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:148
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+97293 8 @ 0x1027a0704 0x102b91e44 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b91e43	6.5840/raft.(*Raft).logReplication+0x573	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:591
+
+74584 1 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f240 0x102b963fc 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f23f	6.5840/raft.(*Raft).persist+0x12f		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:159
+#	0x102b963fb	6.5840/raft.(*Raft).AppendEntrie+0x99b		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:148
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+71584 1 @ 0x1027a0704 0x102b92868 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102b92867	6.5840/raft.(*Raft).logReplication+0xf97	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:642
+
+70833 2 @ 0x1027a0704 0x102958024 0x102957454 0x102951be8 0x102952314 0x10295265c 0x102952ca0 0x10295ce08 0x102964884 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102958023	encoding/gob.buildTypeInfo+0xb93		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:761
+#	0x102957453	encoding/gob.getTypeInfo+0x103			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:702
+#	0x102951be7	encoding/gob.(*Encoder).sendActualType+0x97	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:97
+#	0x102952313	encoding/gob.(*Encoder).sendType+0x133		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:169
+#	0x10295265b	encoding/gob.(*Encoder).sendTypeDescriptor+0xeb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:191
+#	0x102952c9f	encoding/gob.(*Encoder).EncodeValue+0x4df	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:244
+#	0x10295ce07	6.5840/labgob.(*LabEncoder).EncodeValue+0x77	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:39
+#	0x102964883	6.5840/labrpc.(*Service).dispatch+0x363		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:502
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+57958 1 @ 0x1027a0704 0x102957ea4 0x102957454 0x102951be8 0x102952314 0x10295265c 0x102952ca0 0x10295ce08 0x102964884 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102957ea3	encoding/gob.buildTypeInfo+0xa13		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:712
+#	0x102957453	encoding/gob.getTypeInfo+0x103			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:702
+#	0x102951be7	encoding/gob.(*Encoder).sendActualType+0x97	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:97
+#	0x102952313	encoding/gob.(*Encoder).sendType+0x133		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:169
+#	0x10295265b	encoding/gob.(*Encoder).sendTypeDescriptor+0xeb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:191
+#	0x102952c9f	encoding/gob.(*Encoder).EncodeValue+0x4df	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:244
+#	0x10295ce07	6.5840/labgob.(*LabEncoder).EncodeValue+0x77	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:39
+#	0x102964883	6.5840/labrpc.(*Service).dispatch+0x363		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:502
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+57125 1 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102960f44 0x102b941b0 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102960f43	6.5840/labrpc.(*ClientEnd).Call+0x113		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:96
+#	0x102b941af	6.5840/raft.(*Raft).electionRequest+0xcf	/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:845
+
+54708 1 @ 0x1027a0704 0x102958024 0x102957454 0x102951be8 0x102952314 0x10295265c 0x102952ca0 0x10295252c 0x10295cd4c 0x102960f44 0x102b92db8 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x102958023	encoding/gob.buildTypeInfo+0xb93		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:761
+#	0x102957453	encoding/gob.getTypeInfo+0x103			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:702
+#	0x102951be7	encoding/gob.(*Encoder).sendActualType+0x97	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:97
+#	0x102952313	encoding/gob.(*Encoder).sendType+0x133		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:169
+#	0x10295265b	encoding/gob.(*Encoder).sendTypeDescriptor+0xeb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:191
+#	0x102952c9f	encoding/gob.(*Encoder).EncodeValue+0x4df	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:244
+#	0x10295252b	encoding/gob.(*Encoder).Encode+0x16b		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:176
+#	0x10295cd4b	6.5840/labgob.(*LabEncoder).Encode+0x5b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:34
+#	0x102960f43	6.5840/labrpc.(*ClientEnd).Call+0x113		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:96
+#	0x102b92db7	6.5840/raft.(*Raft).heartbeat+0xd7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:659
+
+36833 2 @ 0x1027a0704 0x10279f010 0x1029531f0 0x102953938 0x102952228 0x10295265c 0x102952ca0 0x10295ce08 0x102964884 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10279f00f	sync.(*Map).Load+0x16f				/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/map.go:120
+#	0x1029531ef	encoding/gob.validUserType+0x5f			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:45
+#	0x102953937	encoding/gob.userType+0x37			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:152
+#	0x102952227	encoding/gob.(*Encoder).sendType+0x47		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:136
+#	0x10295265b	encoding/gob.(*Encoder).sendTypeDescriptor+0xeb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:191
+#	0x102952c9f	encoding/gob.(*Encoder).EncodeValue+0x4df	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:244
+#	0x10295ce07	6.5840/labgob.(*LabEncoder).EncodeValue+0x77	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:39
+#	0x102964883	6.5840/labrpc.(*Service).dispatch+0x363		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:502
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+17500 1 @ 0x1027a0704 0x1027a12dc 0x1027a10e4 0x1027a0c58 0x102b39a54 0x102b40ec4 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53	/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x1027a12db	sync.(*Pool).pinSlow+0x1bb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/pool.go:230
+#	0x1027a10e3	sync.(*Pool).pin+0xa3		/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/pool.go:206
+#	0x1027a0c57	sync.(*Pool).Get+0x37		/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/pool.go:128
+#	0x102b39a53	net/http.newBufioReader+0x43	/opt/homebrew/Cellar/go/1.18.3/libexec/src/net/http/server.go:818
+#	0x102b40ec3	net/http.(*conn).serve+0x373	/opt/homebrew/Cellar/go/1.18.3/libexec/src/net/http/server.go:1887
+
+13042 1 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f190 0x102b9577c 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f18f	6.5840/raft.(*Raft).persist+0x7f		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:155
+#	0x102b9577b	6.5840/raft.(*Raft).RequestVote+0x67b		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:63
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+9125 1 @ 0x1027a0704 0x10295d114 0x10295cf80 0x10295cde4 0x102964884 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d113	6.5840/labgob.checkType+0x163			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:85
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cde3	6.5840/labgob.(*LabEncoder).EncodeValue+0x53	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:38
+#	0x102964883	6.5840/labrpc.(*Service).dispatch+0x363		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:502
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+4500 1 @ 0x1027a0704 0x10279f9a0 0x1029536d4 0x102953938 0x102952228 0x10295265c 0x102952ca0 0x10295ce08 0x102964884 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10279f99f	sync.(*Map).LoadOrStore+0x3af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/map.go:230
+#	0x1029536d3	encoding/gob.validUserType+0x543		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:101
+#	0x102953937	encoding/gob.userType+0x37			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:152
+#	0x102952227	encoding/gob.(*Encoder).sendType+0x47		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:136
+#	0x10295265b	encoding/gob.(*Encoder).sendTypeDescriptor+0xeb	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:191
+#	0x102952c9f	encoding/gob.(*Encoder).EncodeValue+0x4df	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:244
+#	0x10295ce07	6.5840/labgob.(*LabEncoder).EncodeValue+0x77	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:39
+#	0x102964883	6.5840/labrpc.(*Service).dispatch+0x363		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:502
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+2375 1 @ 0x1027a0704 0x10279f010 0x1029531f0 0x102953938 0x10293d674 0x102940ffc 0x102941680 0x102941ab4 0x10294283c 0x102943088 0x102943770 0x102943508 0x10295cec8 0x102964760 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10279f00f	sync.(*Map).Load+0x16f				/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/map.go:120
+#	0x1029531ef	encoding/gob.validUserType+0x5f			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:45
+#	0x102953937	encoding/gob.userType+0x37			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:152
+#	0x10293d673	encoding/gob.(*Decoder).decOpFor+0x603		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decode.go:853
+#	0x102940ffb	encoding/gob.(*Decoder).compileDec+0x66b	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decode.go:1128
+#	0x10294167f	encoding/gob.(*Decoder).getDecEnginePtr+0x1bf	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decode.go:1147
+#	0x102941ab3	encoding/gob.(*Decoder).decodeValue+0xd3	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decode.go:1192
+#	0x10294283b	encoding/gob.(*Decoder).recvType+0x28b		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decoder.go:67
+#	0x102943087	encoding/gob.(*Decoder).decodeTypeSequence+0xb7	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decoder.go:162
+#	0x10294376f	encoding/gob.(*Decoder).DecodeValue+0x1ef	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decoder.go:223
+#	0x102943507	encoding/gob.(*Decoder).Decode+0x267		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decoder.go:200
+#	0x10295cec7	6.5840/labgob.(*LabDecoder).Decode+0x67		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:55
+#	0x10296475f	6.5840/labrpc.(*Service).dispatch+0x23f		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:488
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+1792 1 @ 0x1027a0704 0x10295d1e4 0x10295cf80 0x10295cd2c 0x102b8f1bc 0x102b9577c 0x102811b10 0x102810ef8 0x102964854 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10295d1e3	6.5840/labgob.checkType+0x233			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:81
+#	0x10295cf7f	6.5840/labgob.checkValue+0x6f			/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:69
+#	0x10295cd2b	6.5840/labgob.(*LabEncoder).Encode+0x3b		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:33
+#	0x102b8f1bb	6.5840/raft.(*Raft).persist+0xab		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:156
+#	0x102b9577b	6.5840/raft.(*Raft).RequestVote+0x67b		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raftTool.go:63
+#	0x102811b0f	reflect.Value.call+0x9af			/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:556
+#	0x102810ef7	reflect.Value.Call+0x97				/opt/homebrew/Cellar/go/1.18.3/libexec/src/reflect/value.go:339
+#	0x102964853	6.5840/labrpc.(*Service).dispatch+0x333		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:497
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+1500 1 @ 0x1027a0704 0x10279f010 0x1029531f0 0x1029528fc 0x10295ce08 0x102964884 0x102963bd0 0x102962b38 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10279f00f	sync.(*Map).Load+0x16f				/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/map.go:120
+#	0x1029531ef	encoding/gob.validUserType+0x5f			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:45
+#	0x1029528fb	encoding/gob.(*Encoder).EncodeValue+0x13b	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/encoder.go:234
+#	0x10295ce07	6.5840/labgob.(*LabEncoder).EncodeValue+0x77	/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:39
+#	0x102964883	6.5840/labrpc.(*Service).dispatch+0x363		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:502
+#	0x102963bcf	6.5840/labrpc.(*Server).dispatch+0x1ff		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:421
+#	0x102962b37	6.5840/labrpc.(*Network).processReq.func1+0x87	/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:243
+
+1292 1 @ 0x1027a0704 0x10279f010 0x1029531f0 0x102953938 0x102941a80 0x10294379c 0x102943508 0x10295cec8 0x102961150 0x102b92db8 0x102795844
+#	0x1027a0703	sync.(*Mutex).Unlock+0x53			/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/mutex.go:214
+#	0x10279f00f	sync.(*Map).Load+0x16f				/opt/homebrew/Cellar/go/1.18.3/libexec/src/sync/map.go:120
+#	0x1029531ef	encoding/gob.validUserType+0x5f			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:45
+#	0x102953937	encoding/gob.userType+0x37			/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/type.go:152
+#	0x102941a7f	encoding/gob.(*Decoder).decodeValue+0x9f	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decode.go:1189
+#	0x10294379b	encoding/gob.(*Decoder).DecodeValue+0x21b	/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decoder.go:225
+#	0x102943507	encoding/gob.(*Decoder).Decode+0x267		/opt/homebrew/Cellar/go/1.18.3/libexec/src/encoding/gob/decoder.go:200
+#	0x10295cec7	6.5840/labgob.(*LabDecoder).Decode+0x67		/Users/yych/repositry/lab6.5840/6.5840/src/labgob/labgob.go:55
+#	0x10296114f	6.5840/labrpc.(*ClientEnd).Call+0x31f		/Users/yych/repositry/lab6.5840/6.5840/src/labrpc/labrpc.go:119
+#	0x102b92db7	6.5840/raft.(*Raft).heartbeat+0xd7		/Users/yych/repositry/lab6.5840/6.5840/src/raft/raft.go:659

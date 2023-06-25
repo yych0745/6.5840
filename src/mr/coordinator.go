@@ -31,7 +31,8 @@ type Coordinator struct {
 var cmutex sync.Mutex
 
 type Conf struct {
-	NReduce int
+	NReduce     int
+	gothreadNum int
 }
 
 type Map struct {
@@ -71,7 +72,7 @@ func (c *Coordinator) GetConf(_ string, reply *Conf) error {
 }
 
 func check(time_ time.Time) bool {
-	return time.Now().Sub(time_).Seconds() > 10
+	return time.Now().Sub(time_).Seconds() > 15
 }
 
 func (c *Coordinator) Map(args int, reply *Map) error {

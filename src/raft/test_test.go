@@ -11,6 +11,9 @@ package raft
 import (
 	"fmt"
 	"math/rand"
+	"net/http"
+	_ "net/http/pprof"
+	"runtime"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -250,6 +253,7 @@ func TestLeaderFailure2B(t *testing.T) {
 	// disconnect the first leader.
 	leader1 := cfg.checkOneLeader()
 	cfg.disconnect(leader1)
+	fmt.Printf("disconnnct%d", leader1)
 
 	// the remaining followers should elect
 	// a new leader.
@@ -260,6 +264,7 @@ func TestLeaderFailure2B(t *testing.T) {
 	// disconnect the new leader.
 	leader2 := cfg.checkOneLeader()
 	cfg.disconnect(leader2)
+	fmt.Printf("disconnnct%d", leader2)
 
 	// submit a command to each server.
 	for i := 0; i < servers; i++ {
@@ -573,20 +578,22 @@ func TestBackup2B(t *testing.T) {
 	cfg.connect((leader1 + 0) % servers)
 	cfg.connect((leader1 + 1) % servers)
 	cfg.connect(other)
-	Debug(dLeader, "S%d 是other", other)
+	Debug(dLeader, "S%d S%d S%d 连接", (leader1+0)%servers, (leader1+1)%servers, other)
 
 	// lots of successful commands to new group.
 	Debug(dCommit, "下面是需要提交内容")
 	for i := 0; i < nums; i++ {
 		cfg.one(rand.Int(), 3, true)
 	}
-
+	Debug(dCommit, "卡在1")
 	// now everyone
 	for i := 0; i < servers; i++ {
 		cfg.connect(i)
 	}
+	Debug(dCommit, "卡在2")
 	cfg.one(rand.Int(), servers, true)
-	Debug(dCommit, "上面是不需要提交内容")
+	Debug(dCommit, "卡在3")
+	Debug(dCommit, "上面是需要提交内容")
 
 	cfg.end()
 }
@@ -754,6 +761,12 @@ func TestPersist22C(t *testing.T) {
 
 	cfg.begin("Test (2C): more persistence")
 
+	// go runNumGoroutineMonitor()
+	runtime.SetBlockProfileRate(1)     // 开启对阻塞操作的跟踪，block
+	runtime.SetMutexProfileFraction(1) // 开启对锁调用的跟踪，mutex
+	go func() {
+		http.ListenAndServe("0.0.0.0:6060", nil)
+	}()
 	index := 1
 	for iters := 0; iters < 5; iters++ {
 		cfg.one(10+index, servers, true)
@@ -1134,34 +1147,60 @@ func snapcommon(t *testing.T, name string, disconnect bool, reliable bool, crash
 	servers := 3
 	cfg := make_config(t, servers, !reliable, true)
 	defer cfg.cleanup()
+	// pos := 1
+	// // 1
+	// fmt.Printf("pos:%d\n", pos)
+	// pos++
 
 	cfg.begin(name)
 
 	cfg.one(rand.Int(), servers, true)
+	// 2
+	// fmt.Printf("pos:%d\n", pos)
+	// pos++
 	leader1 := cfg.checkOneLeader()
 
 	for i := 0; i < iters; i++ {
+		// start := time.Now()
+		// pos = 3
 		victim := (leader1 + 1) % servers
 		sender := leader1
 		if i%3 == 1 {
 			sender = (leader1 + 1) % servers
 			victim = leader1
 		}
+		// 3
+		// cost := time.Since(start)
+		// fmt.Printf("pos:%d cost: %v\n", pos, cost)
+		// pos++
 
 		if disconnect {
 			cfg.disconnect(victim)
+			fmt.Printf("-------------断开S%d-----------------\n", victim)
 			cfg.one(rand.Int(), servers-1, true)
 		}
 		if crash {
 			cfg.crash1(victim)
+			// 4
+			// cost = time.Since(start)
+			// fmt.Printf("pos:%d\n cost: %v", pos, cost)
+			// pos++
 			cfg.one(rand.Int(), servers-1, true)
 		}
+		// 5
+		// cost = time.Since(start)
+		// fmt.Printf("pos:%d cost: %v\n", pos, cost)
+		// pos++
 
 		// perhaps send enough to get a snapshot
 		nn := (SnapShotInterval / 2) + (rand.Int() % SnapShotInterval)
 		for i := 0; i < nn; i++ {
 			cfg.rafts[sender].Start(rand.Int())
 		}
+		// 6
+		// cost = time.Since(start)
+		// fmt.Printf("pos:%d cost: %v\n", pos, cost)
+		// pos++
 
 		// let applier threads catch up with the Start()'s
 		if disconnect == false && crash == false {
@@ -1172,23 +1211,44 @@ func snapcommon(t *testing.T, name string, disconnect bool, reliable bool, crash
 		} else {
 			cfg.one(rand.Int(), servers-1, true)
 		}
+		// 7
+		// cost = time.Since(start)
+		// fmt.Printf("pos:%d cost: %v\n", pos, cost)
+		// pos++
 
 		if cfg.LogSize() >= MAXLOGSIZE {
 			cfg.t.Fatalf("Log size too large")
 		}
+		// 8
+		// cost = time.Since(start)
+		// fmt.Printf("pos:%d cost: %v\n", pos, cost)
+		// pos++
 		if disconnect {
 			// reconnect a follower, who maybe behind and
 			// needs to rceive a snapshot to catch up.
 			cfg.connect(victim)
+			// start := time.Now()
+			// fmt.Printf("-------------连接S%d-----------------\n", victim)
 			cfg.one(rand.Int(), servers, true)
+			// fmt.Printf("one花费时间%v", time.Since(start))
+			// start = time.Now()
 			leader1 = cfg.checkOneLeader()
+			// fmt.Printf("checkOneLeader花费时间%v", time.Since(start))
 		}
+		// 9
+		// cost = time.Since(start)
+		// fmt.Printf("pos:%d cost: %v\n", pos, cost)
+		// pos++
 		if crash {
 			cfg.start1(victim, cfg.applierSnap)
 			cfg.connect(victim)
 			cfg.one(rand.Int(), servers, true)
 			leader1 = cfg.checkOneLeader()
 		}
+		// 10
+		// cost = time.Since(start)
+		// fmt.Printf("pos:%d cost: %v\n", pos, cost)
+		// pos++
 	}
 	cfg.end()
 }

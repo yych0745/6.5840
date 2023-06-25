@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime"
 	"strconv"
 	"time"
 )
 
 // Debugging
-const debug = true
+const debug = false
 
 func DPrintf(format string, a ...interface{}) (n int, err error) {
 	if debug {
@@ -52,19 +53,19 @@ const (
 	dWarn    logTopic = "WARN"
 )
 
-var debugStart time.Time
+var DebugStart time.Time
 var debugVerbosity int
 
 func init() {
 	debugVerbosity = getVerbosity()
-	debugStart = time.Now()
+	DebugStart = time.Now()
 
 	log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
 }
 
 func Debug(topic logTopic, format string, a ...interface{}) {
 	if debug {
-		time := time.Since(debugStart).Microseconds()
+		time := time.Since(DebugStart).Microseconds()
 		time /= 100
 		prefix := fmt.Sprintf("%06d %v ", time, string(topic))
 		format = prefix + format
@@ -87,8 +88,8 @@ func min(x, y int) int {
 }
 
 type Log struct {
-	V        []LogEntry
-	LogIndex int
+	V    []LogEntry
+	Base int
 }
 
 func (l *Log) String() string {
@@ -101,31 +102,27 @@ func (l *Log) String() string {
 }
 
 func (l *Log) init() {
-	l.LogIndex = 0
+	l.Base = 0
 	l.V = make([]LogEntry, 0)
 	l.append(LogEntry{0, 0})
 }
 
+// 返回加上Base的长度
 func (l *Log) realLen() int {
-	return len(l.V) + l.LogIndex
+	return len(l.V) + l.Base
 }
 
+// 返回实际长度
 func (l *Log) len1() int {
 	return len(l.V)
 }
 
 func (l *Log) command(index int) interface{} {
-	if index == 0 {
-		return 0
-	}
-	return l.V[index-l.LogIndex].Command
+	return l.V[index-l.Base].Command
 }
 
 func (l *Log) term(index int) int {
-	if index == 0 {
-		return 0
-	}
-	return l.V[index-l.LogIndex].Term
+	return l.V[index-l.Base].Term
 }
 
 func (l *Log) append(u ...LogEntry) {
@@ -152,10 +149,35 @@ func (l *Log) valid(args AppendEntrieArgs) string {
 	return fmt.Sprintf("args的term%d和log的term%d相同", term, l.term(index))
 }
 
+// 截取index（不包括）往后的日志，还是从1开始存储
 func (l *Log) snapshot(index int) {
 	t := make([]LogEntry, 1)
-	t[0] = LogEntry{0, 0} 
-	t = append(t, l.V[index-l.LogIndex+1:]...)
+	t[0] = LogEntry{0, 0}
+	t = append(t, l.V[index-l.Base+1:]...)
 	l.V = t
-	Debug(dWarn, "%d   t: %+v", index-l.LogIndex+1, t)
+	Debug(dWarn, "%d   t: %+v", index-l.Base+1, t)
+}
+
+func (l *Log) clean() {
+	t := make([]LogEntry, 1)
+	t[0] = LogEntry{0, 0}
+	l.V = t
+}
+
+func (rf *Raft) term(index int) int {
+	if index == rf.Log.Base {
+		return rf.lastIncludedTerm
+	}
+	return rf.Log.term(index)
+}
+
+func runNumGoroutineMonitor() {
+	log.Printf("协程数量->%d\n", runtime.NumGoroutine())
+
+	for {
+		select {
+		case <-time.After(time.Second):
+			log.Printf("协程数量->%d\n", runtime.NumGoroutine())
+		}
+	}
 }

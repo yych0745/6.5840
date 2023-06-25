@@ -75,50 +75,26 @@ rm -f mr-*
 failed_any=0
 
 rm -f mr-*
-echo '***' Starting crash test.
+echo '***' Starting job count test.
 
-# generate the correct output
-../mrsequential ../../mrapps/nocrash.so ../pg*txt || exit 1
-sort mr-out-0 > mr-correct-crash.txt
-rm -f mr-out*
+rm -f mr-*
 
-rm -f mr-done
-((maybe_quiet $TIMEOUT2 ../mrcoordinator ../pg*txt); touch mr-done ) &
+maybe_quiet $TIMEOUT ../mrcoordinator ../pg*txt  &
 sleep 1
 
-# start multiple workers
-maybe_quiet $TIMEOUT2 ../mrworker ../../mrapps/crash.so &
+maybe_quiet $TIMEOUT ../mrworker ../../mrapps/jobcount.so &
+maybe_quiet $TIMEOUT ../mrworker ../../mrapps/jobcount.so
+maybe_quiet $TIMEOUT ../mrworker ../../mrapps/jobcount.so &
+maybe_quiet $TIMEOUT ../mrworker ../../mrapps/jobcount.so
 
-# mimic rpc.go's coordinatorSock()
-SOCKNAME=/var/tmp/5840-mr-`id -u`
-
-( while [ -e $SOCKNAME -a ! -f mr-done ]
-  do
-    maybe_quiet $TIMEOUT2 ../mrworker ../../mrapps/crash.so
-    sleep 1
-  done ) &
-
-( while [ -e $SOCKNAME -a ! -f mr-done ]
-  do
-    maybe_quiet $TIMEOUT2 ../mrworker ../../mrapps/crash.so
-    sleep 1
-  done ) &
-
-while [ -e $SOCKNAME -a ! -f mr-done ]
-do
-  maybe_quiet $TIMEOUT2 ../mrworker ../../mrapps/crash.so
-  sleep 1
-done
-
-wait
-
-rm $SOCKNAME
-sort mr-out* | grep . > mr-crash-all
-if cmp mr-crash-all mr-correct-crash.txt
+NT=`cat mr-out* | awk '{print $2}'`
+if [ "$NT" -eq "8" ]
 then
-  echo '---' crash test: PASS
+  echo '---' job count test: PASS
 else
-  echo '---' crash output is not the same as mr-correct-crash.txt
-  echo '---' crash test: FAIL
+  echo '---' map jobs ran incorrect number of times "($NT != 8)"
+  echo '---' job count test: FAIL
   failed_any=1
 fi
+
+wait

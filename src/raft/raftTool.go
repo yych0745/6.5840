@@ -17,14 +17,14 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	reply.PreElcection = args.PreElcection
 
 	// Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 %+v", args.CandidateId, args, rf.me, rf)
-	Debug(dVote, "S%d 要票，args为 %+v 投票者%d条件为 log: %+v, term: %d, votedFor: %d", args.CandidateId, args, rf.me, rf.Log, rf.Term, rf.VotedFor)
+	Debug(dVote, "S%d 要票，args为 %+v 投票者%+v", args.CandidateId, args, rf)
 	if rf.Term > args.Term {
 		reply.Term = rf.Term
 		reply.VoteGranted = false
 		Debug(dVote, "S%d 拒绝给S%d 原因1,", rf.me, args.CandidateId)
 		return
 	}
-	if args.LastLogTerm < rf.Log.term(rf.Log.realLen()-1) || args.LastLogTerm == rf.Log.term(rf.Log.realLen()-1) && args.LastLogIndex < rf.Log.realLen()-1 {
+	if (args.LastLogTerm < rf.term(rf.Log.realLen()-1)) || ((args.LastLogTerm == rf.Log.term(rf.Log.realLen()-1) || args.LastLogTerm == rf.lastIncludedTerm) && args.LastLogIndex < rf.Log.realLen()-1) {
 		reply.Term = rf.Term
 		if rf.Term < args.Term && !args.PreElcection {
 			// Debug(dVote, "S%d 的term在S%d的选举中更新了：%d->%d", rf.me, args.CandidateId, rf.Term, args.Term)
@@ -32,7 +32,7 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 			// rf.persist()
 		}
 		reply.VoteGranted = false
-		Debug(dVote, "S%d 拒绝给S%d 原因2, S%d的lastLogIndex为:%d lastlogTerm为：%d", rf.me, args.CandidateId, rf.me, rf.Log.realLen()-1, rf.Log.term(rf.Log.realLen()-1))
+		Debug(dVote, "S%d 拒绝给S%d 原因2, S%d的lastLogIndex为:%d lastlogTerm为：%d 判断条件: %v %v", rf.me, args.CandidateId, rf.me, rf.Log.realLen()-1, rf.Log.term(rf.Log.realLen()-1), (args.LastLogTerm < rf.Log.term(rf.Log.realLen()-1) || args.LastLogTerm < rf.lastIncludedTerm), ((args.LastLogTerm == rf.Log.term(rf.Log.realLen()-1) || args.LastLogTerm == rf.lastIncludedTerm) && args.LastLogIndex < rf.Log.realLen()-1))
 		return
 	}
 
@@ -72,6 +72,7 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	reply.Id = rf.me
 	reply.ReplyIndex = 0
 	rf.rlock.Lock()
+	// reply.LogPos = args.LogPos
 	// Debug(dLeader, "S%d 的term为 %d 发送消息给%d term 为%d\n", args.LeaderId, args.Term, rf.me, rf.term)
 	if args.Term < rf.Term {
 		reply.Success = false
@@ -83,6 +84,9 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	if args.Term > rf.Term {
 		rf.leaderId = args.LeaderId
 	}
+	if args.Term == rf.Term && rf.leaderId == -1 {
+		rf.leaderId = args.LeaderId
+	}
 	rf.startElection = false
 	reply.Success = true
 	rf.Term = args.Term
@@ -90,9 +94,11 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 	rf.persist()
 
 	if len(args.Entries) > 0 {
-		Debug(dLeader, "S%d 接收S%d的日志args: %v term结果为:%v 目前日志长度为%d %v", rf.me, args.LeaderId, args, rf.Log.valid(args), rf.Log.realLen(), rf.Log)
+		Debug(dLeader, "S%d %+v 接收S%d的日志args: %v ", rf.me, rf, args.LeaderId)
+		Debug(dLeader, "S%d %+v 接收S%d的日志args: %v term结果为:%v 目前日志长度为%d %+v", rf.me, rf, args.LeaderId, args, rf.Log.valid(args), rf.Log.realLen(), rf)
 	} else {
-		Debug(dLeader, "S%d 接收S%d的心跳args: %v term结果为:%v", rf.me, args.LeaderId, args, rf.Log.valid(args))
+		Debug(dLeader, "S%d %+v 接收S%d的心跳args: %v ", rf.me, rf, args.LeaderId, args)
+		Debug(dLeader, "S%d %+v 接收S%d的心跳args: %v term结果为:%v", rf.me, rf, args.LeaderId, args, rf.Log.valid(args))
 	}
 
 	if args.PrevLogIndex == -1 || args.PrevLogIndex < rf.Log.realLen() && rf.Log.term(args.PrevLogIndex) == args.PrevLogTerm {
@@ -120,7 +126,7 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 		return
 	}
 
-	if args.PrevLogIndex == -1 || rf.Log.term(args.PrevLogIndex) == args.PrevLogTerm {
+	if args.PrevLogIndex == -1 || rf.term(args.PrevLogIndex) == args.PrevLogTerm {
 		reply.NotHeartbeat = true
 		reply.Success = true
 
@@ -140,11 +146,11 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 		}
 		reply.ReplyIndex = rf.Log.realLen()
 		rf.persist()
-	} else if rf.Log.term(args.PrevLogIndex) != args.PrevLogTerm {
+	} else if rf.term(args.PrevLogIndex) != args.PrevLogTerm {
 		reply.Success = false
 		index := args.PrevLogIndex
 		term := rf.Log.term(index)
-		for i := index - 1; i >= 0; i-- {
+		for i := index - 1; i >= rf.Log.Base; i-- {
 			if rf.Log.term(i) != term {
 				index = i
 				break
@@ -167,7 +173,7 @@ func (rf *Raft) AppendEntrie(args AppendEntrieArgs, reply *AppendEntrieReply) {
 		}
 
 	}
-	Debug(dLeader, "S%d 接收到S%d的内容 %+v 当前S%d的日志为 %v commitIndex为 %d 返回值为+%v", rf.me, args.LeaderId, args, rf.me, rf.Log, rf.commitIndex, reply)
+	Debug(dLeader, "S%d 接收到S%d的内容 %+v %+v 返回值为+%v", rf.me, args.LeaderId, args, rf, reply)
 
 	rf.rlock.Unlock()
 	defer Debug(dLeader, "S%d 接收完S%d的日志的回复为%+v 返回点: %d", args.LeaderId, rf.me, reply, pos)
@@ -226,12 +232,16 @@ func (rf *Raft) InstallSnapshot(args InstallSnapshotArgs, reply *InstallSnapshot
 		rf.lastIncludedIndex = args.LastIncludedIndex
 		rf.lastIncludedTerm = args.LastIncludedTerm
 		rf.Log.Base = args.LastIncludedIndex
+		rf.commitIndex = max(rf.commitIndex, args.LastIncludedIndex)
+		rf.lastApplied = max(rf.lastApplied, args.LastIncludedIndex)
 	} else {
 		// 如果比这个日志小，或者包含的index部分不同，那么就全部丢弃，全拿新的
 		rf.Log.clean()
 		rf.lastIncludedIndex = args.LastIncludedIndex
 		rf.lastIncludedTerm = args.LastIncludedTerm
 		rf.Log.Base = args.LastIncludedIndex
+		rf.commitIndex = args.LastIncludedIndex
+		rf.lastApplied = args.LastIncludedIndex
 	}
 	if rf.commitIndex < args.LastIncludedIndex {
 		rf.commitIndex = args.LastIncludedIndex
@@ -248,11 +258,11 @@ func (rf *Raft) InstallSnapshot(args InstallSnapshotArgs, reply *InstallSnapshot
 	e.Encode(rf.Log)
 	raftstate := w.Bytes()
 	rf.persister.Save(raftstate, args.Data)
-	rf.rlock.Unlock()
 	rf.clock.Lock()
+	rf.rlock.Unlock()
 	msg := ApplyMsg{SnapshotValid: true, Snapshot: args.Data, SnapshotTerm: args.LastIncludedTerm, SnapshotIndex: args.LastIncludedIndex}
-	Debug(dCommit, "S%d 上传snapshot: %+v", rf.me, msg)
 	rf.applyMsgChan <- msg
 	rf.clock.Unlock()
 	rf.rlock.Lock()
+	Debug(dCommit, "S%d 上传snapshot 此时状态: %+v snapshot:%+v", rf.me, rf, msg)
 }

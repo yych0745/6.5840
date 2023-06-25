@@ -1,4 +1,0 @@
-# 6.5840/raft [6.5840/raft.test]
-./raft.go:564:5: undefined: tMatchIndex
-./raft.go:567:136: undefined: tMatchIndex
-FAIL	6.5840/raft [build failed]

@@ -8,24 +8,20 @@ package raft
 // test with the original before submitting.
 //
 
-import (
-	"bytes"
-	"log"
-	"math/rand"
-	"runtime"
-	"sync"
-	"sync/atomic"
-	"testing"
-
-	"6.5840/labgob"
-	"6.5840/labrpc"
-
-	crand "crypto/rand"
-	"encoding/base64"
-	"fmt"
-	"math/big"
-	"time"
-)
+import "6.5840/labgob"
+import "6.5840/labrpc"
+import "bytes"
+import "log"
+import "sync"
+import "sync/atomic"
+import "testing"
+import "runtime"
+import "math/rand"
+import crand "crypto/rand"
+import "math/big"
+import "encoding/base64"
+import "time"
+import "fmt"
 
 func randstring(n int) string {
 	b := make([]byte, 2*n)
@@ -255,7 +251,6 @@ func (cfg *config) applierSnap(i int, applyCh chan ApplyMsg) {
 					xlog = append(xlog, cfg.logs[i][j])
 				}
 				e.Encode(xlog)
-				Debug(dInfo, "S%d s2napshot", rf.me)
 				rf.Snapshot(m.CommandIndex, w.Bytes())
 			}
 		} else {
@@ -517,7 +512,6 @@ func (cfg *config) nCommitted(index int) (int, interface{}) {
 // wait for at least n servers to commit.
 // but don't wait forever.
 func (cfg *config) wait(index int, n int, startTerm int) interface{} {
-	fmt.Println("index: ", index)
 	to := 10 * time.Millisecond
 	for iters := 0; iters < 30; iters++ {
 		nd, _ := cfg.nCommitted(index)
@@ -561,7 +555,7 @@ func (cfg *config) wait(index int, n int, startTerm int) interface{} {
 func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 	t0 := time.Now()
 	starts := 0
-	for time.Since(t0).Seconds() < 20 && cfg.checkFinished() == false {
+	for time.Since(t0).Seconds() < 10 && cfg.checkFinished() == false {
 		// try all the servers, maybe one is the leader.
 		index := -1
 		for si := 0; si < cfg.n; si++ {
@@ -575,7 +569,6 @@ func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 			if rf != nil {
 				index1, _, ok := rf.Start(cmd)
 				if ok {
-					Debug(dWarn, "S%d 被塞了消息%+v", si, cmd)
 					index = index1
 					break
 				}
@@ -593,7 +586,6 @@ func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 						// and it was the command we submitted.
 						return index
 					}
-					fmt.Printf("cmd: %v cmd1: %v\n", cmd, cmd1)
 				}
 				time.Sleep(20 * time.Millisecond)
 			}
@@ -605,12 +597,6 @@ func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 		}
 	}
 	if cfg.checkFinished() == false {
-		for i := 0; i < len(cfg.rafts); i++ {
-
-			cfg.mu.Lock()
-			Debug(dInfo, "S%d 的已提交日志为%+v", i, cfg.logs[i])
-			cfg.mu.Unlock()
-		}
 		cfg.t.Fatalf("one(%v) failed to reach agreement", cmd)
 	}
 	return -1

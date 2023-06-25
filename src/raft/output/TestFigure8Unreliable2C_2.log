@@ -1,0 +1,9 @@
+Test (2C): Figure 8 (unreliable) ...
+********************
+-------------------
+连接全部完成
+--- FAIL: TestFigure8Unreliable2C (70.29s)
+    config.go:600: one(6670) failed to reach agreement
+FAIL
+exit status 1
+FAIL	6.5840/raft	70.328s
