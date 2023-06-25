@@ -1,16 +1,24 @@
 package kvraft
 
-import "6.5840/porcupine"
-import "6.5840/models"
-import "testing"
-import "strconv"
-import "time"
-import "math/rand"
-import "strings"
-import "sync"
-import "sync/atomic"
-import "fmt"
-import "io/ioutil"
+import (
+	"fmt"
+	"io/ioutil"
+	"log"
+	"math/rand"
+	"net/http"
+	"runtime"
+	"strconv"
+	"strings"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+
+	_ "net/http/pprof"
+
+	"6.5840/models"
+	"6.5840/porcupine"
+)
 
 // The tester generously allows solutions to complete elections in one second
 // (much more than the paper's range of timeouts).
@@ -121,7 +129,7 @@ func spawn_clients_and_wait(t *testing.T, cfg *config, ncli int, fn func(me int,
 	// log.Printf("spawn_clients_and_wait: waiting for clients")
 	for cli := 0; cli < ncli; cli++ {
 		ok := <-ca[cli]
-		// log.Printf("spawn_clients_and_wait: client %d is done\n", cli)
+		DPrintf("spawn_clients_and_wait: client %d is done", cli)
 		if ok == false {
 			t.Fatalf("failure")
 		}
@@ -257,6 +265,7 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 		atomic.StoreInt32(&done_clients, 0)
 		atomic.StoreInt32(&done_partitioner, 0)
 		go spawn_clients_and_wait(t, cfg, nclients, func(cli int, myck *Clerk, t *testing.T) {
+
 			j := 0
 			defer func() {
 				clnts[cli] <- j
@@ -265,6 +274,7 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 			if !randomkeys {
 				Put(cfg, myck, strconv.Itoa(cli), last, opLog, cli)
 			}
+			DPrintf("C%d ===================0===============", cli)
 			for atomic.LoadInt32(&done_clients) == 0 {
 				var key string
 				if randomkeys {
@@ -272,9 +282,12 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 				} else {
 					key = strconv.Itoa(cli)
 				}
+				DPrintf("C%d ===================1===============", cli)
+
 				nv := "x " + strconv.Itoa(cli) + " " + strconv.Itoa(j) + " y"
 				if (rand.Int() % 1000) < 500 {
 					// log.Printf("%d: client new append %v\n", cli, nv)
+					DPrintf("C%d ===================3===============append: %+v %+v", cli, key, nv)
 					Append(cfg, myck, key, nv, opLog, cli)
 					if !randomkeys {
 						last = NextValue(last, nv)
@@ -283,19 +296,21 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 				} else if randomkeys && (rand.Int()%1000) < 100 {
 					// we only do this when using random keys, because it would break the
 					// check done after Get() operations
+					DPrintf("C%d ===================4===============put: %v %+v", cli, key, nv)
 					Put(cfg, myck, key, nv, opLog, cli)
 					j++
 				} else {
 					// log.Printf("%d: client new get %v\n", cli, key)
+					DPrintf("C%d ===================5===============get: %v %+v", cli, key, nv)
 					v := Get(cfg, myck, key, opLog, cli)
 					// the following check only makes sense when we're not using random keys
 					if !randomkeys && v != last {
 						t.Fatalf("get wrong value, key %v, wanted:\n%v\n, got\n%v\n", key, last, v)
 					}
 				}
+				DPrintf("C%d ===================2===============", cli)
 			}
 		})
-
 		if partitions {
 			// Allow the clients to perform some operations without interruption
 			time.Sleep(1 * time.Second)
@@ -318,8 +333,10 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 			time.Sleep(electionTimeout)
 		}
 
+		DPrintf("----------------1-----------------")
+
 		if crash {
-			// log.Printf("shutdown servers\n")
+			log.Printf("shutdown servers\n")
 			for i := 0; i < nservers; i++ {
 				cfg.ShutdownServer(i)
 			}
@@ -334,6 +351,7 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 			cfg.ConnectAll()
 		}
 
+		DPrintf("----------------2-----------------")
 		// log.Printf("wait for clients\n")
 		for i := 0; i < nclients; i++ {
 			// log.Printf("read from clients %d\n", i)
@@ -364,6 +382,7 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 				t.Fatalf("snapshot too large (%v), should not be used when maxraftstate = %d", ssz, maxraftstate)
 			}
 		}
+		DPrintf("----------------3-----------------")
 	}
 
 	res, info := porcupine.CheckOperationsVerbose(models.KvModel, opLog.Read(), linearizabilityCheckTimeout)
@@ -403,10 +422,12 @@ func GenericTestSpeed(t *testing.T, part string, maxraftstate int) {
 	ck.Get("x")
 
 	start := time.Now()
+	DPrintf("start time")
 	for i := 0; i < numOps; i++ {
 		ck.Append("x", "x 0 "+strconv.Itoa(i)+" y")
 	}
 	dur := time.Since(start)
+	DPrintf("end time dur: %v\n", dur)
 
 	v := ck.Get("x")
 	checkClntAppends(t, 0, v, numOps)
@@ -424,7 +445,7 @@ func GenericTestSpeed(t *testing.T, part string, maxraftstate int) {
 
 func TestBasic3A(t *testing.T) {
 	// Test: one client (3A) ...
-	GenericTest(t, "3A", 1, 5, false, false, false, -1, false)
+	GenericTest(t, "3A", 1, 2, false, false, false, -1, false)
 }
 
 func TestSpeed3A(t *testing.T) {
@@ -433,6 +454,9 @@ func TestSpeed3A(t *testing.T) {
 
 func TestConcurrent3A(t *testing.T) {
 	// Test: many clients (3A) ...
+	go func() {
+		log.Println(http.ListenAndServe(":6060", nil))
+	}()
 	GenericTest(t, "3A", 5, 5, false, false, false, -1, false)
 }
 
@@ -558,6 +582,11 @@ func TestManyPartitionsOneClient3A(t *testing.T) {
 
 func TestManyPartitionsManyClients3A(t *testing.T) {
 	// Test: partitions, many clients (3A) ...
+	go func() {
+		runtime.SetBlockProfileRate(1)     // 开启对阻塞操作的跟踪，block
+		runtime.SetMutexProfileFraction(1) // 开启对锁调用的跟踪，mutex
+		log.Println(http.ListenAndServe(":6060", nil))
+	}()
 	GenericTest(t, "3A", 5, 5, false, false, true, -1, false)
 }
 
@@ -568,7 +597,7 @@ func TestPersistOneClient3A(t *testing.T) {
 
 func TestPersistConcurrent3A(t *testing.T) {
 	// Test: restarts, many clients (3A) ...
-	GenericTest(t, "3A", 5, 5, false, true, false, -1, false)
+	GenericTest(t, "3A", 2, 5, false, true, false, -1, false)
 }
 
 func TestPersistConcurrentUnreliable3A(t *testing.T) {

@@ -1,9 +1,11 @@
 package kvraft
 
-import "6.5840/labrpc"
-import "crypto/rand"
-import "math/big"
+import (
+	"crypto/rand"
+	"math/big"
 
+	"6.5840/labrpc"
+)
 
 type Clerk struct {
 	servers []*labrpc.ClientEnd
@@ -37,7 +39,26 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 func (ck *Clerk) Get(key string) string {
 
 	// You will have to modify this function.
-	return ""
+	n := len(ck.servers)
+	args := GetArgs{}
+	args.Key = key
+	args.UUID = nrand()
+	DPrintf("Client %v Get %v", args.UUID, key)
+	for {
+		for i := 0; i < n; i++ {
+			reply := GetReply{}
+			DPrintf("client端发送内容Get-> K%d args: %+v", i, args)
+			ok := ck.servers[i].Call("KVServer.Get", &args, &reply)
+			if ok && reply.Err.noError() && reply.Success {
+
+				DPrintf("Get: %+v: value: %+v成功", args, reply.Value)
+				return reply.Value
+
+			} else {
+				DPrintf("Get失败 K%d args: %+v ok: %+v reply: %+v", i, args, ok, reply)
+			}
+		}
+	}
 }
 
 // shared by Put and Append.
@@ -50,6 +71,31 @@ func (ck *Clerk) Get(key string) string {
 // arguments. and reply must be passed as a pointer.
 func (ck *Clerk) PutAppend(key string, value string, op string) {
 	// You will have to modify this function.
+	n := len(ck.servers)
+	args := PutAppendArgs{}
+	args.Key = key
+	args.Value = value
+	args.Op = op
+	args.UUID = nrand()
+	DPrintf("Client %v PutAppend %v %v %v", args.UUID, key, value, op)
+	for {
+
+		for i := 0; i < n; i++ {
+			reply := PutAppendReply{}
+			DPrintf("client端发送内容Put-> K%d args: %+v", i, args)
+			ok := ck.servers[i].Call("KVServer.PutAppend", &args, &reply)
+			if ok {
+				if reply.Err.noError() && reply.Success {
+
+					DPrintf("PutApeend: %v %+v: %+v成功", op, key, value)
+					return
+				}
+			} else {
+				DPrintf("PutAppend: 失败 K%d %v: %v", i, key, value)
+			}
+		}
+
+	}
 }
 
 func (ck *Clerk) Put(key string, value string) {

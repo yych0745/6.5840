@@ -338,6 +338,7 @@ func (cfg *config) Leader() (bool, int) {
 // Partition servers into 2 groups and put current leader in minority
 func (cfg *config) make_partition() ([]int, []int) {
 	_, l := cfg.Leader()
+	DPrintf("S%d 是leader", l)
 	p1 := make([]int, cfg.n/2+1)
 	p2 := make([]int, cfg.n/2)
 	j := 0

@@ -1,0 +1,3 @@
+Test: ops complete fast enough (3A) ...
+signal: interrupt
+FAIL	6.5840/kvraft	224.645s
