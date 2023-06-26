@@ -659,6 +659,7 @@ func TestSnapshotRPC3B(t *testing.T) {
 	// lagging server, so that it has to catch up.
 	cfg.partition([]int{0, 2}, []int{1})
 	{
+		DPrintf("--------------------start-------------------")
 		ck1 := cfg.makeClient([]int{0, 2})
 		Put(cfg, ck1, "c", "C", nil, -1)
 		Put(cfg, ck1, "d", "D", nil, -1)
@@ -666,6 +667,7 @@ func TestSnapshotRPC3B(t *testing.T) {
 		check(cfg, t, ck1, "b", "B")
 		check(cfg, t, ck1, "1", "1")
 		check(cfg, t, ck1, "49", "49")
+		DPrintf("--------------------end-------------------")
 	}
 
 	// now everybody

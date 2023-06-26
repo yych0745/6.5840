@@ -52,6 +52,7 @@ func (ck *Clerk) Get(key string) string {
 			if ok && reply.Err.noError() && reply.Success {
 
 				DPrintf("Get: %+v: value: %+v成功", args, reply.Value)
+				// ck.DeleteUUID(args.UUID)
 				return reply.Value
 
 			} else {
@@ -88,13 +89,32 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 				if reply.Err.noError() && reply.Success {
 
 					DPrintf("PutApeend: %v %+v: %+v成功", op, key, value)
+					// ck.DeleteUUID(args.UUID)
 					return
 				}
 			} else {
 				DPrintf("PutAppend: 失败 K%d %v: %v", i, key, value)
 			}
 		}
+	}
+}
 
+func (ck *Clerk) DeleteUUID(uuid int64) {
+	count := 0
+	st := make([]bool, len(ck.servers))
+	for count < len(ck.servers) {
+		args := DeleteHisArgs{uuid}
+		for i, server := range ck.servers {
+			if st[i] {
+				continue
+			}
+			reply := DeleteHisReply{}
+			ok := server.Call("KVServer.DeleteHis", &args, &reply)
+			if ok && reply.Success {
+				st[i] = true
+				count++
+			}
+		}
 	}
 }
 
