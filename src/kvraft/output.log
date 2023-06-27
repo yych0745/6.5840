@@ -1,0 +1,86 @@
+Test: one client (3A) ...
+  ... Passed --  15.1  2  4682  590
+Test: ops complete fast enough (3A) ...
+  ... Passed --  31.1  3  6931    0
+Test: many clients (3A) ...
+  ... Passed --  16.0  5 14801 1112
+Test: unreliable net, many clients (3A) ...
+  ... Passed --  16.3  5  5711  712
+Test: concurrent append to same key, unreliable (3A) ...
+  ... Passed --   2.0  3   321   52
+Test: progress in majority (3A) ...
+  ... Passed --   1.4  5   164    2
+Test: no progress in minority (3A) ...
+  ... Passed --   1.3  5   566    3
+Test: completion after heal (3A) ...
+  ... Passed --   1.0  5    62    3
+Test: partitions, one client (3A) ...
+  ... Passed --  22.8  5  7876  301
+listen tcp :6060: bind: address already in use
+Test: partitions, many clients (3A) ...
+  ... Passed --  23.6  5 14988 1014
+Test: restarts, one client (3A) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  22.0  5 14225  502
+Test: restarts, many clients (3A) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  24.2  5 25680  747
+Test: unreliable net, restarts, many clients (3A) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  25.3  5  7416  662
+Test: restarts, partitions, many clients (3A) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  32.6  5 22865 1061
+Test: unreliable net, restarts, partitions, many clients (3A) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  31.1  5  7156  595
+Test: unreliable net, restarts, partitions, random keys, many clients (3A) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  38.4  7 14160 1206
+Test: InstallSnapshot RPC (3B) ...
+  ... Passed --   8.8  3  2965   63
+Test: snapshot size is reasonable (3B) ...
+  ... Passed --  20.7  3  6913  800
+Test: ops complete fast enough (3B) ...
+  ... Passed --  24.0  3  6934    0
+Test: restarts, snapshots, one client (3B) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  20.7  5 13981  624
+Test: restarts, snapshots, many clients (3B) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  22.0  5 59747 8680
+Test: unreliable net, snapshots, many clients (3B) ...
+  ... Passed --  16.6  5  6020  782
+Test: unreliable net, restarts, snapshots, many clients (3B) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  26.3  5  7876  790
+Test: unreliable net, restarts, partitions, snapshots, many clients (3B) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  30.1  5  5805  576
+Test: unreliable net, restarts, partitions, snapshots, random keys, many clients (3B) ...
+shutdown servers
+shutdown servers
+shutdown servers
+  ... Passed --  32.8  7 11634 1220
+PASS
+ok  	6.5840/kvraft	507.171s

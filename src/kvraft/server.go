@@ -15,7 +15,7 @@ import (
 	"6.5840/raft"
 )
 
-const debug = true
+const debug = false 
 const debugLog = false
 
 func DPrintf(format string, a ...interface{}) (n int, err error) {
@@ -114,9 +114,9 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 		}
 		if _, ok := kv.His[args.UUID]; ok {
 			if debugLog {
-				DPrintf("K%d Server添加成功index: %d len(kv.Log): %d kv.Log: %+v date: %+v", kv.me, index, len(kv.Log), kv.Log, kv.Dataset)
+				DPrintf("K%d Get Server添加成功index: %d len(kv.Log): %d kv.Log: %+v date: %+v", kv.me, index, len(kv.Log), kv.Log, kv.Dataset)
 			} else {
-				DPrintf("K%d Server添加成功index: %d len: %d date: %+v", kv.me, index, len(kv.His), kv.Dataset)
+				DPrintf("K%d Get Server添加成功index: %d len: %d date: %+v", kv.me, index, len(kv.His), kv.Dataset)
 			}
 			reply.Value = kv.Dataset[args.Key]
 			reply.Success = true
@@ -174,9 +174,9 @@ func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		}
 		if _, ok := kv.His[args.UUID]; ok {
 			if debugLog {
-				DPrintf("K%d Server添加成功index: %d len(kv.Log): %d kv.Log: %+v date: %+v", kv.me, index, len(kv.Log), kv.Log, kv.Dataset)
+				DPrintf("K%d PutAppend Server添加成功index: %d len(kv.Log): %d kv.Log: %+v date: %+v", kv.me, index, len(kv.Log), kv.Log, kv.Dataset)
 			} else {
-				DPrintf("K%d Server添加成功index: %d len: %d date: %+v", kv.me, index, len(kv.His), kv.Dataset)
+				DPrintf("K%d PutAppend Server添加成功index: %d len: %d date: %+v", kv.me, index, len(kv.His), kv.Dataset)
 			}
 			reply.Success = true
 			return
@@ -238,8 +238,8 @@ func (kv *KVServer) RefreshData() {
 		default:
 			// DPrintf("K%d sleep", kv.me)
 			time.Sleep(ms * time.Millisecond)
-			kv.Snapshot()
 		}
+		kv.Snapshot()
 	}
 }
 
@@ -276,8 +276,8 @@ func (kv *KVServer) Snapshot() {
 		// e.Encode(kv.His)
 		// e.Encode(kv.DelteHis)
 		e.Encode(kv.HisQue)
-		DPrintf("K%d Snapshot: index: %d 打包 %v", kv.me, index, w.Bytes())
-		kv.rf.Snapshot(index, w.Bytes())
+		DPrintf("K%d Snapshot: index: %d 打包 %v", kv.me, index-2, w.Bytes())
+		kv.rf.Snapshot(index-2, w.Bytes())
 	}
 	kv.mu.Unlock()
 }
