@@ -95,10 +95,20 @@ type Raft struct {
 }
 
 func (rf *Raft) String() string {
-	return fmt.Sprintf("S%d 的term: %d leaderId: %d votedFor:%d lastIncludedIndex: %d lastIncludedTerm: %d lastApplied: %d commitIndex: %d nextIndex: %v matchIndex: %v logIndex: %v log:%v",
+	return fmt.Sprintf("S%d 的term: %d leaderId: %d votedFor:%d lastIncludedIndex: %d lastIncludedTerm: %d lastApplied: %d commitIndex: %d nextIndex: %v matchIndex: %v Base: %v len(log): %v log:%v",
 		rf.me, rf.Term, rf.leaderId, rf.VotedFor, rf.lastIncludedIndex,
 		rf.lastIncludedTerm, rf.lastApplied, rf.commitIndex,
-		rf.nextIndex, rf.matchIndex, rf.Log.Base, rf.Log)
+		rf.nextIndex, rf.matchIndex, rf.Log.Base, rf.Log.realLen(), rf.Log)
+}
+
+func (rf *Raft) RaftStateSize() (int, int) {
+	defer rf.rlock.Unlock()
+	rf.rlock.Lock()
+	return rf.lastApplied, rf.persister.RaftStateSize()
+}
+
+func (rf *Raft) ReadSnapshot() []byte {
+	return rf.persister.ReadSnapshot()
 }
 
 type End struct {
@@ -233,7 +243,7 @@ func (rf *Raft) Snapshot(index int, snapshot []byte) {
 	e.Encode(rf.Log)
 	raftstate := w.Bytes()
 	rf.persister.Save(raftstate, snapshot)
-	Debug(dInfo, "S%d 更新状态rf: %+v raftstate: %+v snapshot %+v", rf.me, rf, raftstate, snapshot)
+	Debug(dInfo, "S%d 更新状态 更新后大小: %v rf: %+v raftstate: %+v", rf.me, rf, rf.persister.RaftStateSize(), raftstate)
 	// s := rf.persister.ReadSnapshot()
 	// Debug(dWarn, "S%d 的snapshot为:%+v", rf.me, s)
 }
@@ -496,7 +506,7 @@ func (rf *Raft) leadL() {
 		}
 		Debug(dLeader, "%+v", rf)
 
-		Debug(dLeader, "S%d 更新commitIndex条件: %v || (%v && %v), index: %v", rf.me, rf.Log.term(max(index, rf.Log.Base)) == rf.Term, rf.commitIndex > rf.Log.Base, rf.Log.term(rf.commitIndex) == rf.Term)
+		Debug(dLeader, "S%d 更新commitIndex条件: %v || (%v && %v), index: %v", rf.me, rf.Log.term(max(index, rf.Log.Base)) == rf.Term, rf.commitIndex > rf.Log.Base, rf.commitIndex > rf.Log.Base && rf.Log.term(rf.commitIndex) == rf.Term)
 		if index < rf.Log.realLen() && (rf.Log.term(max(index, rf.Log.Base)) == rf.Term || (rf.commitIndex > rf.Log.Base && rf.Log.term(rf.commitIndex) == rf.Term)) {
 			if index > rf.commitIndex {
 				rf.commitIndex = max(index, 0)
@@ -657,7 +667,7 @@ End:
 			// 	continue
 			// }
 
-			ms := 20
+			ms := 15
 		EndLoop:
 			for {
 				select {

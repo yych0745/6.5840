@@ -94,12 +94,15 @@ func TestBasic(t *testing.T) {
 
 	var gid1 int = 1
 	ck.Join(map[int][]string{gid1: []string{"x", "y", "z"}})
+	fmt.Println("check1 begin")
 	check(t, []int{gid1}, ck)
+	fmt.Println("check1 end")
 	cfa[1] = ck.Query(-1)
 
 	var gid2 int = 2
 	ck.Join(map[int][]string{gid2: []string{"a", "b", "c"}})
 	check(t, []int{gid1, gid2}, ck)
+	fmt.Println("check2 end")
 	cfa[2] = ck.Query(-1)
 
 	cfx := ck.Query(-1)
@@ -112,8 +115,10 @@ func TestBasic(t *testing.T) {
 		t.Fatalf("wrong servers for gid %v: %v\n", gid2, sa2)
 	}
 
+	fmt.Println("check3 begin")
 	ck.Leave([]int{gid1})
 	check(t, []int{gid2}, ck)
+	fmt.Println("check3 end")
 	cfa[4] = ck.Query(-1)
 
 	ck.Leave([]int{gid2})
