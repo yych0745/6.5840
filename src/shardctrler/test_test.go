@@ -49,16 +49,19 @@ func check(t *testing.T, groups []int, ck *Clerk) {
 		}
 	}
 	if max > min+1 {
+		for i, gid := range c.Shards {
+			fmt.Printf("%d %d\n", i, gid)
+		}
 		t.Fatalf("max %v too much larger than min %v", max, min)
 	}
 }
 
 func check_same_config(t *testing.T, c1 Config, c2 Config) {
 	if c1.Num != c2.Num {
-		t.Fatalf("Num wrong")
+		t.Fatalf("Num wrong %d %d", c1.Num, c2.Num)
 	}
 	if c1.Shards != c2.Shards {
-		t.Fatalf("Shards wrong")
+		t.Fatalf("Shards wrong %v %v", c1.Shards, c2.Shards)
 	}
 	if len(c1.Groups) != len(c2.Groups) {
 		t.Fatalf("number of Groups is wrong")
@@ -76,6 +79,42 @@ func check_same_config(t *testing.T, c1 Config, c2 Config) {
 			}
 		}
 	}
+}
+
+func TestYYch(t *testing.T) {
+	const nservers = 3
+	cfg := make_config(t, nservers, false)
+	defer cfg.cleanup()
+
+	ck := cfg.makeClient(cfg.All())
+	fmt.Printf("Test: Concurrent leave/join ...\n")
+
+	const npara = 10
+	var cka [npara]*Clerk
+	for i := 0; i < len(cka); i++ {
+		cka[i] = cfg.makeClient(cfg.All())
+	}
+	gids := make([]int, npara)
+	ch := make(chan bool)
+	for xi := 0; xi < npara; xi++ {
+		gids[xi] = int((xi * 10) + 100)
+		go func(i int) {
+			defer func() { ch <- true }()
+			var gid int = gids[i]
+			// var sid1 = fmt.Sprintf("s%da", gid)
+			var sid2 = fmt.Sprintf("s%db", gid)
+			DPrintf("Join gid: %d sid2: %v", gid, sid2)
+			// cka[i].Join(map[int][]string{gid + 1000: []string{sid1}})
+			cka[i].Join(map[int][]string{gid: []string{sid2}})
+			// cka[i].Leave([]int{gid + 1000})
+		}(xi)
+	}
+	for i := 0; i < npara; i++ {
+		<-ch
+	}
+	check(t, gids, ck)
+
+	fmt.Printf("  ... Passed\n")
 }
 
 func TestBasic(t *testing.T) {

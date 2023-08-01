@@ -36,12 +36,13 @@ type Err string
 
 type JoinArgs struct {
 	Servers map[int][]string // new GID -> servers mappings
-	UUID int64
+	UUID    int64
 }
 
 type JoinReply struct {
 	WrongLeader bool
 	Err         Err
+	Config      Config
 }
 
 type LeaveArgs struct {
@@ -52,12 +53,13 @@ type LeaveArgs struct {
 type LeaveReply struct {
 	WrongLeader bool
 	Err         Err
+	Config      Config
 }
 
 type MoveArgs struct {
 	Shard int
 	GID   int
-	UUID int64
+	UUID  int64
 }
 
 type MoveReply struct {
@@ -66,7 +68,7 @@ type MoveReply struct {
 }
 
 type QueryArgs struct {
-	Num int // desired config number
+	Num  int // desired config number
 	UUID int64
 }
 
@@ -74,4 +76,15 @@ type QueryReply struct {
 	WrongLeader bool
 	Err         Err
 	Config      Config
+}
+
+type ConfigArgs struct {
+	Config Config
+	UUID   int64
+}
+
+type ConfigReply struct {
+	WrongLeader bool
+	Config      Config
+	Err         Err
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"runtime"
+	"sort"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -43,6 +44,10 @@ func (t OType) IsQuery() bool {
 	return t == "Query"
 }
 
+func (t OType) IsMove() bool {
+	return t == "Move"
+}
+
 type Op struct {
 	// Your definitions here.
 	// Field names must start with capital letters,
@@ -51,6 +56,8 @@ type Op struct {
 	Servers map[int][]string
 	Gids    []int
 	UUID    int64
+	Shard   int
+	Gid     int
 }
 
 type ShardCtrler struct {
@@ -110,12 +117,14 @@ func (sc *ShardCtrler) Join(args *JoinArgs, reply *JoinReply) {
 			} else {
 				DPrintf("K%d Join Server添加成功index: %d len: %d ", sc.me, index, len(sc.His))
 			}
-			DPrintf("Join 结果%v", sc.configs)
+			DPrintf("K%d Join Config %v", sc.me, sc.configs)
 			reply.WrongLeader = false
+			reply.Config = sc.configs[len(sc.configs)-1]
 			return
 		}
 	}
-	DPrintf("K%d Join %v 超时", args.UUID)
+	DPrintf("K%d Join %v 超时", sc.me, args.UUID)
+	reply.Err = Err(fmt.Sprintf("K%d Join timeout!", sc.me))
 }
 
 func (sc *ShardCtrler) Leave(args *LeaveArgs, reply *LeaveReply) {
@@ -170,6 +179,52 @@ func (sc *ShardCtrler) Leave(args *LeaveArgs, reply *LeaveReply) {
 
 func (sc *ShardCtrler) Move(args *MoveArgs, reply *MoveReply) {
 	// Your code here.
+	defer sc.mu.Unlock()
+	sc.mu.Lock()
+	_, ok := sc.His[args.UUID]
+	if ok {
+		reply.WrongLeader = false
+		return
+	}
+	_, isLeader := sc.rf.GetState()
+	if !isLeader {
+		reply.WrongLeader = true
+		reply.Err = "不是leader"
+	}
+	op := Op{}
+	op.T = "Move"
+	op.UUID = args.UUID
+	op.Gid = args.GID
+	op.Shard = args.Shard
+	index, term, isLeader := sc.rf.Start(op)
+	for cnt := 0; cnt < 100; cnt++ {
+
+		sc.mu.Unlock()
+		time.Sleep(time.Duration(10) * time.Millisecond)
+
+		sc.mu.Lock()
+		tterm, isLeader := sc.rf.GetState()
+		if debugLog {
+			DPrintf("K%d isLeader: %v term: %d tterm: %d 等待Move index: %v len(log): %v args: %+v", sc.me, isLeader, term, tterm, index, len(sc.Log), args)
+		} else {
+			DPrintf("K%d isLeader: %v term: %d tterm: %d 等待Move index: %v len: %v args: %+v", sc.me, isLeader, term, tterm, index, len(sc.His), args)
+		}
+		if !isLeader || term != tterm {
+			reply.Err = "NoLeader"
+			DPrintf("K%d Get 失败2", sc.me)
+			return
+		}
+		if _, ok := sc.His[args.UUID]; ok {
+			if debugLog {
+				DPrintf("K%d Move Server添加成功index: %d ", sc.me, index)
+			} else {
+				DPrintf("K%d Move Server添加成功index: %d len: %d ", sc.me, index, len(sc.His))
+			}
+			reply.WrongLeader = false
+			return
+		}
+	}
+	DPrintf("K%d Move 超时 %v", sc.me, args.UUID)
 }
 
 func (sc *ShardCtrler) Query(args *QueryArgs, reply *QueryReply) {
@@ -213,13 +268,17 @@ func (sc *ShardCtrler) Query(args *QueryArgs, reply *QueryReply) {
 			} else {
 				DPrintf("K%d Query Server添加成功index: %d len: %d ", sc.me, index, len(sc.His))
 			}
-			reply.Config = sc.configs[len(sc.configs)-1]
-			DPrintf("config: %v", reply.Config)
+			if args.Num == -1 {
+				reply.Config = sc.configs[len(sc.configs)-1]
+			} else {
+				reply.Config = sc.configs[args.Num]
+			}
+			DPrintf("Query config: %v", reply.Config)
 			reply.WrongLeader = false
 			return
 		}
 	}
-	DPrintf("K%d Query %v 超时", args.UUID)
+	DPrintf("K%d Query %v 超时", sc.me, args.UUID)
 }
 
 // the tester calls Kill() when a ShardCtrler instance won't
@@ -229,14 +288,54 @@ func (sc *ShardCtrler) Query(args *QueryArgs, reply *QueryReply) {
 func (sc *ShardCtrler) Kill() {
 	sc.rf.Kill()
 	// Your code here, if desired.
-	debugLog = false
-	debug = false
-	sc.dead = 1
+	// debugLog = false
+	// debug = false
+	atomic.StoreInt32(&sc.dead, 1)
 }
 
 func (sc *ShardCtrler) killed() bool {
 	z := atomic.LoadInt32(&sc.dead)
 	return z == 1
+}
+
+func GetGIDWithMinimumShards(s2g map[int]int) int {
+	// make iteration deterministic
+	var keys []int
+	for k := range s2g {
+		keys = append(keys, k)
+	}
+	sort.Ints(keys)
+	// find GID with minimum shards
+	index, min := 0, NShards+1
+	for _, gid := range keys {
+		if gid != 0 && s2g[gid] < min {
+			index, min = gid, s2g[gid]
+		}
+	}
+	return index
+}
+
+func GetGIDWithMaximumShards(s2g map[int]int) int {
+	// always choose gid 0 if there is any
+	if shards, ok := s2g[0]; ok && shards > 0 {
+		DPrintf("GetGIDWithMaxi %+v Index: %d", s2g, 0)
+		return 0
+	}
+	// make iteration deterministic
+	var keys []int
+	for k := range s2g {
+		keys = append(keys, k)
+	}
+	sort.Ints(keys)
+	// find GID with maximum shards
+	index, max := 0, -1
+	for _, gid := range keys {
+		if s2g[gid] > max {
+			index, max = gid, s2g[gid]
+		}
+	}
+	DPrintf("GetGIDWithMaxi %+v Index: %d", s2g, index)
+	return index
 }
 
 func rebalance(newConfig *Config, opIndex int) {
@@ -248,8 +347,8 @@ func rebalance(newConfig *Config, opIndex int) {
 		}
 	}
 
-	max := 0
-	min := 256
+	// max := 0
+	// min := 256
 	var min_gid, max_gid int
 	counts := make(map[int]int)
 	// 初始化gid的数量
@@ -266,45 +365,37 @@ func rebalance(newConfig *Config, opIndex int) {
 		counts[gid]++
 	}
 	// 初始化min，max
-	for gid, nums := range counts {
-		if max < gid {
-			max = nums
-			max_gid = gid
-		}
-		if min > gid {
-			min = nums
-			min_gid = gid
-		}
-	}
+	// for gid, nums := range counts {
+	// 	if max == nums && max_gid < gid || max < nums {
+	// 		max = nums
+	// 		max_gid = gid
+	// 	}
+	// 	if min == nums && min_gid < gid || min > nums {
+	// 		min = nums
+	// 		min_gid = gid
+	// 	}
+	// }
+	min_gid = GetGIDWithMinimumShards(counts)
+	max_gid = GetGIDWithMaximumShards(counts)
 
-	for max-min > 1 {
+	for counts[max_gid]-counts[min_gid] > 1 {
 		// 调整
-		tmax := max
 		for i, v := range newConfig.Shards {
 			if v == max_gid {
 				newConfig.Shards[i] = min_gid
 				counts[min_gid]++
 				counts[max_gid]--
-			}
-			if tmax >= counts[max_gid]*2 {
 				break
 			}
 		}
 		// 再判断
-		max = 0
-		min = 256
-		for gid, nums := range counts {
-			if max < gid {
-				max = nums
-				max_gid = gid
-			}
-			if min > gid {
-				min = nums
-				min_gid = gid
-			}
-		}
-		DPrintf("rebalancing max: %d min: %d counts: %+v shards: %+v", max, min, counts, newConfig.Shards)
+		min_gid = GetGIDWithMinimumShards(counts)
+		max_gid = GetGIDWithMaximumShards(counts)
+		DPrintf("GetGIDWithMini %+v Index: %d", counts, min_gid)
+
+		DPrintf("rebalancing max_gid: %d min_gid: %d counts: %+v shards: %+v", max_gid, min_gid, counts, newConfig.Shards)
 	}
+	DPrintf("rebalanced max_gid: %d min_gid: %d opIndex: %d counts: %+v shards: %+v", max_gid, min_gid, opIndex, counts, newConfig.Shards)
 }
 
 func (sc *ShardCtrler) ProcessL(op Op) {
@@ -373,6 +464,18 @@ func (sc *ShardCtrler) ProcessL(op Op) {
 			}
 		}
 		rebalance(&newConfig, opIndex)
+		sc.configs = append(sc.configs, newConfig)
+	} else if op.T.IsMove() {
+		// move
+		config := sc.configs[len(sc.configs)-1]
+		newConfig := Config{}
+		newConfig.Shards = config.Shards
+		newConfig.Num = config.Num + 1
+		newConfig.Groups = make(map[int][]string)
+		for gid, v := range config.Groups {
+			newConfig.Groups[gid] = append(newConfig.Groups[gid], v...)
+		}
+		newConfig.Shards[op.Shard] = op.Gid
 		sc.configs = append(sc.configs, newConfig)
 	}
 }
