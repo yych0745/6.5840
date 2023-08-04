@@ -29,6 +29,7 @@ type PutAppendArgs struct {
 	// otherwise RPC will break.
 	UUID int64
 	Gid  int
+	Shard int
 }
 
 type PutAppendReply struct {
@@ -40,6 +41,7 @@ type GetArgs struct {
 	// You'll have to add definitions here.
 	UUID int64
 	Gid  int
+	Shard int
 }
 
 type GetReply struct {

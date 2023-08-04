@@ -54,6 +54,7 @@ type Op struct {
 	Key   string
 	Value string
 	T     OType
+	Shard int
 }
 
 type shardState int
@@ -77,10 +78,10 @@ type ShardKV struct {
 	state shardState
 	dead  int32
 
-	config shardctrler.Config
+	config     shardctrler.Config
 	lastConfig shardctrler.Config
 
-	DB       map[string]string
+	DB       map[int]map[string]string
 	His      map[int64]struct{}
 	HisQue   Queue
 	DelteHis map[int64]struct{}
@@ -109,7 +110,7 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 	_, ok := kv.His[args.UUID]
 	DPrintf("K%d 收到内容%+v ok: %v", kv.me, args, ok)
 	if ok {
-		reply.Value = kv.DB[args.Key]
+		reply.Value = kv.DB[args.Shard][args.Key]
 		reply.Err = OK
 		return
 	}
@@ -117,6 +118,7 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 	op.Key = args.Key
 	op.T = "Get"
 	op.UUID = args.UUID
+	op.Shard = args.Shard
 	index, term, isLeader := kv.rf.Start(op)
 	if !isLeader {
 		reply.Err = "NoLeader"
@@ -155,7 +157,7 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 				return
 			}
 
-			reply.Value = kv.DB[args.Key]
+			reply.Value = kv.DB[args.Shard][args.Key]
 			reply.Err = OK
 			return
 		}
@@ -191,6 +193,7 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	op.T = OType(args.Op)
 	op.Value = args.Value
 	op.UUID = args.UUID
+	op.Shard = args.Shard
 
 	index, term, isLeader = kv.rf.Start(op)
 	if !isLeader {
@@ -292,11 +295,14 @@ func (kv *ShardKV) RefreshData() {
 			if debugLog {
 				kv.Log = append(kv.Log, p)
 			}
+			if _, ok := kv.DB[p.Shard]; !ok {
+				kv.DB[p.Shard] = make(map[string]string)
+			}
 			if p.T.IsAppend() {
 				key := p.Key
-				kv.DB[key] += p.Value
+				kv.DB[p.Shard][key] += p.Value
 			} else if p.T.IsPut() {
-				kv.DB[p.Key] = p.Value
+				kv.DB[p.Shard][p.Key] = p.Value
 			}
 
 			kv.His[p.UUID] = struct{}{}
@@ -391,7 +397,7 @@ func (kv *ShardKV) ReadSnapshot(data []byte) {
 		return
 	}
 
-	var dataset map[string]string
+	var dataset map[int]map[string]string
 	var hisQue Queue
 	var config, lastConfig shardctrler.Config
 	DPrintf("进入snapshot")
@@ -457,7 +463,7 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 
 	kv.applyCh = make(chan raft.ApplyMsg)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
-	kv.DB = make(map[string]string)
+	kv.DB = make(map[int]map[string]string)
 	kv.His = make(map[int64]struct{})
 	kv.mck = shardctrler.MakeClerk(kv.ctrlers)
 	kv.config.Num = -1
