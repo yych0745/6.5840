@@ -1,6 +1,8 @@
 package shardkv
 
 import (
+	"bytes"
+	"errors"
 	"fmt"
 	"log"
 	"runtime"
@@ -76,9 +78,11 @@ type ShardKV struct {
 	dead  int32
 
 	config shardctrler.Config
+	lastConfig shardctrler.Config
 
 	DB       map[string]string
 	His      map[int64]struct{}
+	HisQue   Queue
 	DelteHis map[int64]struct{}
 	Log      []Op
 	mck      *shardctrler.Clerk
@@ -280,6 +284,11 @@ func (kv *ShardKV) RefreshData() {
 				continue
 			}
 
+			if kv.state == pending {
+				DPrintf("K%d pending %+v", kv.me, kv)
+				continue
+			}
+
 			if debugLog {
 				kv.Log = append(kv.Log, p)
 			}
@@ -291,6 +300,7 @@ func (kv *ShardKV) RefreshData() {
 			}
 
 			kv.His[p.UUID] = struct{}{}
+			kv.HisQue.push_back(p.UUID)
 
 			if debugLog {
 				DPrintf("K%d 增加: %+v 增加hist: %+v 长度: %d", kv.me, p, p.UUID, len(kv.Log))
@@ -303,11 +313,23 @@ func (kv *ShardKV) RefreshData() {
 			// DPrintf("K%d sleep", kv.me)
 			time.Sleep(ms * time.Millisecond)
 		}
-		// kv.Snapshot()
+		kv.Snapshot()
 	}
 }
 
-func (kv *ShardKV) transform() {
+func (kv *ShardKV) PullData() {
+	// 找到当前对应的shard
+	shards := make([]int, 0)
+	for s, g := range kv.config.Shards {
+		if g == kv.gid {
+			shards = append(shards, s)
+		}
+	}
+	// shards-> [1, 2, 3];
+	// 依次要内容
+	// for _, shard := range shards {
+
+	// }
 }
 
 func (kv *ShardKV) RefreshConfig() {
@@ -316,18 +338,77 @@ func (kv *ShardKV) RefreshConfig() {
 		_, leader := kv.rf.GetState()
 		if leader {
 			kv.mu.Lock()
-			newConfig := kv.mck.Query(-1)
+			newConfig := kv.mck.Query(kv.config.Num + 1)
 			if newConfig.Num == kv.config.Num {
 				kv.state = serving
 			} else {
 				kv.state = pending
+				kv.lastConfig = kv.config
 				kv.config = newConfig
-				kv.transform()
+				DPrintf("K%d config: %+v", kv.me, kv.config)
+				kv.Snapshot()
+				kv.PullData()
 				kv.state = serving
 			}
 			kv.mu.Unlock()
 		}
 		time.Sleep(ms * time.Microsecond)
+	}
+}
+
+func (kv *ShardKV) Snapshot() {
+	if kv.maxraftstate == -1 {
+		return
+	}
+	kv.mu.Lock()
+	index, size := kv.rf.RaftStateSize()
+	if size > kv.maxraftstate {
+		w := new(bytes.Buffer)
+		e := labgob.NewEncoder(w)
+		// index := len(kv.His)
+		e.Encode(kv.DB)
+		// e.Encode(kv.His)
+		// e.Encode(kv.DelteHis)
+		e.Encode(kv.HisQue)
+		e.Encode(kv.config)
+		e.Encode(kv.lastConfig)
+		DPrintf("K%d Snapshot: index: %d 打包 %v", kv.me, index-2, w.Bytes())
+		kv.rf.Snapshot(index-2, w.Bytes())
+	}
+	kv.mu.Unlock()
+}
+
+func (kv *ShardKV) ReadSnapshot(data []byte) {
+	defer kv.mu.Unlock()
+	kv.mu.Lock()
+	if kv.maxraftstate == -1 {
+		DPrintf("ReadSnapshot: 返回1")
+		return
+	}
+	// data := kv.rf.ReadSnapshot()
+	if len(data) == 0 {
+		DPrintf("ReadSnapshot: 返回2")
+		return
+	}
+
+	var dataset map[string]string
+	var hisQue Queue
+	var config, lastConfig shardctrler.Config
+	DPrintf("进入snapshot")
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+	if d.Decode(&dataset) != nil || d.Decode(&hisQue) != nil || d.Decode(&config) != nil || d.Decode(&lastConfig) != nil {
+		DPrintf("snapshot %v", data)
+		panic(errors.New("snapshot解析错误"))
+	} else {
+		for _, v := range hisQue.V {
+			kv.His[v] = struct{}{}
+		}
+		DPrintf("K%d snapshot: 读取内容 His: %v,HisQue: %v -> %v, Dataset: %v -> %v", kv.me, kv.His, kv.HisQue, hisQue, kv.DB, dataset)
+		kv.HisQue = hisQue
+		kv.DB = dataset
+		kv.config = config
+		kv.lastConfig = lastConfig
 	}
 }
 
